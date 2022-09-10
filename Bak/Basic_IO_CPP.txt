@@ -1,0 +1,450 @@
+
+C++ I/O occurs in streams, which are sequences of bytes
+input operation: If bytes flow from a device (like keyboard) to main memory
+output operation: if bytes flow from main memory to a device (like display screen)
+
+
+
+I/O Library Header Files
+
+i) <iostream>
+cin, cout, cerr and clog objects
+
+ii) <iomanip>
+declares services useful for performing formatted I/O with so-called parameterized stream manipulators
+ex: setw and setprecision
+
+iii) <fstream>
+declares services for user-controlled file processing
+used to handle the data being read from a file as input 
+ or data being written into the file as output
+will discuss about it in detail in File and Stream
+
+
+Standard Output Stream (cout)
+
+cout is an instance of ostream class
+cout object is connected to the standard output device (like display screen)
+cout is used in conjunction with the stream insertion operator (<<)
+
+<< operator is overloaded to output data items of built-in types 
+ integer, float, double, strings and pointer values
+C++ compiler also determines the data type of variable to be output 
+ and selects the appropriate stream insertion operator to display the value
+insertion operator << may be used more than once in a single statement 
+endl is used to add a new-line at the end of the line
+
+example:
+int main() {
+   char str[] = "Hello C++";
+ 
+   cout << "Value of str is : " << str << endl;
+}
+
+o/p:
+Value of str is : Hello C++
+
+
+
+Standard Input Stream (cin)
+
+cin is an instance of istream class
+cin object is said to be attached to the standard input device (like keyboard)
+cin is used in conjunction with the stream extraction operator (>>)
+
+
+C++ compiler also determines the data type of the entered value and 
+ selects the appropriate stream extraction operator to extract the value
+>> may be used more than once in a single statement
+example: 
+cin >> name >> age;
+cin >> name;
+cin >> age;
+
+example:
+#include <iostream>
+ 
+using namespace std;
+ 
+int main() {
+   char name[50];
+ 
+   cout << "Please enter your name: ";
+   cin >> name;
+   cout << "Your name is: " << name << endl;
+ 
+}
+
+o/p:
+Please enter your name: cplusplus
+Your name is: cplusplus
+
+
+
+
+Standard Error Stream (cerr)
+
+cerr is an instance of ostream class
+cerr object is said to be attached to the standard error device (like display screen )
+cerr is un-buffered and each stream insertion to cerr causes its output to appear immediately
+cerr is also used in conjunction with the stream insertion operator (<<)
+
+example:
+#include <iostream>
+ 
+using namespace std;
+ 
+int main() {
+   char str[] = "Unable to read....";
+ 
+   cerr << "Error message : " << str << endl;
+}
+
+o/p:
+Error message : Unable to read....
+
+
+Standard Log Stream (clog)
+
+clog is an instance of ostream class
+clog object is said to be attached to the standard error device (like display screen )
+clog is buffered - This means that each insertion to clog could cause its output to be held in a buffer 
+ until the buffer is filled or until the buffer is flushed.
+clog is also used in conjunction with the stream insertion operator (<<)
+
+example:
+#include <iostream>
+ 
+using namespace std;
+ 
+int main() {
+   char str[] = "Unable to read....";
+ 
+   clog << "Error message : " << str << endl;
+}
+o/p:
+Error message : Unable to read....
+
+
+
+
+3.
+
+endl vs \n in C++
+
+cout << endl  : Inserts a new line and flushes the stream
+cout << "\n"  : Only inserts a new line
+cout << endl; can be said equivalent to
+ cout << ‘\n’ << flush;
+cout << “\n” seems performance wise better than cout << endl; 
+ unless flushing of stream is required.
+
+example:
+
+
+
+ 4.
+ 
+Problem with scanf()
+
+scanf() reads an integer and leaves a newline character in buffer
+This causes problem with scanf() when there is fgets()/gets()/scanf() after it
+
+
+example:
+#include<stdio.h>
+ 
+int main()
+{
+   int x;
+   char str[100];
+   scanf("%d", &x);
+   fgets(str, 100, stdin);
+   printf("x = %d, str = %s", x, str);
+   return 0;
+}
+
+i/p:
+10
+test
+
+o/p:
+x = 10, str =  
+
+problem in this code-
+scanf() reads an integer and leaves a newline character in buffer
+So fgets() only reads newline and the string “test” is ignored by the program.
+
+// C program to demonstrate the problem when
+// scanf() is used in a loop
+#include<stdio.h>
+ 
+int main()
+{
+    char c;
+    printf("......Enter q to quit......\n");
+    do
+    {
+        printf("Enter a character\n");
+        scanf("%c", &c);
+        printf("%c\n", c);
+    }
+    while (c != 'q');
+    return 0;
+}
+
+Input:
+a
+b
+q
+
+Output:
+......Enter q to quit......
+Enter a character
+a
+Enter a character
+
+
+Enter a character
+b
+Enter a character
+
+
+Enter a character
+q
+
+This happens because every scanf() leaves a newline character in buffer that is read by next scanf
+
+How to solve above problem?
+use scanf("%d\n", &x) or scanf("%d ", &x)
+add a getchar() after scanf() to read an extra newline.
+
+
+
+2.
+
+Clearing The Input Buffer In C/C++
+
+Buffer: Temporary storage area
+All standard input and output devices contain input and output buffer
+
+example:
+when we press the key on keyboard,it isn’t send to your program, 
+rather it is buffered by operating system till the time is allotted to the program.
+
+How does it effect Programming?
+you may need to clear the unwanted buffer so as to get the 
+ next input in the desired container and not in the buffer of previous variabl
+example:
+C after encountering “scanf()” , if we need to input a character array or character
+C++, after encountering“cin” statement, we require to input a character array or a string
+we require to clear the input buffer or else 
+the desired input is occupied by buffer of previous variable
+
+How can it be resolved?
+Follwing are used to clear buffer after scanf
+In case of C:
+1. Using “ while ((getchar()) != ‘\n’); ”
+reads the buffer characters till the end and discards them(including newline)
+using it after the “scanf()” statement clears the input buffer and allows the input in the desired container
+
+2. Using “ fflush(stdin) ”
+fflush(stdin)” after “scanf()” statement clears the input buffer
+use of it is avoided and is termed to be “undefined” for input stream as per the C++11 standards
+
+In case of C++:
+Follwing are used to clear buffer after cin
+1. Using “ cin.ignore(numeric_limits::max(),’\n’); ”
+ discards everything in the input stream including the newline
+
+2. Using “ cin.sync() ”
+ “cin.sync()” after the “cin” statement discards all that is left in buffer
+ “cin.sync()” does not work in all implementations (According to C++11 and above standards).
+
+3. Using “ cin >> ws ”
+ cin>>ws” after “cin” statement ignores buffer and 
+  also discard all the whitespaces before the actual content of string or character array
+
+
+
+
+
+*******************************************************************
+
+5.
+How to use getline() in C++ when there are blank lines in input?
+
+getline() : read till it encounters newline or sees a delimiter provided by user
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+int main()
+{
+    string str;
+    int t = 4;
+    while (t--)
+    {
+        // Read a line from standard input in str
+        getline(cin, str);
+        cout << str << " : newline" << endl;
+    }
+    return 0;
+}
+Sample Input :
+ This
+ is
+ Geeks
+ for
+As expected output is:
+This : newline
+is  : newline
+Geeks : newline
+for : newline
+
+
+Sample Input :
+This
+
+is 
+
+Geeks
+
+for
+Output:
+This : newline
+ : newline
+is  : newline
+ : newline
+ 
+ 
+modified code to exclude such blank lines
+
+#include <cstring>
+using namespace std;
+int main()
+{
+    string str;
+    int t = 4;
+    while (t--)
+    {
+        getline(cin, str);
+ 
+        // Keep reading a new line while there is
+        // a blank line
+        while (str.length()==0 )
+            getline(cin, str);
+ 
+        cout << str << " : newline" << endl;
+    }
+    return 0;
+}
+
+Input:
+This
+
+is 
+
+Geeks
+
+for
+Output:
+This : newline
+is  : newline
+Geeks : newline
+for : newline
+
+
+
+*******************************************************************
+
+
+6. scanf() and fscanf() in C – Simple Yet Poweful
+to read only a part of the input:
+
+Input: “this is the value 100”,
+Output: value read is 100
+
+Input : “this is the value 21.2”,
+Output : value read is 21.2
+
+#include <stdio.h>
+int main()
+{
+    int a;
+    scanf("This is the value %d", &a);
+    printf("Input value read : a = %d", a);
+    return 0;
+}
+Input  : This is the value 100
+Output : Input value read : a = 100
+
+
+
+ when we don’t know what the preceding characters are but we surely know that the last value is an integer
+%*s and %*d
+ %*s in scanf is used to ignore some input
+ it ignores the input until the next space or new line
+ if you write %*d it will ignore integers until the next space or new line
+
+int fscanf(FILE *ptr, const char *format, ...);
+
+/*c program demonstrating fscanf and its usage*/
+#include<stdio.h>
+int main()
+{
+    FILE* ptr = fopen("abc.txt","r");
+    if (ptr==NULL)
+    {
+        printf("no such file.");
+        return 0;
+    }
+ 
+    /* Assuming that abc.txt has content in below
+       format
+       NAME    AGE   CITY
+       abc     12    hyderbad
+       bef     25    delhi
+       cce     65    bangalore */
+    char* buf[100];
+    while (fscanf(ptr,"%*s %*s %s ",buf)==1)
+        printf("%s\n", buf);
+ 
+    return 0;
+}
+
+Exercise: Count the number of words, characters and lines in a file using fscanf!
+
+
+
+*******************************************************************
+
+
+
+7. How to change the output of printf() in main() ?
+
+ use Macro Arguments to change the output of printf
+
+
+#include <stdio.h>
+ 
+void fun()
+{
+	// Add something here so that the printf in main prints 10
+   #define printf(x, y) printf(x, 10); // Added Macro
+}
+ 
+int main()
+{
+    int i = 10;
+    fun();
+    i = 20;
+    printf("%d", i);
+    return 0;
+}
+
+*******************************************************************
+
+
+******************************************************************* 
+

@@ -1,0 +1,154 @@
+
+===============================================================================================
+===============================================================================================
+
+	STATIC LIBRARY
+
+===============================================================================================
+===============================================================================================
+
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# gcc -c cfun.c -o cfun.o
+[root@tiwra04-I199517 learnlib]# ar rcs libmyStaticlib.a cfun.o
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# gcc -c cmain.c -o cmain.o
+[root@tiwra04-I199517 learnlib]# gcc -o coutstatic cmain.o -L. -llibmyStaticlib
+/usr/bin/ld: cannot find -llibmyStaticlib
+collect2: error: ld returned 1 exit status
+[root@tiwra04-I199517 learnlib]# gcc -o coutstatic cmain.o -L. -lnot
+/usr/bin/ld: cannot find -lnot
+collect2: error: ld returned 1 exit status
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# gcc -o coutstatic cmain.o -L. -lmyStaticlib
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# ./coutstatic
+Inside main function.
+Inside function called from main.
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# mv libmyStaticlib.a _libmyStaticlib.a
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# ./coutstatic
+Inside main function.
+Inside function called from main.
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# ls -l
+total 32
+-rw-r--r--. 1 root root  106 Dec 20 10:03 cfun.c
+-rw-r--r--. 1 root root 1600 Dec 20 10:18 cfun.o
+-rw-r--r--. 1 root root  119 Dec 20 10:03 cmain.c
+-rw-r--r--. 1 root root 1640 Dec 20 10:20 cmain.o
+-rwxr-xr-x. 1 root root 8608 Dec 20 10:22 coutstatic
+-rw-r--r--. 1 root root 1740 Dec 20 10:20 _libmyStaticlib.a
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]#
+
+
+
+===============================================================================================
+===============================================================================================
+
+	DYNAMIC LIBRARY
+
+	Use LD_LIBRARY_PATH=/root/test_code/learnlib ./cout
+	or
+	set the LD_LIBRARY_PATH
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/root/test_code/learnlib
+	
+===============================================================================================
+===============================================================================================
+
+
+
+[root@tiwra04-I199517 learnlib]# ls -l
+total 8
+-rw-r--r--. 1 root root 106 Dec 20 10:03 cfun.c
+-rw-r--r--. 1 root root 119 Dec 20 10:03 cmain.c
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# gcc -fPIC -c cfun.c -o cfun.o
+[root@tiwra04-I199517 learnlib]# clear
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# ls -l
+total 12
+-rw-r--r--. 1 root root  106 Dec 20 10:03 cfun.c
+-rw-r--r--. 1 root root 1640 Dec 20 10:24 cfun.o
+-rw-r--r--. 1 root root  119 Dec 20 10:03 cmain.c
+[root@tiwra04-I199517 learnlib]# gcc -Wall -fPIC -c cfun.c -o cfun.o
+[root@tiwra04-I199517 learnlib]# gcc -shared -o libmyDynamiclib.so cfun.o
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# gcc -Wall -c cmain.c -o cmain.o
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# gcc -o cout cmain.o -L. -lmyDynamiclib
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# ./cout
+./cout: error while loading shared libraries: libmyDynamiclib.so: cannot open shared object file: No such file or directory
+[root@tiwra04-I199517 learnlib]# ls -l libmyDynamiclib.so
+-rwxr-xr-x. 1 root root 8046 Dec 20 10:25 libmyDynamiclib.so
+[root@tiwra04-I199517 learnlib]# ldd cout
+        linux-vdso.so.1 =>  (0x00007ffdd6eba000)
+        libmyDynamiclib.so => not found
+        libc.so.6 => /lib64/libc.so.6 (0x00007f58f5ee6000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007f58f62c7000)
+[root@tiwra04-I199517 learnlib]# ls -l
+total 36
+-rw-r--r--. 1 root root  106 Dec 20 10:03 cfun.c
+-rw-r--r--. 1 root root 1640 Dec 20 10:24 cfun.o
+-rw-r--r--. 1 root root  119 Dec 20 10:03 cmain.c
+-rw-r--r--. 1 root root 1640 Dec 20 10:26 cmain.o
+-rwxr-xr-x. 1 root root 8585 Dec 20 10:26 cout
+-rwxr-xr-x. 1 root root 8046 Dec 20 10:25 libmyDynamiclib.so
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# gcc -o cout cmain.o libmyDynamiclib.so
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# ./cout
+./cout: error while loading shared libraries: libmyDynamiclib.so: cannot open shared object file: No such file or directory
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# ldd cout
+        linux-vdso.so.1 =>  (0x00007ffefc11f000)
+        libmyDynamiclib.so => not found
+        libc.so.6 => /lib64/libc.so.6 (0x00007f0fcf872000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007f0fcfc53000)
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# echo $LD_LIBRARY_PATH
+/opt/CA/SharedComponents/lib:/opt/CA/CAlib:/opt/CA/DSM/caf/lib
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# pwd
+/root/test_code/learnlib
+[root@tiwra04-I199517 learnlib]# LD_LIBRARY_PATH=/root/test_code/learnlib ./cout
+Inside main function.
+Inside function called from main.
+[root@tiwra04-I199517 learnlib]# echo $LD_LIBRARY_PATH
+/opt/CA/SharedComponents/lib:/opt/CA/CAlib:/opt/CA/DSM/caf/lib
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]# LD_LIBRARY_PATH=/root/test_code/learnlib ./cout
+Inside main function.
+Inside function called from main.
+[root@tiwra04-I199517 learnlib]# ls -l
+total 36
+-rw-r--r--. 1 root root  106 Dec 20 10:03 cfun.c
+-rw-r--r--. 1 root root 1640 Dec 20 10:24 cfun.o
+-rw-r--r--. 1 root root  119 Dec 20 10:03 cmain.c
+-rw-r--r--. 1 root root 1640 Dec 20 10:26 cmain.o
+-rwxr-xr-x. 1 root root 8585 Dec 20 10:35 cout
+-rwxr-xr-x. 1 root root 8046 Dec 20 10:25 libmyDynamiclib.so
+[root@tiwra04-I199517 learnlib]# mv libmyDynamiclib.so _libmyDynamiclib.so
+[root@tiwra04-I199517 learnlib]# LD_LIBRARY_PATH=/root/test_code/learnlib ./cout
+./cout: error while loading shared libraries: libmyDynamiclib.so: cannot open shared object file: No such file or directory
+[root@tiwra04-I199517 learnlib]#
+[root@tiwra04-I199517 learnlib]#
+
+
+
+
+
+
+
+
+
+

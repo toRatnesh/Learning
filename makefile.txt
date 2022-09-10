@@ -1,0 +1,55 @@
+CC=gcc
+CFLAGS=-c -Wall -g
+FLAGS=-o
+INCLUDE=-I../include/
+SRC=../src/
+OBJ=../obj/
+HEADER=../include/
+OUTPUT=../bin/
+
+ALL: $(OUTPUT)client $(OUTPUT)server
+
+$(OUTPUT)client: $(OBJ)my_client.o $(OBJ)function.o
+	$(CC) $(FLAGS) client $(OBJ)my_client.o $(OBJ)function.o
+	mv client $(OUTPUT)
+
+$(OBJ)my_client.o: $(SRC)my_client.c $(HEADER)header.h
+	$(CC) $(INCLUDE) $(CFLAGS) $(SRC)my_client.c
+	mv my_client.o $(OBJ)
+
+$(OBJ)function.o: $(SRC)function.c $(HEADER)header.h
+	$(CC) $(INCLUDE) $(CFLAGS) $(SRC)function.c
+	mv function.o $(OBJ)
+
+$(OUTPUT)server: $(OBJ)my_server.o $(OBJ)function.o
+	$(CC) $(FLAGS) server $(OBJ)my_server.o $(OBJ)function.o
+	mv server $(OUTPUT)
+
+$(OBJ)my_server.o: $(SRC)my_server.c $(HEADER)header.h
+	$(CC) $(INCLUDE) $(CFLAGS) $(SRC)my_server.c
+	mv my_server.o $(OBJ)
+
+clean:
+	rm $(OBJ)*.o
+	rm $(OUTPUT)client $(OUTPUT)server
+
+
+
+
+obj-m += hello.o
+
+all:
+make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+
+clean:
+make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+The first line is appending the 'hello.o' object file to the list of obj-m(odules). From the Makefile listing you provided, it does not appear that obj-m is used.
+
+The 'all' entry is the first (and the default) entry point of this Makefile. It calls another Makefile located in /lib/modules/<your kernel version>/build, and passes that Makefile the args M (which is set equal to the present working directory you are in) and 'modules' (which is the entry point in the Makefile being called).
+
+The 'clean' portion is very similar to the 'all' entry point, with the exception that 'clean' is being called.
+
+You can verify the output of these commands to better understand what is taking place:
+
+$ uname -r
+$ echo $PWD

@@ -1,0 +1,104 @@
+Posix Message Queues
+•	message queue - can be thought of as a linked list of messages
+•	Threads with adequate permission can put and remove messages from the queue
+•	Each message is a record and is assigned a priority by the sender
+•	message queues have kernel persistence
+
+
+-----------------------------------------------------------------
+Posix message queues			|	System V message queues
+-----------------------------------------------------------------
+read returns the oldest			| read return a message
+message of the highest priority	| of any desired priority
+-----------------------------------------------------------------
+allow the generation of a signal 
+or the initiation of a thread 
+when a message is placed onto an empty queue
+-----------------------------------------------------------------
+
+Every message on a queue has the following attributes:
+an unsigned integer priority (Posix) or a long integer type (System V),
+the length of the data portion of the message (which can be O), and
+the data itself (if the length is greater than 0).
+
+Library interface    System call
+mq_open(3)           mq_open(2)
+mq_close(3)          close(2)
+mq_unlink(3)         mq_unlink(2)
+
+mq_getattr(3)        mq_getsetattr(2)
+mq_setattr(3)        mq_getsetattr(2)
+
+mq_send(3)           mq_timedsend(2)
+mq_receive(3)        mq_timedreceive(2)
+
+mq_timedsend(3)      mq_timedsend(2)
+mq_timedreceive(3)   mq_timedreceive(2)
+
+mq_notify(3)         mq_notify(2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+System V Message Queues
+System V message queues are identified by a message queue identifier
+Any process with adequate privileges can place or read a message onto a given queue
+
+For every message queue in the system, the kernel maintains the following structure of information
+#include <sys/msg.h>
+struct msqid_ds 
+{
+	struct ipc_perm msg_perm;		/* Ownership and permissions */
+	struct msg		*msg_first;		/* ptr to first message on queue */
+	struct msg		*msg_last;		/* ptr to last message on queue */
+	msglen_t		msg_cbytes;		/* current # bytes on queue */
+	time_t          msg_stime;		/* Time of last msgsnd(2) */
+	time_t          msg_rtime;		/* Time of last msgrcv(2) */
+	time_t          msg_ctime;		/* Time of last change */
+	unsigned long   __msg_cbytes;	/* Current number of bytes in queue (nonstandard) */
+	msgqnum_t       msg_qnum;		/* Current number of messages in queue */
+	msglen_t        msg_qbytes;		/* Maximum number of bytes allowed in queue */
+	pid_t           msg_lspid;		/* PID of last msgsnd(2) */
+	pid_t           msg_lrpid;		/* PID of last msgrcv(2) */
+	
+};
+
+struct ipc_perm {
+key_t	__key;	/* Key supplied to shmget(2) */
+uid_t	uid;	/* Effective UID of owner */
+gid_t	gid;	/* Effective GID of owner */
+uid_t	cuid;	/* Effective UID of creator */
+gid_t	cgid; 	/* Effective GID of creator */
+unsigned short	mode;/* Permissions + SHM_DEST
+					and SHM_LOCKED flags */
+unsigned short	__seq;	/* Sequence number */
+};
+
+
+Unix 98 does not require the msg_first, msg_last, or msg_cbytes members
+Naturally, no requirement exists that the messages on a queue be maintained as a linked list
+
+#include <sys/msg.h>
+int msgget(key_t key, int msgflg);
+int msgsnd(int msqid, const void *msgp, size_t msgsz, int msgflg);
+ssize_t msgrcv(int msqid, void *msgp, size_t msgsz, long msgtyp, int msgflg);
+int msgctl(int msqid, int cmd, struct msqid_ds *buf);
+
+msgget()
+msgsnd()
+msgrcv()
+msgctl()
+
+
+
+

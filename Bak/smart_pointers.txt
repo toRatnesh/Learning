@@ -1,0 +1,342 @@
+what smart pointers are and what problem they solve ?
+how to deal with ownerhip of smart pointers ?
+diff b/w unique and shared smart pointers ?
+
+
+Using smart pointers
+-Smart pointers enable automatic, exception-safe, object lifetime management.
+-we don’t need to explicitly call delete
+-wrapper class over a pointer with operator like * and -> overloaded
+-can do automatic destruction, reference counting and more
+-also useful in management of resources, such as file handles or network sockets
+
+make a class with a pointer, destructor and overloaded operators like * and ->
+
+
+Smart pointers
+Smart pointers enable automatic, exception-safe, object lifetime management
+Defined in header <memory>
+#include <memory>
+
+
+auto_ptr
+
+-stores a pointer to a single allocated object
+-when it goes out of scope, the object it points to must get automatically destroyed
+-based on exclusive ownership model i.e. two pointers of same type can’t point to the same resource at the same time
+-copying or assigning of pointers changes the ownership i.e. source pointer has to give ownership to the destination pointer
+-used to provide exception safety for dynamically-allocated objects
+-passing ownership of dynamically-allocated objects into functions and for returning dynamically-allocated objects from functions
+
+-copy constructor and the assignment operator of auto_ptr do not actually copy the stored pointer instead they transfer it, leaving the first auto_ptr object empty
+-way to implement strict ownership
+-only one auto_ptr object can own the pointer at any given time
+-auto_ptr should not be used where copy semantics are needed
+
+-deprecated as of C++11
+-Why ?
+-It takes ownership of the pointer
+-no two pointers should contain the same object
+-Assignment transfers ownership and resets the rvalue auto pointer to a null pointer
+-they can’t be used within STL containers due to the aforementioned inability to be copied
+
+
+
+// C++ program to illustrate the use of auto_ptr
+#include<iostream>
+#include<memory>
+using namespace std;
+
+class A
+{
+public:
+	void show() { cout << "A::show()" << endl; }
+};
+
+int main()
+{
+	// p1 is an auto_ptr of type A
+	auto_ptr<A> p1(new A);
+	p1 -> show();
+
+	// returns the memory address of p1
+	cout << p1.get() << endl;
+
+    cout << "------------" << endl;
+	// copy constructor called, this makes p1 empty.
+	auto_ptr <A> p2(p1);
+	p2 -> show();
+
+	// p1 is empty now
+	cout << p1.get() << endl;
+
+	// p1 gets copied in p2
+	cout<< p2.get() << endl;
+
+	return 0;
+}
+
+compilation:
+warning: 'template<class> class std::auto_ptr' is deprecated [-Wdeprecated-declarations]
+
+o/p:
+A::show()
+0x18f6c20
+------------
+A::show()
+0
+0x18f6c20
+
+
+
+
+
+
+
+unique_ptr
+
+-std::unique_ptr was developed in C++11 as a replacement for std::auto_ptr
+-unique_ptr is a new facility with a similar functionality (as auto_ptr), but with improved security
+-improved security (no fake copy assignments), added features (deleters) and support for arrays
+-It is a container for raw pointers
+-explicitly prevents copying of its contained pointer
+-it allows exactly one owner of the underlying pointer
+
+-there can only be at most one unique_ptr at any one resource 
+-when that unique_ptr is destroyed, the resource is automatically claimed
+
+-there can only be one unique_ptr to any resource
+-any attempt to make a copy of unique_ptr will cause a compile time error
+
+-The object is disposed of using the associated deleter when either of the following happens:
+1)the managing unique_ptr object is destroyed
+2)the managing unique_ptr object is assigned another pointer via operator= or reset()
+
+-A unique_ptr may alternatively own no object, in which case it is called empty
+
+-There are two versions of std::unique_ptr:
+1) Manages a single object (e.g. allocated with new)
+2) Manages a dynamically-allocated array of objects (e.g. allocated with new[])
+
+-The class satisfies the requirements of MoveConstructible and MoveAssignable, but not the requirements of either CopyConstructible or CopyAssignable
+
+-provides exception safety, by guaranteeing deletion on both normal exit and exit through exception
+-do not support pointer arithmetics, and only support move assignment (disabling copy assignments)
+
+example:
+unique_ptr<A> ptr1 (new A);
+unique_ptr<A> ptr2 = ptr1;	// Error: can't copy unique_ptr
+
+
+-unique_ptr can be moved using the new move semantics i.e. using std::move() function to transfer ownership of the contained pointer to another unique_ptr
+unique_ptr<A> ptr2 = move(ptr1);		// Works, resource now stored in ptr2
+-it’s best to use unique_ptr when we want a single pointer to an object that will be reclaimed when that single pointer is destroyed
+
+When to use unique_ptr?
+-when you want to have single ownership(Exclusive) of resource
+-Only one unique_ptr can point to one resource
+-Since there can be one unique_ptr for single resource its not possible to copy one unique_ptr to another
+-but unique_ptr can be moved using the new move semantics
+
+
+// C++ program to illustrate the use of unique_ptr
+#include<iostream>
+#include<memory>
+using namespace std;
+ 
+class A
+{
+public:
+    void show()
+    {
+        cout<<"A::show()"<<endl;
+    }
+};
+ 
+int main()
+{
+    unique_ptr<A> p1 (new A);
+    p1 -> show();
+ 
+    // returns the memory address of p1
+    cout << p1.get() << endl;
+    cout << "------------------" << endl;
+ 
+    // transfers ownership to p2
+    unique_ptr<A> p2 = move(p1);
+	
+	/*
+	 unique_ptr<A> p2(p1);
+	error: use of deleted function 'std::unique_ptr<_Tp, _Dp>::unique_ptr(const std::unique_ptr<_Tp, _Dp>&) [with _Tp = A; _Dp = std::default_delete<A>]'
+	*/
+    
+	p2 -> show();
+    cout << p1.get() << endl;
+    cout << p2.get() << endl;
+    cout << "------------------" << endl;
+    // transfers ownership to p3
+    unique_ptr<A> p3 = move (p2);
+    p3->show();
+    cout << p1.get() << endl;
+    cout << p2.get() << endl;
+    cout << p3.get() << endl;
+ 
+    return 0;
+}
+
+
+o/p:
+A::show()
+0x20d0c20
+------------------
+A::show()
+0
+0x20d0c20
+------------------
+A::show()
+0
+0
+0x20d0c20
+
+
+
+ 
+ 
+shared_ptr
+ 
+
+ 
+############
+Reference Counting:
+It is a technique of storing the number of references, pointers or handles to a resource such as an object,
+block of memory, disk space or other resources.
+###################
+ 
+
+-shared_ptr is a container for raw pointers
+-a reference counting ownership model
+-it maintains the reference count of its contained pointer in cooperation with all copies of the shared_ptr
+-the counter is incremented each time a new pointer points to the resource and decremented when destructor of object is called
+-An object referenced by the contained raw pointer will not be destroyed
+ until reference count is greater than zero
+ i.e. until all copies of shared_ptr have been deleted
+ 
+-object is destroyed and its memory deallocated when either of the following happens:
+1)the last remaining shared_ptr owning the object is destroyed
+2)the last remaining shared_ptr owning the object is assigned another pointer via operator= or reset()
+ 
+-All member functions (including copy constructor and copy assignment) can be called by multiple threads on different instances of shared_ptr without additional synchronization
+even if these instances are copies and share ownership of the same object
+-If multiple threads of execution access the same shared_ptr without synchronization
+and any of those accesses uses a non-const member function of shared_ptr then a data race will occur
+-the shared_ptr overloads of atomic functions can be used to prevent the data race
+ 
+-aliasing: shared_ptr objects can share ownership over a pointer while at the same time pointing to another object
+
+-shared_ptr may relate to two pointers:
+1)A stored pointer, which is the pointer it is said to point to, and the one it dereferences with operator*
+2)An owned pointer (possibly shared), which is the pointer the ownership group is in charge of deleting at some point, and for which it counts as a use
+-shared_ptr that does not own any pointer is called an empty shared_ptr
+-A shared_ptr that points to no object is called a null
+- an empty shared_ptr is not necessarily a null shared_ptr, and a null shared_ptr is not necessarily an empty shared_ptr
+ 
+ 
+When to use shared_ptr?
+-use shared_ptr when we want to assign one raw pointer to multiple owners
+-if you want to share ownership of resource
+-Many shared_ptr can point to single resource
+-when all shared_ptr’s pointing to resource goes out of scope the resource is destroyed
+ 
+
+Cyclic Dependency (Problems with shared_ptr): 
+Let’s consider a scenario where we have two classes A and B, both have pointers to other classes. 
+So, it’s always be like A is pointing to B and B is pointing to A. 
+Hence, use_count will never reach zero and they never get deleted.
+
+ 
+ 
+// C++ program to demonstrate shared_ptr
+#include<iostream>
+#include<memory>
+using namespace std;
+
+class A
+{
+public:
+	void show()
+	{
+		cout<<"A::show()"<<endl;
+	}
+};
+
+int main()
+{
+	shared_ptr<A> p1 (new A);
+	cout << p1.get() << endl;
+	p1->show();
+	shared_ptr<A> p2 (p1);
+	p2->show();
+	cout << p1.get() << endl;
+	cout << p2.get() << endl;
+
+	// Returns the number of shared_ptr objects
+	//referring to the same managed object.
+	cout << p1.use_count() << endl;
+	cout << p2.use_count() << endl;
+
+    cout<<"-----------------"<<endl;
+
+	// Relinquishes ownership of p1 on the object
+	//and pointer becomes NULL
+	p1.reset();
+	cout << p1.get() << endl;
+	cout << p2.use_count() << endl;
+	cout << p2.get() << endl;
+
+	return 0;
+}
+
+o/p:
+0x18e8c20
+A::show()
+A::show()
+0x18e8c20
+0x18e8c20
+2
+2
+-----------------
+0
+1
+0x18e8c20
+ 
+
+ 
+
+ 
+ 
+weak_ptr
+
+
+-weak_ptr is created as a copy of shared_ptr
+-provides access to an object that is owned by one or more shared_ptr instances
+-does not participate in reference counting
+-existence or destruction of weak_ptr has no effect on the shared_ptr or its other copies
+
+-weak_ptr is a smart pointer that holds a non-owning ("weak") reference to an object that is managed by shared_ptr
+-It must be converted to shared_ptr in order to access the referenced object
+-weak_ptr is used to track the object
+-weak_ptr is converted to shared_ptr to assume temporary ownership
+-weak_ptr is used to break circular references of shared_ptr.
+-std::weak_ptr models temporary ownership: when an object needs to be accessed only if it exists, and it may be deleted at any time by someone else
+
+
+When to use weak_ptr?
+ 
+-to refer to your object from multiple places – for those references for which it’s ok to ignore and deallocate 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
