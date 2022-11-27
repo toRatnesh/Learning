@@ -207,7 +207,7 @@ It is good practice to use naming conventions that make it clear you're using fa
 Sample Code
 -----------
 
-`01_Creational_Patterns_01_Factory.cpp`_
+`Code <01_Creational_Patterns_01_Factory.cpp>`_
 
 
 Known Uses
