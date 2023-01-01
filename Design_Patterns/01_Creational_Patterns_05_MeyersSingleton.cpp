@@ -1,3 +1,10 @@
+/**************
+
+References
+	http://www.modernescpp.com/index.php/creational-patterns-singleton
+
+******************/
+
 #include <iostream>
 
 class MeyersSingleton {
@@ -45,3 +52,7 @@ int main() {
 	return 0;
 }
 
+
+/*******
+	END OF FILE
+***********/

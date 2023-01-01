@@ -1,23 +1,31 @@
+/*******
+
+Reference:
+    https://sourcemaking.com/design_patterns/builder/java/2
+
+    Builder implementation in C++
+
+******/
+
 #include <iostream>
 #include <memory>
 #include <string>
-using namespace std;
 
 // "Product"
 class Pizza {
    public:
-    void setDough(const string& dough) { m_dough = dough; }
-    void setSauce(const string& sauce) { m_sauce = sauce; }
-    void setTopping(const string& topping) { m_topping = topping; }
+    void setDough(const std::string& dough) { m_dough = dough; }
+    void setSauce(const std::string& sauce) { m_sauce = sauce; }
+    void setTopping(const std::string& topping) { m_topping = topping; }
     void open() const {
-        cout << "Pizza with " << m_dough << " dough, " << m_sauce
-             << " sauce and " << m_topping << " topping." << endl;
+        std::clog << "Pizza with " << m_dough << " dough, " << m_sauce
+             << " sauce and " << m_topping << " topping." << '\n';
     }
 
    private:
-    string m_dough;
-    string m_sauce;
-    string m_topping;
+    std::string m_dough;
+    std::string m_sauce;
+    std::string m_topping;
 };
 
 // "Abstract Builder"
@@ -25,18 +33,17 @@ class PizzaBuilder {
    public:
     virtual ~PizzaBuilder(){};
 
-    Pizza* getPizza() { return m_pizza.release(); }
-    void createNewPizzaProduct() { m_pizza = make_unique<Pizza>(); }
+    std::unique_ptr<Pizza> getPizza() { return std::move(m_pizza); }
+    void createNewPizzaProduct() { m_pizza = std::make_unique<Pizza>(); }
     virtual void buildDough() = 0;
     virtual void buildSauce() = 0;
     virtual void buildTopping() = 0;
 
    protected:
-    unique_ptr<Pizza> m_pizza;
+    std::unique_ptr<Pizza> m_pizza;
 };
 
-//----------------------------------------------------------------
-
+// concrete builder
 class HawaiianPizzaBuilder : public PizzaBuilder {
    public:
     virtual ~HawaiianPizzaBuilder(){};
@@ -46,6 +53,7 @@ class HawaiianPizzaBuilder : public PizzaBuilder {
     virtual void buildTopping() { m_pizza->setTopping("ham+pineapple"); }
 };
 
+// concrete builder
 class SpicyPizzaBuilder : public PizzaBuilder {
    public:
     virtual ~SpicyPizzaBuilder(){};
@@ -55,8 +63,7 @@ class SpicyPizzaBuilder : public PizzaBuilder {
     virtual void buildTopping() { m_pizza->setTopping("pepperoni+salami"); }
 };
 
-//----------------------------------------------------------------
-
+// Director
 class Cook {
    public:
     void openPizza() { m_pizzaBuilder->getPizza()->open(); }
@@ -85,5 +92,7 @@ int main() {
 }
 
 
-
+/********
+	END OF FILE
+********/
 
