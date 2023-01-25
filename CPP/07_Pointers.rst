@@ -33,7 +33,8 @@ To access address of a variable to a pointer
 ``*``
 ^^^^^
 
-used for two things :
+used for two things
+
 #. To declare a pointer variable
 
         ::
@@ -54,7 +55,8 @@ used for two things :
                         return 0; 
                 }
 
-                Output
+        Output::
+
                 Value of Var = 10
                 Address of Var = 0x7ffe547f2d7c
 
@@ -100,7 +102,9 @@ A pointer may be
 	    }
 		return 0;
 	}
-	Output
+        
+Output::
+
 	Value of *ptr = 10
 	Value of ptr = 0x7ffe2b446610
 
@@ -139,7 +143,9 @@ For an array named val, val and &val[0] can be used interchangeably
 		printf("Array elements: %d %d %d\n", ptr[0], ptr[1], ptr[2]);
 		return 0;
 	}
-	Output
+
+Output::
+
 	Array elements: 10 15 20
 
 Pointers and Multidimensional Arrays
@@ -201,7 +207,9 @@ The second pointer is used to store the address of the first pointer
 		printf("Value of var using double pointer = %d\n", **ptr2);    
 		return 0; 
 	}
-	Output
+
+Output::
+
 	Value of var = 789
 	Value of var using single pointer = 789
 	Value of var using double pointer = 789
@@ -240,7 +248,8 @@ If the pointer coming in really is the base address of a whole array, then we sh
 		return 0;
 	}
 
-	Output
+Output::
+
 	Array elements: 1 2 3
 	After fun1(), Array elements: 11 12 13
 	After fun2(), Array elements: 21 22 23
@@ -259,22 +268,22 @@ Pointer vs Array in C
 
 Most of the time, pointer and array accesses can be treated as acting the same, the major exceptions being:
 
-**#. The sizeof() operator**
+#. **The sizeof() operator**
 
 - sizeof(array) returns the amount of memory used by all elements in array
 - sizeof(pointer) only returns the amount of memory used by the pointer variable itself
 
-**#. The & operator**
+#. **The & operator**
 
 - &array is an alias for &array[0] and returns the address of the first element in array
 - &pointer returns the address of pointer
 
-**#. A string literal initialization of a character array**
+#. **A string literal initialization of a character array**
 
 - ``char array[] = “abc”`` sets the first four elements in array to ‘a’, ‘b’, ‘c’, and ‘\0’
 - ``char *pointer = “abc”`` sets pointer to the address of the “abc” string (which may be stored in read-only memory and thus unchangeable)
 
-**#. Pointer variable can be assigned a value whereas array variable cannot**
+#. **Pointer variable can be assigned a value whereas array variable cannot**
 
 .. code:: cpp
 
@@ -283,7 +292,7 @@ Most of the time, pointer and array accesses can be treated as acting the same, 
 	p=a;		/* legal */
 	a=p;		/* illegal */
 
-**#. Arithmetic on pointer variable is allowed**
+#. **Arithmetic on pointer variable is allowed**
 
 .. code:: cpp
 
@@ -332,7 +341,9 @@ What it does is, it sends first address to the array which is a pointer, hence t
 		
 		return 0; 
 	} 
-	Output
+
+Output::
+
 	Actual size of array is: 28
 	Modified size of array is by passing by value: 8
 	Modified size of array by passing by pointer: 8
@@ -368,7 +379,9 @@ Send the array into functions by reference. This prevents conversion of array in
 		
 		return 0; 
 	} 
-	Output
+
+Output::
+
 	Actual size of array is: 28
 	Modified size of array by passing by reference: 28
 
@@ -383,7 +396,9 @@ Dereference, Reference, Dereference, Reference …
 		printf("%c\n", *&*&*ptr); 
 		return 0; 
 	}
-	Output
+
+Output::
+
 	g
 
 .. code:: cpp
@@ -394,7 +409,9 @@ Dereference, Reference, Dereference, Reference …
 		printf("%s\n", *&*&ptr); 
 		return 0; 
 	}
-	Output
+
+Output::
+
 	geeksforgeeks
 
 **Explanation**
@@ -421,7 +438,9 @@ In case, if we don’t have address to be assigned to a pointer, then we can sim
 		printf("The value of ptr is %p", ptr); 
 	    return 0; 
 	} 
-	Output
+
+Output::
+
 	The value of ptr is (nil)
 
 **Common use cases for NULL**
@@ -472,7 +491,9 @@ Basically, it means that void is an incomplete type whose size doesn’t make an
 		printf("%f\n",NULL);
 		return 0;
 	}
-	Output
+
+Output::
+
 	1
 	8
 
@@ -530,7 +551,9 @@ Correct in both C and C++
 		printf("%d\n", *(int*)ptr);
 		return 0;
 	}
-	Output
+
+Output::
+
 	10
 
 .. code:: cpp
@@ -545,7 +568,9 @@ Correct in both C and C++
 		printf("%d", *(int*)ptr);
 		return 0;
 	}
-	Output
+
+Output::
+
 	2
 
 Wild Pointer
@@ -576,7 +601,7 @@ A pointer pointing to a memory location that has been deleted (or freed)
 		free(ptr);		// ptr becomes a dangling after free call
 		ptr = NULL;		// no more dangling
 
-**#. Function Call**
+#. **Function Call**
 
 // Pointer pointing to local variable becomes dangling
 
@@ -596,7 +621,9 @@ A pointer pointing to a memory location that has been deleted (or freed)
 					printf("%d", ``*ptr``);
 					return 0;
 				}
-				Runtime Errors:
+                                
+                                Runtime Errors
+
 				Segmentation Fault (SIGSEGV)
 
 				Compilation warning: function returns address of local variable [-Wreturn-local-addr]
@@ -615,12 +642,13 @@ A pointer pointing to a memory location that has been deleted (or freed)
 					printf("%d", ``*ptr``);
 					return 0;
 				}
-				Output
+                                
+                                Output:
 				5
 
 
 
-**#. Variable goes out of scope**
+#. **Variable goes out of scope**
 
 .. code:: cpp
 
@@ -685,7 +713,9 @@ We can have pointers to functions also
 		(*fun_ptr)(10);	// Invoking fun() using fun_ptr
 		return 0; 
 	} 
-	Output
+
+Output::
+
 	Value of a is 10
 
 How to declare a pointer to a function?
@@ -735,7 +765,9 @@ NOTES about function pointer
 			wrapper(fun2);
 			return 0; 
 		}
-		Output
+
+Output::
+
 		Fun1
 		Fun2
 
