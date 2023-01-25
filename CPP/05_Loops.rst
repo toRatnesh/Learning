@@ -10,6 +10,7 @@ Types of loops
 --------------
 
 **Entry Controlled loops:**	In this type of loops the test condition is tested before entering the loop body.
+
 **Exit Controlled Loops:**	In this type of loops the test condition is tested or evaluated at the end of loop body.
 
 .. image:: ./.resources/05_loops.png

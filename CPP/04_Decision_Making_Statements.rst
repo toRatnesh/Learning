@@ -11,7 +11,7 @@ In decision making structure programmer specify one or more conditions to be eva
 Along with statement(s) to be executed if condition is true otherwise other statement(s) to be executed if condition is false
 
 Types
-======
+-----
 
 #. if statement
 #. if..else statements
@@ -133,13 +133,19 @@ Important Points about Switch Case Statements:
 
 #. The expression used in switch must be integral type ( int, char and enum). The expression provided in the switch should result in a constant value otherwise it would not be valid.
         Valid expressions for switch:
+
         // Constant expressions allowed
+        
         switch(1+2+23)
+        
         switch(1*2+3%4)
 
         // Variable expression are allowed provided
+        
         // they are assigned with fixed values
+        
         switch(a*b+c*d)
+        
         switch(a+b+c)
 
 #. Duplicate case values are not allowed.
@@ -222,8 +228,10 @@ Conditional operator
 --------------------
 
 Can be used to replace if … else statements
+
 exp1?exp2:exp3
-for detail check in operators chapter
+
+for detail check in `operators <03_Operators.rst>`_ chapter
 
 References
 -----------
