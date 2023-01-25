@@ -16,7 +16,7 @@ type – 	Pointer’s base type
 
 var_name – Name of the pointer variable
 
-* And & operator in case of pointer
+& and * operator in case of pointer
 -----------------------------------
 
 &
@@ -30,42 +30,42 @@ To access address of a variable to a pointer
 	
 	printf("%p", &x);	// Prints address of x
 
-*
-^^
+``*``
+^^^^^
 
 used for two things :
 #. To declare a pointer variable
 
-::
+        ::
 
-	int * ptr;		// pointer to an integer type
+                int * ptr;		// pointer to an integer type
 
 
 #. To access the value stored in the address
 
-.. code:: cpp
+        .. code:: cpp
 
-	#include <stdio.h>
-	int main() {
-		int Var = 10; 
-		int *ptr = &Var;
-		printf("Value of Var = %d\n", *ptr); 
-		printf("Address of Var = %p\n", ptr);	
-		return 0; 
-	}
+                #include <stdio.h>
+                int main() {
+                        int Var = 10; 
+                        int *ptr = &Var;
+                        printf("Value of Var = %d\n", *ptr); 
+                        printf("Address of Var = %p\n", ptr);	
+                        return 0; 
+                }
 
-	Output
-	Value of Var = 10
-	Address of Var = 0x7ffe547f2d7c
+                Output
+                Value of Var = 10
+                Address of Var = 0x7ffe547f2d7c
 
 
-::
+        ::
 
-	(a)	int	*p;
-	(b)	int*	p;
-	(c)	int  * 	p;
+                (a)	int	*p;
+                (b)	int*	p;
+                (c)	int  * 	p;
 
-All three declarations are same
+        All three declarations are same
 
  
 Pictorial representation
