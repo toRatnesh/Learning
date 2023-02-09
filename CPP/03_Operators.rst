@@ -247,12 +247,12 @@ Bitwise operator works on bits and perform bit-by-bit operation
 #. **~ operator should be used carefully**
 
    Result of ~ operator on a small number can be
-    
-    a big number if result is stored in a unsigned variable
-    
-    -ve number if result is stored in a signed variable
-    
-    (Assumption: -ve numbers are stored in 2’s complement form where leftmost bit is the sign bit)
+   
+   a big number if result is stored in a unsigned variable
+   
+   -ve number if result is stored in a signed variable
+   
+   (Assumption: -ve numbers are stored in 2’s complement form where leftmost bit is the sign bit)
 
 Bit mask
 ^^^^^^^^

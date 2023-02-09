@@ -28,12 +28,12 @@ As soon as the break statement is encountered from within a loop, the loop itera
 .. code:: cpp
 
     int a = 0;
-	do {
+    do {
         ++a;
         if(15 < a)
             break;
-		std::cout << a << " ";
-	}while(a < 20);
+        std::cout << a << " ";
+    }while(a < 20);
 
 Output::
 
