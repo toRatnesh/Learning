@@ -81,9 +81,9 @@ What happen when we exceed valid range of built-in data types in C++?
         #include <iostream>
         using namespace std;
         int main()  {
-                for (char a = 0; a <= 225; a++)
-                        cout << a;
-                return 0;
+            for (char a = 0; a <= 225; a++)
+                cout << a;
+            return 0;
         }
         
    Will this code print ‘a’ till it becomes 226?
@@ -99,11 +99,11 @@ What happen when we exceed valid range of built-in data types in C++?
         #include <iostream>
         using namespace std;
         int main() {
-                // declaring Boolean variable with true value 
-                bool a = true;
-                for (a = 1; a <= 5; a++)
-                        cout << a;
-                return 0; 
+            // declaring Boolean variable with true value
+            bool a = true;
+            for (a = 1; a <= 5; a++)
+                cout << a;
+            return 0; 
         } 
     
    This code will print ‘1’ infinite time because here ‘a’ is declared as ‘bool’ and its valid range is 0 to 1. And for a Boolean variable anything else than 0 is 1 (or true). When ‘a’ tries to become 2 (through a++), 1 gets assigned to ‘a’. The condition a<=5 is satisfied and the control remains with in the loop. See this for Bool data type.
@@ -147,7 +147,7 @@ Use of bool in C
 The C99 standard for C language supports bool variables. Unlike C++, where no header file is needed to use bool, a header file “stdbool.h” must be included to use bool in C.
 
 .. list-table::
-	:header-rows: 1
+    :header-rows: 1
 
     *   - C
         - C++
@@ -199,7 +199,10 @@ If an int can represent all values of the original type, the value is converted 
     	printf ("%d ", d);  
     	return 0; 
     }
-    Output: 120	
+
+    Output:: 
+        
+        120	
 
 .. code:: cpp
     
@@ -209,9 +212,9 @@ If an int can represent all values of the original type, the value is converted 
 
 
 .. note::
-
+    
     if(sizeof(int) > -1)
-    	cout << “Yes” << endl;
+        cout << “Yes” << endl;
     else
     	cout << “No” << endl;
     
@@ -221,11 +224,11 @@ If an int can represent all values of the original type, the value is converted 
 
 ::
 
-    nC3 = n* (n-1)/2 * (n-2)/3;  
+    nC3 = ((n* (n-1))/2 * (n-2))/3;  
     
     Do not use this nC3 = n*(n-1)*(n-2)/6
     
-    n*(n-1) is always an even number, so n*(n-1)/2 would always produce an integer, which means no precision loss in this sub-expression
+    n*(n-1) is always an even number, so (n*(n-1))/2 would always produce an integer, which means no precision loss in this sub-expression
     (n*(n-1))/2 * (n-2) will always give a number which is multiple of 3, so dividing it with 3 won’t have any loss
 
 
@@ -238,27 +241,26 @@ Comparison of a float with a value in C
     Output:	4 8 4
 
 .. list-table::
-	:header-rows: 1
+    :header-rows: 1
 
     *   - Example-1
         - Example-2
         
     *   -
                 .. code:: cpp
-            
-                        #include<stdio.h>
-                        int main() {
-                                float x = 0.1; 
-                                if (x == 0.1) 
-                                        printf("IF"); 
-                                else if (x == 0.1f) 
-                                        printf("ELSE IF"); 
-                                else
-                                        printf("ELSE");
-                                return 0;
-                                
-                        }
 
+                    #include<stdio.h>
+                    int main() {
+                        float x = 0.1;
+                        if (x == 0.1)
+                            printf("IF");
+                        else if (x == 0.1f)
+                            printf("ELSE IF");
+                        else
+                            printf("ELSE");
+                        return 0;
+                    }
+                    
                 Output::
                
                         ELSE IF
@@ -266,18 +268,18 @@ Comparison of a float with a value in C
         -
                 .. code:: cpp
 
-                        #include<stdio.h>
-                        int main() { 
-                                float x = 0.5; 
-                                if (x == 0.5) 
-                                        printf("IF"); 
-                                else if (x == 0.5f) 
-                                        printf("ELSE IF"); 
-                                else
-                                        printf("ELSE");
-                                return 0;
-                        }
-                        
+                    #include<stdio.h>
+                    int main() {
+                        float x = 0.5;
+                        if (x == 0.5)
+                            printf("IF");
+                        else if (x == 0.5f)
+                            printf("ELSE IF");
+                        else
+                            printf("ELSE");
+                        return 0;
+                    }
+                
                 Output::
                 
                         IF
@@ -328,16 +330,18 @@ Implicit Type Conversion
 #. Done by the compiler
 #. Generally, takes place when in an expression more than one data type is present. In such condition type conversion (type promotion) takes place to avoid loss of data.
 #. All the data types of the variables are upgraded to the data type of the variable with largest data type.
+
    ::
    bool -> char -> short int -> int -> unsigned int -> long -> unsigned -> long long -> float -> double -> long double
 
 #. It is possible for implicit conversions to lose information, signs can be lost (when signed is implicitly converted to unsigned), and overflow can occur (when long long is implicitly converted to float).
+   
    .. code:: cpp
-    
+
         #include <stdio.h> 
-        int main()  { 
-        	int x = 10;		// integer x 
-        	char y = 'a';		// character c
+        int main()  {
+            int x = 10;		// integer x 
+        	char y = 'a';	// character c
         	x = x + y;
         	float z = x + 1.0;
         	printf("x = %d, z = %f", x, z); 
@@ -357,6 +361,7 @@ This process is also called type casting and it is user defined. Here the user c
 The syntax in C
 
 ::
+
 (type) expression
 
 .. code:: cpp
@@ -420,7 +425,7 @@ Depending on base and the number of bits used to encode various components, the 
 The binary32 and the binary64 formats are single precision and double precision formats respectively in which the base is 2
 
 .. list-table::
-        :header-rows: 1
+    :header-rows: 1
 
     *   -   Precision
         -   Base

@@ -54,14 +54,14 @@ Used as a more readable equivalent to the traditional for loop operating over a 
 
     for(range_declaration : range_expression) {
 		// statements to execute
-	}
+    }
 
 .. code:: cpp
 
     std::vector<int> v = {0, 1, 2, 3, 4, 5};
-	for (auto i : v) {
-		std::cout << i << ' ';
-	}
+    for (auto i : v) {
+        std::cout << i << ' ';
+    }
 
 For each loop
 ^^^^^^^^^^^
@@ -110,10 +110,10 @@ Tests the condition before executing the loop body
 .. code:: cpp
 
     initialization expression;
-	while (test_expression) {
-		// statements
-		// update_expression;
-	}
+    while (test_expression) {
+        // statements
+        // update_expression;
+    }
 
 .. code:: cpp
 	
@@ -155,10 +155,10 @@ C++ allows at least 256 levels of nesting
 
     for(initialization expr; condition expr; update expr) {
         for(initialization expr; condition expr; update expr) {
-			// statements to execute
-		}	
-		// statements to execute
-	}
+            // statements to execute
+        }	
+        // statements to execute
+    }
 
 References
 ----------

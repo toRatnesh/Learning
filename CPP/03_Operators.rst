@@ -445,9 +445,11 @@ conditional operator (? :)
 --------------------------
 
 - It's a ternary operator
+
   **exp1 ? exp2 : exp3**
 
 - exp1 is evaluated 
+
   if it's true
     then exp2 is evaluated and becomes the value of entire ? : expression
   else
@@ -455,6 +457,7 @@ conditional operator (? :)
 
 - can be used to replace if-else statements
 - can be nested
+
   **exp1 ? (exp2 ? exp3 : exp4) : (exp5 ? exp6 : exp7)**
 
   The expression exp1 will be evaluated always. If the outcome of exp1 is non zero exp2 will be evaluated, otherwise exp3 will be evaluated.
@@ -597,7 +600,7 @@ The primary use of the comma operator is to produce side effects in the followin
 - The following table gives some examples of the uses of the comma operator.
 
 .. list-table::
-        :header-rows: 1
+    :header-rows: 1
 
     *   -   Statement
         -   Effects
@@ -615,7 +618,7 @@ The primary use of the comma operator is to produce side effects in the followin
 
     
 .. list-table::
-        :header-rows: 1
+    :header-rows: 1
 
     *   -   As a separator
         -   As an operator
@@ -815,16 +818,19 @@ Precedence of postfix ++ is higher than both * and prefix ++. Associativity of p
 ++*p, two operators of same precedence (associativity of operators is right to left)
 
 ::
+
     ++*p is treated as ++(*p)
 
 \*p++, precedence of postfix ++ is higher than *
 
 ::
+
     *p++ is treated as *(p++)
 
 \*++p, two operators of same precedence (associativity of operators is right to left)
 
 ::
+
     *++p is treated as *(++p)
 
 .. code:: cpp

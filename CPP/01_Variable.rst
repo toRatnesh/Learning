@@ -22,15 +22,15 @@ Variable Declaration
 Why variable name does not start with numbers in C?
 ---------------------------------------------------
 
-The compiler has 7 phases as following:
+The compiler has 7 phases as following
 
-	#. Lexical Analysis
-	#. Syntax Analysis
-	#. Semantic Analysis
-	#. Intermediate Code Generation
-	#. Code Optimization
-	#. Code Generation
-	#. Symbol Table
+#. Lexical Analysis
+#. Syntax Analysis
+#. Semantic Analysis
+#. Intermediate Code Generation
+#. Code Optimization
+#. Code Generation
+#. Symbol Table
 
 Backtracking is avoided in lexical analysis phase while compiling the piece of code. 
 When you are parsing the token, you only have to look at the first character to determine if it is an identifier or literal and then send it to the correct function for processing. Therefore, that is a performance optimization.
@@ -47,11 +47,12 @@ Most of the times, variable declaration and definition are done together.
 
 ::
 
-	char ch = ‘a’;	// declaration and definition
-	float b;	// declaration and definition
-			// b is allocated memory and assigned some garbage value
+    char ch = ‘a’;  // declaration and definition
+    float b;        // declaration and definition
+                    // b is allocated memory and assigned some garbage value
 
 .. note::
+
         A variable that has not been given a known value (usually through initialization or assignment) is called an **uninitialized variable**. **Using the value from an uninitialized variable is undefined behavior**.
  
 | **Is it possible to have separate declaration and definition?**
@@ -329,7 +330,6 @@ How to access global variable if there is a local variable with same name in C/ 
 					return 0;
 				}
 
-				
 			Output::
 			
 				Value of global x is 50
@@ -348,15 +348,11 @@ How to access global variable if there is a local variable with same name in C/ 
 					return 0;
 				}
 					
-			|
 			Output::
 
 					Value of global x is 50
 					Value of local x is 10
 					
-					
-				
-
 
 How are variables scoped in C – Lexical (Static) or Dynamic?
 ------------------------------------------------------------
@@ -415,8 +411,10 @@ Each block defines its own scope region. So what happens when we have a variable
 | **What about functions and parameters passed to functions?**
 | A function itself is a block. Parameters and other local variables of a function follow the same block scope rules.
 
+
 | **Can variables of the block be accessed in another subsequent block?**
 | No, a variable declared in a block can only be accessed inside the block and all inner blocks of this block.
+
 
 | **Can we access global variable if there is a local variable with same name?**
 | Check `How to access global variable if there is a local variable with same name in C/ C++`_
