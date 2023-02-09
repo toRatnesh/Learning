@@ -7,7 +7,7 @@ Data Types
 Data Type
 ---------
 
-A data type is a classification that specifies which type of value a variable haand what type of mathematical, relational or logical operations can be applied to it without causing an error.
+A data type is a classification that specifies which type of value a variable has and what type of mathematical, relational or logical operations can be applied to it without causing an error.
 
 The data type defines which operations can safely be performed to create, transform and use the variable in another computation. When a program language requires a variable to only be used in ways that respect its data types, the language is said to be strongly typed.
 
@@ -23,21 +23,25 @@ As the name implies, data type modifiers are used with the built-in data types t
 Points about data-types and modifiers in C/C++
 ----------------------------------------------
 
-1.	If no data type is given to a variable, the compiler automatically converts it to int data type.
-::
-    signed a;
+#. If no data type is given to a variable, the compiler automatically converts it to int data type.
+
+.. code:: cpp
+
+        signed a;
  
-2.	Signed is the default modifier for char and int data types.
-3.	We **can’t use any modifiers in float data type.** If programmer tries to use it, the compiler automatically gives compile time error.
-::
+#. Signed is the default modifier for char and int data types.
+#. We **can’t use any modifiers in float data type.** If programmer tries to use it, the compiler automatically gives compile time error.
+
+.. code:: cpp
 
     signed float a; 
     short float b; 
     [Compilation Error] Both 'signed' and 'float' in declaration specifiers
     [Compilation Error] Both 'short' and 'float' in declaration specifiers
 
-4.	**Only long modifier is allowed in double data types.** We can’t use any other specifier with double data type. If we try any other specifier, compiler will give compile time error.
-::
+#. **Only long modifier is allowed in double data types.** We can’t use any other specifier with double data type. If we try any other specifier, compiler will give compile time error.
+
+.. code:: cpp
 
     long double a;
     short double a; 
@@ -50,13 +54,13 @@ Data Type Ranges and their macros in C++
 
 Visit
 
-https://en.cppreference.com/w/cpp/language/types
-https://en.cppreference.com/w/cpp/types/climits
+| https://en.cppreference.com/w/cpp/language/types
+| https://en.cppreference.com/w/cpp/types/climits
 
-**NOTES**
+.. note::
 
-- Data type and pointer size are compiler dependent
-- void is not a valid type for declaring variables void * is though
+        - Data type and pointer size are compiler dependent
+        - void is not a valid type for declaring variables void * is though
 
 size_t Data Type
 ----------------
@@ -70,55 +74,55 @@ It is guaranteed to be big enough to contain the size of the biggest object the 
 What happen when we exceed valid range of built-in data types in C++?
 --------------------------------------------------------------------
 
-1.	Program to show what happens when we cross range of ‘char’:
-    
-    .. code:: cpp
-    
-        #include <iostream> 
-        using namespace std; 
-        int main()  {
-        	for (char a = 0; a <= 225; a++)
-        		cout << a;
-        	return 0;
-        } 
-    
-    Will this code print ‘a’ till it becomes 226? 
-    
-    The answer is indefinite loop.
-    
-    Because here ‘a’ is declared as a char and its valid range is -128 to +127. When ‘a’ become 128 through a++, the range is exceeded and as a result the first number from negative side of the range (i.e. -128) gets assigned to a. Hence the condition “a <= 225” is satisfied and control remains within the loop.
+#. Program to show what happens when we cross range of ‘char’
+   
+   .. code:: cpp
 
-2.	Program to show what happens when we cross range of ‘bool’:
-    
-    .. code:: cpp
-    
+        #include <iostream>
+        using namespace std;
+        int main()  {
+                for (char a = 0; a <= 225; a++)
+                        cout << a;
+                return 0;
+        }
+        
+   Will this code print ‘a’ till it becomes 226?
+
+   The answer is indefinite loop.
+
+   Because here ‘a’ is declared as a char and its valid range is -128 to +127. When ‘a’ become 128 through a++, the range is exceeded and as a result the first number from negative side of the range (i.e. -128) gets assigned to a. Hence the condition “a <= 225” is satisfied and control remains within the loop.
+
+#. Program to show what happens when we cross range of ‘bool’:
+   
+   .. code:: cpp
+
         #include <iostream>
         using namespace std;
         int main() {
-        	// declaring Boolean 
-            // variable with true value 
-            bool a = true;
-        	for (a = 1; a <= 5; a++)
-        		cout << a;
-        	return 0; 
+                // declaring Boolean variable with true value 
+                bool a = true;
+                for (a = 1; a <= 5; a++)
+                        cout << a;
+                return 0; 
         } 
     
-    This code will print ‘1’ infinite time because here ‘a’ is declared as ‘bool’ and its valid range is 0 to 1. And for a Boolean variable anything else than 0 is 1 (or true). When ‘a’ tries to become 2 (through a++), 1 gets assigned to ‘a’. The condition a<=5 is satisfied and the control remains with in the loop. See this for Bool data type.
+   This code will print ‘1’ infinite time because here ‘a’ is declared as ‘bool’ and its valid range is 0 to 1. And for a Boolean variable anything else than 0 is 1 (or true). When ‘a’ tries to become 2 (through a++), 1 gets assigned to ‘a’. The condition a<=5 is satisfied and the control remains with in the loop. See this for Bool data type.
 
 Qualifier
 ---------
 
 Type qualifiers provide additional information about the variables they precede
+
 **Const**       objects of type const cannot be changed by program during execution
 
-**Volatile**      volatile tells the compiler that a variable’s value may be changed in ways not explicitly specified by the program
+**Volatile**    volatile tells the compiler that a variable’s value may be changed in ways not explicitly specified by the program
 
 **Restrict**    a pointer qualified by restrict is initially the only means by which the object it points to can be accessed.
 
 .. note::   
     restrict keyword has no equivalent in c++
 
-For more info visit:
+For more info visit
 
 | https://en.cppreference.com/w/c/language/const
 | https://en.cppreference.com/w/c/language/volatile
@@ -128,7 +132,7 @@ For more info visit:
 Typedef declarations
 --------------------
 
-You can create a new name for an existing type using typedef:
+You can create a new name for an existing type using typedef
 
 .. code:: cpp
 
@@ -143,6 +147,7 @@ Use of bool in C
 The C99 standard for C language supports bool variables. Unlike C++, where no header file is needed to use bool, a header file “stdbool.h” must be included to use bool in C.
 
 .. list-table::
+	:header-rows: 1
 
     *   - C
         - C++
@@ -167,7 +172,7 @@ The C99 standard for C language supports bool variables. Unlike C++, where no he
 Integer Promotions in C
 -----------------------
 
-Some data types like char , short int take less number of bytes than int, these data types are automatically promoted to int or unsigned int when an operation is performed on them.
+Some data types like char , short int take less number of bytes than int, these data types are **automatically promoted to int or unsigned int when an operation is performed on them**.
 
 **This may lead to unexpected result**
 
@@ -205,22 +210,23 @@ If an int can represent all values of the original type, the value is converted 
 
 .. note::
 
-    if(sizeof(int) > -1) 
+    if(sizeof(int) > -1)
     	cout << “Yes” << endl;
-    else 
+    else
     	cout << “No” << endl;
     
     Negative numbers are stored in 2’s complement form and unsigned value of the 2’s complement form is much higher than size of int
     
     When an integer value is compared with an unsigned int, the int is promoted to unsigned
 
+::
 
     nC3 = n* (n-1)/2 * (n-2)/3;  
     
     Do not use this nC3 = n*(n-1)*(n-2)/6
     
     n*(n-1) is always an even number, so n*(n-1)/2 would always produce an integer, which means no precision loss in this sub-expression
-    n*(n-1)/2 * (n-2) will always give a number which is multiple of 3, so dividing it with 3 won’t have any loss
+    (n*(n-1))/2 * (n-2) will always give a number which is multiple of 3, so dividing it with 3 won’t have any loss
 
 
 Comparison of a float with a value in C
@@ -232,55 +238,73 @@ Comparison of a float with a value in C
     Output:	4 8 4
 
 .. list-table::
+	:header-rows: 1
 
-    *   - Example 1
-        - Example 2
+    *   - Example-1
+        - Example-2
         
     *   -
-            .. code:: cpp
+                .. code:: cpp
             
-                #include<stdio.h> 
-                int main() { 
-                	float x = 0.1; 
-                	if (x == 0.1) 
-                		printf("IF"); 
-                	else if (x == 0.1f) 
-                		printf("ELSE IF"); 
-                	else
-                		printf("ELSE");
-                	return 0;
-                } 
-                Output: ELSE IF
+                        #include<stdio.h>
+                        int main() {
+                                float x = 0.1; 
+                                if (x == 0.1) 
+                                        printf("IF"); 
+                                else if (x == 0.1f) 
+                                        printf("ELSE IF"); 
+                                else
+                                        printf("ELSE");
+                                return 0;
+                                
+                        }
+
+                Output::
+               
+                        ELSE IF
 
         -
-            
-            .. code:: cpp
+                .. code:: cpp
 
-                #include<stdio.h> 
-                int main() { 
-                	float x = 0.5; 
-                	if (x == 0.5) 
-                		printf("IF"); 
-                	else if (x == 0.5f) 
-                		printf("ELSE IF"); 
-                	else
-                		printf("ELSE");
-                	return 0;
-                } 
-                Output: IF
+                        #include<stdio.h>
+                        int main() { 
+                                float x = 0.5; 
+                                if (x == 0.5) 
+                                        printf("IF"); 
+                                else if (x == 0.5f) 
+                                        printf("ELSE IF"); 
+                                else
+                                        printf("ELSE");
+                                return 0;
+                        }
+                        
+                Output::
+                
+                        IF
             
 **Example 1**
+
 In float 
+
 => (0.1)10 = (0.00011001100110011001100)2
+
 In double after promotion of float ...(1)
+
 => (0.1)10 = (0.00011001100110011001100000000000000000...)2
+
 In double without promotion ... (2)
+
 => (0.1)10 = (0.0001100110011001100110011001100110011001100110011001)2
+
 Hence, we can see the result of both equations is different. Therefore the ‘if’ statement can never be executed.
 
 **Example 2**
+
 Here binary equivalent of (0.5)10 is (0.100000…)2
-(No precision will be lost in both float and double type). Therefore, if compiler pad the extra zeroes at the time of promotion, then we would get the same result in decimal equivalent of both left and right side in comparison (x == 0.5).
+
+(No precision will be lost in both float and double type). 
+
+Therefore, if compiler pad the extra zeroes at the time of promotion, then we would get the same result in decimal equivalent of both left and right side in comparison (x == 0.5).
 
 Difference between float and double in C/C++
 --------------------------------------------
@@ -301,17 +325,14 @@ A type cast is basically a conversion from one type to another. There are two ty
 Implicit Type Conversion
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-#.  Done by the compiler
-#.  Generally, takes place when in an expression more than one data type is present. In such condition type conversion (type promotion) takes place to avoid loss of data.
-#.	All the data types of the variables are upgraded to the data type of the variable with largest data type.
+#. Done by the compiler
+#. Generally, takes place when in an expression more than one data type is present. In such condition type conversion (type promotion) takes place to avoid loss of data.
+#. All the data types of the variables are upgraded to the data type of the variable with largest data type.
+   ::
+   bool -> char -> short int -> int -> unsigned int -> long -> unsigned -> long long -> float -> double -> long double
 
-    ::
-    
-    bool -> char -> short int -> int -> unsigned int -> long -> unsigned -> long long -> float -> double -> long double
-
-#.	It is possible for implicit conversions to lose information, signs can be lost (when signed is implicitly converted to unsigned), and overflow can occur (when long long is implicitly converted to float).
-
-    .. code:: cpp
+#. It is possible for implicit conversions to lose information, signs can be lost (when signed is implicitly converted to unsigned), and overflow can occur (when long long is implicitly converted to float).
+   .. code:: cpp
     
         #include <stdio.h> 
         int main()  { 
@@ -322,7 +343,9 @@ Implicit Type Conversion
         	printf("x = %d, z = %f", x, z); 
         	return 0; 
         } 
-        Output:
+
+   Output::
+
         x = 107, z = 108.000000
 
 
@@ -331,10 +354,9 @@ Explicit Type Conversion
 
 This process is also called type casting and it is user defined. Here the user can type cast the result to make it of a particular data type.
 
-The syntax in C:
+The syntax in C
 
 ::
-
 (type) expression
 
 .. code:: cpp
@@ -346,7 +368,9 @@ The syntax in C:
     	printf("sum = %d", sum);
     	return 0; 
     } 
-    Output:
+
+Output::
+
     sum = 2
 
 **Advantages of Type Conversion**
@@ -364,6 +388,7 @@ For C
 For C++
 
 | https://en.cppreference.com/w/cpp/language/expressions#Conversions
+
 
 Floating Point Representation – Basics
 --------------------------------------
@@ -388,14 +413,14 @@ A finite number can also be represented by four integers components,
 Then the numerical value of the number is evaluated as
 
 ::
-
-    (-1)s x m x be  - - - - - - -  Where m < |b|
+(-1) :sup:`s`  * m * b :sup:`e`  - - - - - - -  Where m < |b|
 
 Depending on base and the number of bits used to encode various components, the IEEE 754 standard defines five basic formats
 
 The binary32 and the binary64 formats are single precision and double precision formats respectively in which the base is 2
 
 .. list-table::
+        :header-rows: 1
 
     *   -   Precision
         -   Base
@@ -422,13 +447,15 @@ Single precision format has 23 bits for significand (1 represents implied bit, d
 
 For example, the rational number 9÷2 can be converted to single precision float format as following,
 
-9(10) ÷ 2(10) = 4.5(10) = 100.1(2)
+9 :sub:`(10)`  ÷  2 :sub:`(10)` = 4.5 :sub:`(10)` = 100.1 :sub:`(2)`
 
-**Normalized**
+
+Normalized
+~~~~~~~~~~
 
 if it is represented with leading 1 bit, i.e. 
 
-**1.001(2) x 22**
+1.001 :sub:`(2)`  *  2 :sup:`2`
 
 Omitting this implied 1 on left extreme gives us the mantissa of float number.
 
@@ -437,6 +464,7 @@ Omitting this implied 1 on left extreme gives us the mantissa of float number.
 The floating-point numbers are to be represented in normalized form.
 
 Subnormal (de-normalized) numbers
+~~~~~~~~~~~~~~~~
 
 - The implied most significant bit can be used to represent even more accurate significand (23 + 1 = 24 bits) which is called subnormal representation.
 
@@ -451,7 +479,8 @@ Subnormal (de-normalized) numbers
 - Subnormal representation is useful in filing gaps of floating-point scale near zero.
 
 Above result can be written as 
-(-1)0 x 1.001(2) x 22 
+
+(-1) :sup:`0` * 1.001 :sub:`(2)` * 2 :sup:`2`
 
 which yields the integer components as s = 0, b = 2, significand (m) = 1.001, mantissa = 001 and e = 2
 
@@ -472,7 +501,7 @@ The biased exponent is used for the representation of negative exponents
 
 The biased exponent has advantages over other negative representations in performing bitwise comparing of two floating point numbers for equality
 
-A bias of (2^(n-1) – 1), where n is # of bits used in exponent, is added to the exponent (e) to get biased exponent (E). So, the biased exponent (E) of single precision number can be obtained as
+A bias of (2 :sup:`(n-1)` – 1), where n is # of bits used in exponent, is added to the exponent (e) to get biased exponent (E). So, the biased exponent (E) of single precision number can be obtained as
 
 **E = e + 127	and 	e = E - 127**
 
@@ -495,17 +524,19 @@ Double precision format has
 
 All other definitions are same for double precision format, except for the size of various components.
 
-**Precision**
+Precision
+~~~~~~~~~
 
 The smallest change that can be represented in floating point representation is called as precision.
 
 The fractional part of a single precision normalized number has exactly 23 bits of resolution, (24 bits with the implied bit).
 
-This corresponds to log(10) (2^23) = 6.924 = 7 (the characteristic of logarithm) decimal digits of accuracy.
+This corresponds to log :sub:`(10)` (2 :sup:`23`) = 6.924 = 7 (the characteristic of logarithm) decimal digits of accuracy.
 
-Similarly, in case of double precision numbers the precision is log(10) (2^52) = 15.654 = 16 decimal digits.
+Similarly, in case of double precision numbers the precision is log :sub:`(10)` (2 :sup:`52`) = 15.654 = 16 decimal digits.
 
-**Accuracy**
+Accuracy
+~~~~~~~
 
 Accuracy in floating point representation is governed by number of significand bits, whereas range is limited by exponent. 
 
@@ -513,15 +544,15 @@ Not all real numbers can exactly be represented in floating point format.
 
 For any number which is not floating-point number, there are two options for floating point approximation
 
-- the closest floating-point number less than x as x_ 
+- the closest floating-point number less than x as x\_ 
 - the closest floating-point number greater than x as x+
 
 A rounding operation is performed on number of significant bits in the mantissa field based on the selected mode.
 
-- The round down mode causes x set to x_, 
+- The round down mode causes x set to x\_, 
 - The round up mode causes x set to x+, 
-- The round towards zero mode causes x is either x_ or x+ whichever is between zero and. 
-- The round to nearest mode sets x to x_ or x+ whichever is nearest to x.
+- The round towards zero mode causes x is either x\_ or x+ whichever is between zero and. 
+- The round to nearest mode sets x to x\_ or x+ whichever is nearest to x.
 
 **Usually round to nearest is most used mode.**
 

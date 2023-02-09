@@ -4,8 +4,8 @@
 Operators
 =========
 
-Operators in C / C++
---------------------
+Operators in C/C++
+-----------------
 
 An operator is a symbol that tells the compiler to perform specific mathematical or logical manipulations.
 Allow to perform different kinds of operations on operands.
@@ -31,7 +31,7 @@ Used for arithmetic operation
 - Increment and decrement operator require l-value expression providing an r-value or a const qualified variable results in compilation error.
 - Sign of left operand is appended to result in case of modulus operator (%) in C
 - % works on integer types only not for floating types
-    fmod(x, y) should be used for floating point
+  fmod(x, y) should be used for floating point
 
 Pre-increment (or pre-decrement) in C++
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -39,6 +39,7 @@ Pre-increment (or pre-decrement) in C++
 In C++, pre-increment (or pre-decrement) can be used as l-value, but post-increment (or post-decrement) cannot be used as l-value.
 
 .. code:: cpp
+
     #include <stdio.h>  
     int main() { 
     	int a = 10;
@@ -47,20 +48,23 @@ In C++, pre-increment (or pre-decrement) can be used as l-value, but post-increm
     	printf("a = %d", a);
     	return 0; 
     } 
-    Output: a = 20
+
+Output:: 
+
+    a = 20
 
 **How ++a is different from a++ as lvalue?**
 
 It is because ++a returns an lvalue, which is basically a reference to the variable to which we can further assign — just like an ordinary variable. It could also be assigned to a reference as follows:
 
-::
-
-    int &ref = ++a; // valid
-    int &ref = a++; // invalid
+.. code:: cpp
+        
+        int &ref = ++a; // valid
+        int &ref = a++; // invalid
 
 Whereas if you recall how a++ works, it doesn’t immediately increment the value it holds. So what basically happens is that a++ returns an rvalue, which is basically just a value like the value of an expression which is not stored. You can think of a++ = 20; as follows after being processed:
 
- .. code:: cpp
+.. code:: cpp
  
     int a = 10;
     // On compilation, a++ is replaced by the value of a which is an rvalue:
@@ -68,10 +72,11 @@ Whereas if you recall how a++ works, it doesn’t immediately increment the valu
     // Value of a is incremented
     a = a + 1;
 
+
 Execution of printf with ++ operators
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-::
+.. code:: cpp
 
     printf("%d %d %d", i, ++i, i++);
 
@@ -111,7 +116,8 @@ In C++, data type of result of comparison operations is bool
 .. code:: cpp
 
     printf("%zu", sizeof(x == y));
-    Output
+    
+    //Output
     4	// In C
     1	// In C++
     
@@ -133,7 +139,7 @@ Although logical operators are commutative, their order is critical
 
 .. list-table::
 
-    *   -   
+    *   -
             .. code:: cpp
             
                 #include <stdio.h>
@@ -143,8 +149,13 @@ Although logical operators are commutative, their order is critical
                 	bool res2 = ((a != b) && printf("circuit"));
                 	return 0;
                 }
+
+            Output::
+
+                circuit
+
         
-        -   
+        -
             .. code:: cpp
             
                 #include <stdio.h>
@@ -155,6 +166,10 @@ Although logical operators are commutative, their order is critical
                 	return 0;
                 }
 
+            Output::
+                
+                Short
+
 Bitwise Operators
 ----------------
 
@@ -162,45 +177,47 @@ Bitwise operator works on bits and perform bit-by-bit operation
 
 ``&, |, ^, ~, <<, >>``
 
-**1. Do not shift a negative number of bits or more bits than exist in the operand**
-    
-    Result of << and >> is undefined behavior if any of the operand is a negative number
-    
-    If number is shifted more than the size of integer, the behavior is undefined
+#. **Do not shift a negative number of bits or more bits than exist in the operand**
+   
+   Result of << and >> is undefined behavior if any of the operand is a negative number
+   
+   If number is shifted more than the size of integer, the behavior is undefined
 
-**2. Bitwise XOR operator is the most useful operator**
+#. **Bitwise XOR operator is the most useful operator**
 
-    - To find the odd occurring number where all elements occur even number of times except one number
-    - To find the Missing Number
-    - To swap two numbers without using a temporary variable
-    - To create a memory efficient doubly linked list
-    - To find the two non-repeating elements
-    - To find the two numbers with odd occurrences in an unsorted-array
-    - To add two numbers without using arithmetic operators
-    - To swap bits in a given number/
-    - To count number of bits to be flipped to convert a to b 
-    - To find the element that appears once
-    - To detect if two integers have opposite signs
+   - To find the odd occurring number where all elements occur even number of times except one number
+   - To find the Missing Number
+   - To swap two numbers without using a temporary variable
+   - To create a memory efficient doubly linked list
+   - To find the two non-repeating elements
+   - To find the two numbers with odd occurrences in an unsorted-array
+   - To add two numbers without using arithmetic operators
+   - To swap bits in a given number
+   - To count number of bits to be flipped to convert a to b 
+   - To find the element that appears once
+   - To detect if two integers have opposite signs
 
-**3. Bitwise operators should not be used in place of logical operators**
-
-    - result of logical operator is either 0 or 1 but bitwise operators return an integer value
-    - logical operators consider any non-zero operand as 1
+#. **Bitwise operators should not be used in place of logical operators**
+   
+   - result of logical operator is either 0 or 1 but bitwise operators return an integer value
+   - logical operators consider any non-zero operand as 1
     
-    .. code:: cpp
-    
+   .. code:: cpp
+
         int x = 2, y = 5; 
         (x & y) ? printf("True ") : printf("False "); 
         (x && y) ? printf("True ") : printf("False ");
-        Output:
+        
+   Output::
+
         False True
 
-**4. left-shift is equivalent to multiplication by 2 and right-shift is equivalent to division by 2**
+#. **left-shift is equivalent to multiplication by 2 and right-shift is equivalent to division by 2**
+   
+   Works only if numbers are positive
+    
+   .. code:: cpp
 
-    Works only if numbers are positive
-    
-    .. code:: cpp
-    
         int x = 19;
         printf("x << 1 = %d\n", x << 1);
         printf("x >> 1 = %d\n", x >> 1); 
@@ -208,28 +225,33 @@ Bitwise operator works on bits and perform bit-by-bit operation
         x << 1 = 38
         x >> 1 = 9
     
-    Your compiler has an optimizer in it that knows how to multiply as quickly as your target process architecture is capable so you always write your intent clearly (i*2 rather than i<<1) and let it decide what the fastest assembly/machine code sequence is.
+   Your compiler has an optimizer in it that knows how to multiply as quickly as your target process architecture is capable so you always write your intent clearly (i*2 rather than i<<1) and let it decide what the fastest assembly/machine code sequence is.
 
-**5. & operator can be used to quickly check if a number is odd or even**
+#. **& operator can be used to quickly check if a number is odd or even**
+   
+   value of expression (x & 1) would be
+   
+   non-zero only 	if x is odd, 	otherwise the value would be
+   
+   zero		if x is even
+    
+   .. code:: cpp
 
-    value of expression (x & 1) would be 
-    
-    non-zero only 	if x is odd, 	otherwise the value would be 
-    
-    zero		if x is even
-    
-    .. code:: cpp
-    
         int x = 19; 
         (x & 1) ? printf("Odd") : printf("Even"); 
-        Output:
+
+   Output::
+
         Odd
 
-**6. ~ operator should be used carefully**
+#. **~ operator should be used carefully**
 
-    Result of ~ operator on a small number can be a 
-    big number if result is stored in a unsigned variable
+   Result of ~ operator on a small number can be
+    
+    a big number if result is stored in a unsigned variable
+    
     -ve number if result is stored in a signed variable
+    
     (Assumption: -ve numbers are stored in 2’s complement form where leftmost bit is the sign bit)
 
 Bit mask
@@ -239,33 +261,35 @@ https://www.learncpp.com/cpp-tutorial/bit-manipulation-with-bitwise-operators-an
 
 A bit mask is a predefined set of bits that is used to select which specific bits will be modified by subsequent operations.
 
-**Defining bit masks in C++11 or earlier**
+Defining bit masks in C++11 or earlier
+~~~~~~~~~~~~~~~~~~~~
 
 Because C++11 does not support binary literals, we have to use other methods to set the symbolic constants. 
 
 There are two good methods for doing this.
 
-- use hexadecimal:
+- use hexadecimal
+  
+  .. code:: cpp
 
-	.. code:: cpp
+    constexpr std::uint8_t mask0{ 0x1 }; // hex for 0000 0001
+    constexpr std::uint8_t mask1{ 0x2 }; // hex for 0000 0010
+    constexpr std::uint8_t mask2{ 0x4 }; // hex for 0000 0100
+    constexpr std::uint8_t mask3{ 0x8 }; // hex for 0000 1000
+    
+  This can be a little hard to read. One way to make it easier is to use the 
 
-	    constexpr std::uint8_t mask0{ 0x1 }; // hex for 0000 0001
-	    constexpr std::uint8_t mask1{ 0x2 }; // hex for 0000 0010
-	    constexpr std::uint8_t mask2{ 0x4 }; // hex for 0000 0100
-	    constexpr std::uint8_t mask3{ 0x8 }; // hex for 0000 1000
+- left-shift operator to shift a bit into the proper location
+  
+  .. code:: cpp
 
-	This can be a little hard to read. One way to make it easier is to use the 
+    constexpr std::uint8_t mask0{ 1 << 0 }; // 0000 0001
+    constexpr std::uint8_t mask1{ 1 << 1 }; // 0000 0010
+    constexpr std::uint8_t mask2{ 1 << 2 }; // 0000 0100
+    constexpr std::uint8_t mask3{ 1 << 3 }; // 0000 1000
 
-- left-shift operator to shift a bit into the proper location:
-
-	.. code:: cpp
-
-	    constexpr std::uint8_t mask0{ 1 << 0 }; // 0000 0001
-	    constexpr std::uint8_t mask1{ 1 << 1 }; // 0000 0010
-	    constexpr std::uint8_t mask2{ 1 << 2 }; // 0000 0100
-	    constexpr std::uint8_t mask3{ 1 << 3 }; // 0000 1000
-
-**Defining bit masks in C++14**
+Defining bit masks in C++14
+~~~~~~~~~~~~~~~~~~~
 
 Because C++14 supports binary literals, defining these bit masks is easy
 
@@ -277,49 +301,80 @@ Because C++14 supports binary literals, defining these bit masks is easy
     constexpr std::uint8_t mask3{ 0b0000'1000 }; // represents bit 3
 
 **Testing a bit (to see if it is on or off)**
-	std::uint8_t flags{ 0b0000'0101 }; // 8 bits in size means room for 8 flags
-	std::cout << "bit 0 is " << ((flags & mask0) ? "on\n" : "off\n");
-	std::cout << "bit 1 is " << ((flags & mask1) ? "on\n" : "off\n");
+
+.. code:: cpp
+
+    #include <iostream>
+    int main() {
+    
+        constexpr std::uint8_t mask0{ 0b0000'0001 }; // represents bit 0
+        constexpr std::uint8_t mask1{ 0b0000'0010 }; // represents bit 1
+        constexpr std::uint8_t mask2{ 0b0000'0100 }; // represents bit 2
+        constexpr std::uint8_t mask3{ 0b0000'1000 }; // represents bit 3
+        
+        std::uint8_t flags{ 0b0000'0101 }; // 8 bits in size means room for 8 flags
+        std::cout << "bit 0 is " << ((flags & mask0) ? "on\n" : "off\n");
+        std::cout << "bit 1 is " << ((flags & mask1) ? "on\n" : "off\n");
+        
+        return 0;
+    }
+    
+Output::
+    
+    bit 0 is on
+    bit 1 is off
 
 **Setting a bit**
+
+.. code:: cpp
+
     std::uint8_t flags{ 0b0000'0101 }; // 8 bits in size means room for 8 flags
     std::cout << "bit 1 is " << ((flags & mask1) ? "on\n" : "off\n");
-    
-    ::
-    
-        flags |= mask1; // turn on bit 1
-    
+    flags |= mask1; // turn on bit 1
     std::cout << "bit 1 is " << ((flags & mask1) ? "on\n" : "off\n");
+
+Output::
+    
+    bit 1 is off
+    bit 1 is on
 
 **Resetting a bit**
+
+.. code:: cpp
+
     std::uint8_t flags{ 0b0000'0101 }; // 8 bits in size means room for 8 flags
     std::cout << "bit 2 is " << ((flags & mask2) ? "on\n" : "off\n");
-    
-    ::
-    
-        flags &= ~mask2; // turn off bit 2
-        
+    flags &= ~mask2; // turn off bit 2
     std::cout << "bit 2 is " << ((flags & mask2) ? "on\n" : "off\n");
 
+Output::
+
+    bit 2 is on
+    bit 2 is off
+
 **Flipping a bit**
+
+.. code:: cpp
+
     std::uint8_t flags{ 0b0000'0101 }; // 8 bits in size means room for 8 flags
     std::cout << "bit 2 is " << ((flags & mask2) ? "on\n" : "off\n");
     
-    ::
-    
-        flags ^= mask2; // flip bit 2
-    
-    std::cout << "bit 2 is " << ((flags & mask2) ? "on\n" : "off\n");    
-    
-    ::
-        
-        flags ^= mask2; // flip bit 2
-        
+    flags ^= mask2; // flip bit 2
     std::cout << "bit 2 is " << ((flags & mask2) ? "on\n" : "off\n");
+    
+    flags ^= mask2; // flip bit 2
+    std::cout << "bit 2 is " << ((flags & mask2) ? "on\n" : "off\n");
+
+Output::
+
+    bit 2 is on
+    bit 2 is off
+    bit 2 is on
 
 **Bit masks and std::bitset**
 
 std::bitset supports the full set of bitwise operators. So even though it’s easier to use the functions (test, set, reset, and flip) to modify individual bits, you can use bitwise operators and bit masks if you want.
+
 For more info visit: https://en.cppreference.com/w/cpp/utility/bitset
 
 Assignment Operators
@@ -350,57 +405,59 @@ sizeof() operator
 - result of sizeof is of unsigned integral type which is usually denoted by size_t
 - can be applied to any data-type (primitive types or user defined types)
 - When operand is a data type it simply returns the amount of memory is allocated to that data type
-    
-    ::
-    
-        printf("%d", sizeof(int))		// 4
+
+  .. code:: cpp
+
+    printf("%d", sizeof(int))		// 4
     
 - When operand is an expression, it returns size of the expression
 
-    ::
-    
-        int a = 0;	double d = 10.21;
-        printf("%d", sizeof(a+d))		// 8
+  .. code:: cpp
+
+    int a = 0;	double d = 10.21;
+    printf("%d", sizeof(a+d))		// 8
 
 - Used to find out number of elements in an array
     
-    ::
-    
-        printf("Number of elements:%lu ", sizeof(arr) / sizeof(arr[0]));
+  .. code:: cpp
+
+    printf("Number of elements:%lu ", sizeof(arr) / sizeof(arr[0]));
 
 - To allocate a block of memory dynamically
 
-    ::
-    
-        int* ptr = (int*)malloc(10 * sizeof(int));
+  .. code:: cpp
+
+    int* ptr = (int*)malloc(10 * sizeof(int));
 
 - **an expression does not get evaluated inside size of operator**
+  
+  .. code:: cpp
 
-    ::
-    
-        int i = 5, j = 10, k = 15;
-        printf("%d", sizeof(k /= (i+j)));	// 4
-        printf("%d", k);			// 15
+    int i = 5, j = 10, k = 15;
+    printf("%d", sizeof(k /= (i+j)));   // 4
+    printf("%d", k);                    // 15
 
-    as expression is not evaluated value of k will not be changed
-    size of operator returns sizeof(int) because the result of expression will be an integer
+  as expression is not evaluated value of k will not be changed
+
+  size of operator returns sizeof(int) because the result of expression will be an integer
 
 conditional operator (? :)
 --------------------------
 
-- It’s a ternary operator
-    **exp1 ? exp2 : exp3**
-    
+- It's a ternary operator
+  **exp1 ? exp2 : exp3**
+
 - exp1 is evaluated 
-    if it’s true
-        then exp2 is evaluated and becomes the value of entire ? : expression
-    else
-        then exp3 is evaluated and becomes the value of entire ? : expression
+  if it's true
+    then exp2 is evaluated and becomes the value of entire ? : expression
+  else
+    then exp3 is evaluated and becomes the value of entire ? : expression
+
 - can be used to replace if-else statements
 - can be nested
-    **exp1 ? (exp2 ? exp3 : exp4) : (exp5 ? exp6 : exp7)**
-    
-    The expression exp1 will be evaluated always. If the outcome of exp1 is non zero exp2 will be evaluated, otherwise exp3 will be evaluated.
+  **exp1 ? (exp2 ? exp3 : exp4) : (exp5 ? exp6 : exp7)**
+
+  The expression exp1 will be evaluated always. If the outcome of exp1 is non zero exp2 will be evaluated, otherwise exp3 will be evaluated.
 
 **Side Effects**
 
@@ -417,12 +474,14 @@ The following program compiles without any error. The return type of ternary exp
     #include <iostream> 
     using namespace std;
     int main() {
-    	int test = 0;
+        int test = 0;
     	float fvalue = 3.111f;
     	cout << (test ? fvalue : 0) << endl;
     	return 0; 
     }
-    Output
+
+Output::
+
     0
 
 The following program may compile, or but fails at runtime. The return type of ternary expression is bounded to type ``(char *)``, yet the expression returns int, hence the program fails. Literally, the program tries to print string at 0th address at runtime.
@@ -478,7 +537,9 @@ Comma operator is also used to terminate the statement after satisfying the foll
     	cout << "Last line"; 
     return 0; 
     }
-    Output:
+
+Output::
+
     First Line
     Second Line
     Third Line
@@ -488,6 +549,7 @@ Comma as an operator
 ^^^^^^^^^^^^^^^^^^^^
 
 The comma (,) operator is a binary operator that evaluates its first operand and discards the result, it then evaluates the second operand and returns this value (and type). 
+
 The comma operator has the lowest precedence of any C operator, and acts as a sequence point.
 
 .. code:: cpp
@@ -501,10 +563,12 @@ Result of comma operator as l-value in C and C++
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In C,	The result of a comma expression is not an lvalue.
-In C++,	The result is an lvalue if the right operand is an lvalue. 
+
+In C++,	The result is an lvalue if the right operand is an lvalue.
+
 The following statements are equivalent:
 
-::
+.. code:: cpp
 
     r = (a,b,...,c);
     a; b; r = c;
@@ -513,18 +577,18 @@ The difference is that the comma operator may be suitable for expression context
 
 Similarly, the address of a compound expression can be taken if the right operand is an lvalue.
 
-::
+.. code:: cpp
 
     &(a, b)
     a, &b
 
-Any number of expressions separated by commas can form a single expression because the comma operator is associative. The use of the comma operator guarantees that the subexpressions will be evaluated in left-to-right order, and the value of the last becomes the value of the entire expression. In the following example, if omega has the value 11, the expression increments delta and assigns the value 3 to alpha:
+Any number of expressions separated by commas can form a single expression because the **comma operator is associative**. The use of the **comma operator guarantees that the subexpressions will be evaluated in left-to-right order**, and the value of the last becomes the value of the entire expression. In the following example, if omega has the value 11, the expression increments delta and assigns the value 3 to alpha:
 
-::
+.. code:: cpp
 
     alpha = (delta++, omega % 4);
     
-The primary use of the comma operator is to produce side effects in the following situations:
+The primary use of the comma operator is to produce side effects in the following situations
 
 - Calling a function
 - Entering or repeating an iteration loop
@@ -533,6 +597,7 @@ The primary use of the comma operator is to produce side effects in the followin
 - The following table gives some examples of the uses of the comma operator.
 
 .. list-table::
+        :header-rows: 1
 
     *   -   Statement
         -   Effects
@@ -550,6 +615,7 @@ The primary use of the comma operator is to produce side effects in the followin
 
     
 .. list-table::
+        :header-rows: 1
 
     *   -   As a separator
         -   As an operator
@@ -565,9 +631,9 @@ The primary use of the comma operator is to produce side effects in the followin
                 	return 0;
                 }
                 // C CE: expected identifier or 
-                ‘(’ before numeric constant
+                // ‘(’ before numeric constant
                 // C++ CE: expected unqualified-id
-                before numeric constant
+                // before numeric constant
 
         -   
             .. code:: cpp
@@ -579,7 +645,10 @@ The primary use of the comma operator is to produce side effects in the followin
                 	printf("%d", a);
                 	return 0;
                 }
-                Output: 1
+
+            Output::
+            
+                1
 
         -
             .. code:: cpp
@@ -590,10 +659,14 @@ The primary use of the comma operator is to produce side effects in the followin
                 	printf("%d", a);
                 	return 0;
                 }
-                Output: 3
+
+            Output::
+
+                3
 
 
     *   -   Compilation error
+
             Compiler fails to create integer variable 2 because 2 is not a valid identifier
         -   Assignment operator takes precedence over comma
         -   Brackets are used so comma operator is executed first and we get the output as 3
@@ -630,7 +703,7 @@ Address of operator (&) and Indirection operator (*)
 - Same precedence as the other unary operators
 - Right to left associativity
 
-* Opeartor
+\* Opeartor
 ^^^^^^^^^^
 
 - Unary operator
@@ -660,22 +733,18 @@ same precedence as any other unary operartor
 
 forces one data type to be converted into another
 
-(type_name) expression;		// C – notation
-
-type_name (expression);		// C++ - notation only if type name is an identifier
-
-(type_name) expression;		// C++ - notation  if type name is not an identifier
+| (type_name) expression;		// C – notation
+| type_name (expression);		// C++ - notation only if type name is an identifier
+| (type_name) expression;		// C++ - notation  if type name is not an identifier
 
 
-Other casting operators:
+Other casting operators
 
-const_cast<type>(expr);
+| static_cast<type>(expr);
+| const_cast<type>(expr);
+| dynamic_cast<type>(expr);
+| reinterpret_cast<type>(expr);
 
-dynamic_cast<type>(expr);
-
-reinterpret_cast<type>(expr);
-
-static_cast<type>(expr);
 
 Check document related to these individual cast operator.
 
@@ -692,7 +761,7 @@ Operator                                    Description
 ::* (Pointer-to-member declarator)          To declare a pointer to a member of a class
 ->* (Pointer-to-member operator)            To access a member using a pointer to the object and a pointer to that member
 .* (Pointer-to-member operator)             To access a member using an object and a pointer to that member
-*                                           To access a member using object name and a pointer to that member
+\*                                          To access a member using object name and a pointer to that member
 new (memory allocation operator)            To allocate memory
 delete (memory release operator)            To release memory
 =======================================     ====================================
@@ -727,30 +796,36 @@ Evaluation order of operands
     	printf("p: %d, x: %d", p, x); 
     	return 0; 
     } 
-    Output:	p: 15, x: 10
+
+Output::
+    
+    p: 15, x: 10
 
 - The output is undefined as the order of evaluation of f1() + f2() is not mandated by standard. 
 - The compiler is free to first call either f1() or f2().
 - Only when equal level precedence operators appear in an expression, the associativity comes into picture. For example, f1() + f2() + f3() will be considered as (f1() + f2()) + f3(). But among first pair, which function (the operand) evaluated first is not defined by the standard.
 
-Difference between ++*p, *p++ and *++p
+Difference between ++*p, \*p++ and \*++p
 --------------------------------------
 
-``Precedence of prefix ++ and * is same. Associativity of both is right to left.``
+Precedence of prefix ++ and * is same. Associativity of both is right to left.
 
-``Precedence of postfix ++ is higher than both * and prefix ++. Associativity of postfix ++ is left to right.``
+Precedence of postfix ++ is higher than both * and prefix ++. Associativity of postfix ++ is left to right.
 
-``++*p, two operators of same precedence (associativity of operators is right to left)``
+++*p, two operators of same precedence (associativity of operators is right to left)
 
-| ``++*p is treated as ++(*p)``
+::
+    ++*p is treated as ++(*p)
 
-``*p++, precedence of postfix ++ is higher than *``
+\*p++, precedence of postfix ++ is higher than *
 
-| ``*p++ is treated as *(p++)``
+::
+    *p++ is treated as *(p++)
 
-``*++p, two operators of same precedence (associativity of operators is right to left)``
+\*++p, two operators of same precedence (associativity of operators is right to left)
 
-| ``*++p is treated as *(++p)``
+::
+    *++p is treated as *(++p)
 
 .. code:: cpp
 
@@ -771,8 +846,10 @@ Difference between ++*p, *p++ and *++p
     	printf("arr[0] = %d, arr[1] = %d, *p = %d\n", arr[0], arr[1], *p);
     	
     	return 0; 
-    } 
-    Output:
+    }
+
+Output::
+
     arr[0] = 11, arr[1] = 20, *p = 11
     arr[0] = 10, arr[1] = 20, *p = 20
     arr[0] = 10, arr[1] = 20, *p = 20
@@ -810,6 +887,7 @@ The new operator denotes a request for memory allocation on the Heap. If suffici
     pointer-variable = new data-type[size];
 
 What if enough memory is not available during runtime?
+
 If enough memory is not available in the heap to allocate, the new request indicates failure by throwing an exception of type **std::bad_alloc**, unless “nothrow” is used with the new operator, in which case it returns a NULL pointer.
 
 delete operator
@@ -821,7 +899,7 @@ Since it is programmer’s responsibility to deallocate dynamically allocated me
 
 ::
 
-    delete		pointer_variable;
+    delete	pointer_variable;
     delete[]	arr_pointer_variable;
 
 
@@ -851,10 +929,12 @@ This pointer is for accessing object members when there is a local variable with
     	test obj;
     	int k = 3;
     	obj.fun1(k);
-    obj.fun2(k);
+        obj.fun2(k);
     	return 0;
     }
-    Output
+
+Output::
+
     3
     3
     
@@ -873,12 +953,15 @@ The # operator, which is generally called the stringize operator, turns the argu
     #include <stdio.h> 
     #define mkstr(s) #s 
     int main(void)  {
-    	printf(mkstr(geeksforgeeks));
+    	printf(mkstr(Learning C++));
     	return 0; 
-    } 
-    Output: geeksforgeeks
+    }
+
+Output::
+
+    Learning C++
     
-    // preprocessor turns the line printf(mkstr(geeksforgeeks)); into printf(“geeksforgeeks”);
+    // preprocessor turns the line printf(mkstr(Learning C++)); into printf(“Learning C++”);
 
 Token-pasting operator (##)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -895,8 +978,11 @@ The ‘##’ pre-processing operator performs token pasting. When a macro is exp
     	int xy = 30;
     	printf("%d", concat(x, y));
     	return 0; 
-    } 
-    Output: 30
+    }
+
+Output::
+    
+    30
     
 Sequence Point
 --------------
@@ -908,11 +994,11 @@ Sequence Point
             
                 #include <stdio.h> 
                 int f1() { 
-                	printf ("Geeks"); 
+                	printf ("Learning"); 
                 	return 1;
                 } 
                 int f2() { 
-                	printf ("forGeeks"); 
+                	printf (" C++"); 
                 	return 1;
                 }
                  

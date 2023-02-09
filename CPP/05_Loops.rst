@@ -52,19 +52,19 @@ Used as a more readable equivalent to the traditional for loop operating over a 
 
 .. code:: cpp
 
-	for(range_declaration : range_expression) {
+    for(range_declaration : range_expression) {
 		// statements to execute
 	}
 
 .. code:: cpp
 
-	std::vector<int> v = {0, 1, 2, 3, 4, 5};
+    std::vector<int> v = {0, 1, 2, 3, 4, 5};
 	for (auto i : v) {
 		std::cout << i << ' ';
 	}
 
 For each loop
--------------
+^^^^^^^^^^^
 
 Present in C++ algorithm
 
@@ -76,7 +76,7 @@ This loop is defined in the header file “algorithm”, and hence has to be inc
 
 .. code:: cpp
 
-	std::for_each (InputIterator first, InputIterator last, Function fn);
+    std::for_each (InputIterator first, InputIterator last, Function fn);
 
 Why to use for_each?
 
@@ -109,7 +109,7 @@ Tests the condition before executing the loop body
 
 .. code:: cpp
 
-	initialization expression;
+    initialization expression;
 	while (test_expression) {
 		// statements
 		// update_expression;
@@ -138,11 +138,11 @@ It is guaranteed to execute at least one time
 
 	initialization expression;
 
-	int i = 2;		// Initialization expression
+	int i = 2;          // Initialization expression
 	do {
 		printf( "Hello World\n");	
-		i++;		// update expression
-	} while (i < 1);	// test expression
+		i++;		    // update expression
+	} while (i < 1);    // test expression
 
 Nested Loop
 -----------
@@ -153,8 +153,8 @@ C++ allows at least 256 levels of nesting
 
 .. code:: cpp
 
-	for(initialization expr; condition expr; update expr) {   
-		for(initialization expr; condition expr; update expr) {
+    for(initialization expr; condition expr; update expr) {
+        for(initialization expr; condition expr; update expr) {
 			// statements to execute
 		}	
 		// statements to execute

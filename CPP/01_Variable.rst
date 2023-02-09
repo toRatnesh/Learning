@@ -3,7 +3,7 @@
 
 Variable Declaration, Definition and Scope
 ==========================================
-**Variable:** A variable in simple terms is a storage place, which has some memory allocated to it. A variable used to store some form of data. Different types of variables require different amounts of memory, and have some specific set of operations, which can be applied on them.
+**Variable:** A variable in simple terms is a storage place, which has some memory allocated to it. A variable is used to store some form of data. Different types of variables require different amounts of memory, and have some specific set of operations, which can be applied on them.
 
 Variable Declaration
 --------------------
@@ -21,7 +21,9 @@ Variable Declaration
 
 Why variable name does not start with numbers in C?
 ---------------------------------------------------
+
 The compiler has 7 phases as following:
+
 	#. Lexical Analysis
 	#. Syntax Analysis
 	#. Semantic Analysis
@@ -39,15 +41,18 @@ However, a variable like 123apple; , compiler won’t be able to decide if it’
 
 Variable Definition
 -------------------
+
 Variable definition is the part where the variable is assigned a memory location and a value.
 Most of the times, variable declaration and definition are done together.
+
 ::
 
 	char ch = ‘a’;	// declaration and definition
 	float b;	// declaration and definition
 			// b is allocated memory and assigned some garbage value
 
-.. note:: A variable that has not been given a known value (usually through initialization or assignment) is called an uninitialized variable. Using the value from an uninitialized variable is undefined behavior.
+.. note::
+        A variable that has not been given a known value (usually through initialization or assignment) is called an **uninitialized variable**. **Using the value from an uninitialized variable is undefined behavior**.
  
 | **Is it possible to have separate declaration and definition?**
 | Yes, for only declaration of a variable use keyword extern
@@ -241,10 +246,13 @@ Output::
 	x = 0x0 y = 0x80000000
 
 
-.. note:: This is a subtle and nasty bug, especially because it occurs silently, with no warning from the compilation system, and because it typically manifests itself much later in the execution of the program, far away from where the error occurred. In a large system with hundreds of modules, a bug of this kind is extremely hard to fix, especially because many programmers are not aware of how linkers work. When in doubt, invoke the linker with a flag such as the gcc -fno-common flag, which triggers an error if it encounters multiple defined global symbols.
+.. note:: 
+        
+        This is a subtle and nasty bug, especially because it occurs silently, with no warning from the compilation system, and because it typically manifests itself much later in the execution of the program, far away from where the error occurred. In a large system with hundreds of modules, a bug of this kind is extremely hard to fix, especially because many programmers are not aware of how linkers work. When in doubt, invoke the linker with a flag such as the ``gcc -fno-common`` flag, which triggers an error if it encounters multiple defined global symbols.
 
 Types of variables
 ------------------
+
 Three types of variables based on the scope of variables in C++:
  
 1. Local Variables
@@ -276,17 +284,9 @@ Three types of variables based on the scope of variables in C++:
 - Static variables are created at the start of program execution and destroyed automatically when execution ends.
 - Initialization of Static Variable is not mandatory. Its default value is 0
 - If we access the static variable like Instance variable (through an object), the compiler will show the warning message and it won’t halt the program. The compiler will replace the object name to class name automatically.
-- If we access the static variable without the class name, Compiler will automatically append the class name. (NOTE: I could not prove this point).
 
 Instance variable Vs Static variable
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Each object will have its own copy of instance variable whereas We can only have one copy of a static variable per class irrespective of how many objects we create.
-
-Changes made in an instance variable using one object will not be reflected in other objects as each object has its own copy of instance variable. In case of static, changes will be reflected in other objects as static variables are common to all object of a 
-class.
-
-We can access instance variables through object references and Static Variables can be accessed directly using class name.
 
 Syntax for static and instance variables:
 
@@ -297,13 +297,22 @@ Syntax for static and instance variables:
 		int b;        // instance variable
 	}
 
+Each object will have its own copy of instance variable whereas We can only have one copy of a static variable per class irrespective of how many objects we create.
+
+Changes made in an instance variable using one object will not be reflected in other objects as each object has its own copy of instance variable. In case of static, changes will be reflected in other objects as static variables are common to all object of a 
+class.
+
+We can access instance variables through object references and Static Variables can be accessed directly using class name.
+
+
 How to access global variable if there is a local variable with same name in C/ C++
 -----------------------------------------------------------------------------------
 
 .. list-table::
+	:header-rows: 1
 
-	*	- **In C using extern**
-		- **In C++ using scope resolution operator (::)**
+	*	- In C using extern
+		- In C++ using scope resolution operator (::)
 
 	*	-
 			.. code:: cpp
@@ -384,8 +393,8 @@ C scope rules can be covered under the following categories:
 	:widths: 15,50
 	:header-rows: 1
 
-	* - SCOPE
-	  - MEANING 
+	* - Scope
+	  - Meaning 
 	* - File Scope (Global Scope) 
 	  - | Scope of a Identifier starts at the beginning of the file and ends at the end of the file. It refers to only those Identifiers that are declared outside of all functions. The Identifiers of File scope are visible all over the file Identifiers having file scope are global. 
 	    | Note: To restrict access to the current file only, global variables can be marked as static.
@@ -410,8 +419,7 @@ Each block defines its own scope region. So what happens when we have a variable
 | No, a variable declared in a block can only be accessed inside the block and all inner blocks of this block.
 
 | **Can we access global variable if there is a local variable with same name?**
-| Check
-| `How to access global variable if there is a local variable with same name in C/ C++`_
+| Check `How to access global variable if there is a local variable with same name in C/ C++`_
 
 Initialization of global and static variables in C and C++
 ----------------------------------------------------------
@@ -497,7 +505,7 @@ An identifier implementing internal linkage is not accessible outside the transl
 
 .. code:: cpp
 
-        Animals.cpp
+        //Animals.cpp
 
         // C code to illustrate Internal Linkage 
 	#include <stdio.h> 
@@ -511,7 +519,7 @@ The above code implements static linkage on identifier animals. Consider Feed.cp
 
 .. code:: cpp
 
-	Feed.cpp
+	//Feed.cpp
 
 	// C code to illustrate Internal Linkage 
 	#include <stdio.h>
@@ -533,7 +541,7 @@ Consider Wash.cpp located in a 3rd translation unit.
 
 .. code:: cpp
 
-	Wash.cpp
+	//Wash.cpp
 
 	// C code to illustrate Internal Linkage 
 	#include <stdio.h> 
