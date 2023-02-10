@@ -613,49 +613,48 @@ A pointer pointing to a memory location that has been deleted (or freed)
 
    .. list-table::
 
-        *	-
+    *
+        -
+            .. code:: cpp
+
+                #include <stdio.h>
+                int * fun() {
+                    int x = 5;
+                    return &x;
+                }
+                int main() {
+                    int * ptr = fun();
+                    fflush(stdin);
+                    printf("%d", ``*ptr``);
+                    return 0;
+                }
+
+            Output::
             
-                .. code:: cpp
+                Compilation warning: function returns address of local variable [-Wreturn-local-addr]
 
-                    #include <stdio.h>
-                    int * fun() {
-                        int x = 5;
-                        return &x;
-                    }
-                    int main() {
-                        int * ptr = fun();
-                        fflush(stdin);
-                        printf("%d", ``*ptr``);
-                        return 0;
-                    }
-                    
-                Output::
-                
-                    Compilation warning: function returns address of local variable [-Wreturn-local-addr]
-                    
-                    Runtime Errors
-                    Segmentation Fault (SIGSEGV)
+                Runtime Errors
+                Segmentation Fault (SIGSEGV)
 
 
-            -
-            
-                .. code:: cpp
+        -
+            .. code:: cpp
 
-                    #include <stdio.h>
-                    int * fun() {
-                        static int x = 5;
-                        return &x;
-                    }
-                    int main() {
-                        int * ptr = fun();
-                        fflush(stdin);
-                        printf("%d", ``*ptr``);
-                        return 0;
-                    }
-                        
-                Output::
-                
-                    5
+                #include <stdio.h>
+                int * fun() {
+                    static int x = 5;
+                    return &x;
+                }
+                int main() {
+                    int * ptr = fun();
+                    fflush(stdin);
+                    printf("%d", ``*ptr``);
+                    return 0;
+                }
+
+            Output::
+
+                5
 
 #. **Variable goes out of scope**
 
