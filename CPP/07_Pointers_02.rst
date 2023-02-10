@@ -12,38 +12,82 @@ Pointer to const value
 
 A pointer to a const value (sometimes called a pointer to const for short) is a (non-const) pointer that points to a constant value.
 
-To declare a pointer to a const value, use the const keyword before the pointer’s data type:
+To declare a pointer to a const value, use the const keyword before the pointer’s data type
 
 .. code:: cpp
 
-    const int x{ 5 };
-    const int* ptr { &x }; // ptr points to const int x
-    const int y{ 6 };
-    ptr = &y; // okay: ptr now points at const int y
+	#include <stdio.h>
+	int main() {
+		const int x = 5;
+		const int* ptr = &x;    // ptr points to const int x
+		printf("*ptr %d\n", *ptr);
+		//*ptr = 6;   // error: assignment of read-only location '* ptr'
+
+		const int y = 6;
+		ptr = &y; // okay: ptr now points at const int y
+		printf("*ptr %d\n", *ptr);
+		return 0;
+	}
+
+Output::
+
+	*ptr 5
+	*ptr 6
 
 Const pointers
 ^^^^^^^^^^^^^^
 
 We can also make a pointer itself constant. A const pointer is a pointer whose address can not be changed after initialization.
 
-To declare a const pointer, use the const keyword after the asterisk in the pointer declaration:
+To declare a const pointer, use the const keyword after the asterisk in the pointer declaration
 
 .. code:: cpp
 
-    int x{ 5 };
-    int y{ 6 };
-    int* const ptr { &x }; // okay: the const pointer is initialized to the address of x
-    ptr = &y; // error: once initialized, a const pointer can not be changed.
+	#include <stdio.h>
+	int main() {
+    	int x = 5;
+    	int * const ptr = &x; // okay: the const pointer is initialized to the address of x
+    	printf("x: %d, *ptr: %d\n", x , *ptr);
+    
+    	x = 7;
+    	printf("x: %d, *ptr: %d\n", x , *ptr);
+	
+	    int y = 6;
+	    //ptr = &y; //error: assignment of read-only variable 'ptr'
+	
+	    return 0;
+	}
+
+Output::
+
+	x: 5, *ptr: 5
+	x: 7, *ptr: 7
+
 
 Const pointer to a const value
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To declare a const pointer to a const value by using the const keyword both before the type and after the asterisk:
+To declare a const pointer to a const value by using the const keyword both before the type and after the asterisk
 
 .. code:: cpp
 
-    int value { 5 };
-    const int* const ptr { &value }; // a const pointer to a const value
+	#include <stdio.h>
+	int main() {
+    	int x = 5;
+    	const int* const ptr = &x; // a const pointer to a const value
+    	printf("x: %d, *ptr: %d\n", x , *ptr);
+    
+    	//*ptr=7; // error: assignment of read-only location '*(const int *)ptr'
+
+    	int cx = 8;
+    	//ptr = &cx;  // error: assignment of read-only variable 'ptr'
+
+    	return 0;
+	}
+
+Output::
+
+	x: 5, *ptr: 5
 
 A const pointer to a const value can not have its address changed, nor can the value it is pointing to be changed through the pointer. It can only be dereferenced to get the value it is pointing at.
 
@@ -55,55 +99,55 @@ A const pointer to a const value can not have its address changed, nor can the v
 - available as a local variable within the body of all nonstatic functions
 - ‘this’ pointer is not available in static member functions as static member functions can be called without any object (with class name)
 - For a class M
-	- 'this' pointer is 'M * const'
-	- 'this' pointer is 'const M * const' if a member function of M is declared as const
+	- 'this' pointer is 'M * const this'
+	- 'this' pointer is 'const M * const this' if a member function of M is declared as const
 
 
 Use of 'this' pointer
----------------------
+^^^^^^^^^^^^^
 
-1. When local variable’s name is same as member’s name
+#. When local variable’s name is same as member’s name
 
-.. code:: cpp
+   .. code:: cpp
 
-	void setX (int x) {
-		// The 'this' pointer is used to retrieve the object's x
-		// hidden by the local variable 'x'
-		this->x = x;
-	}
+    void setX (int x) {
+        // The 'this' pointer is used to retrieve the object's x
+        // hidden by the local variable 'x'
+        this->x = x;
+    }
 
-2. To return reference to the calling object
+#. To return reference to the calling object
 
-.. code:: cpp
+   .. code:: cpp
 
-	Test& Test::func () {
-		// Some processing
-		return *this; 
-	}
+    Test& Test::func () {
+        // Some processing
+        return *this;
+    }
 
-3. Method chaining
+#. Method chaining
 
-When a reference to a local object is returned, the returned reference can be used to chain function calls on a single object
+   When a reference to a local object is returned, the returned reference can be used to chain function calls on a single object
 
-Example
+   Example
 
-::
+   .. code:: cpp
 
-	positionObj->setX(15)->setY(16)->setZ(17);
+    positionObj->setX(15)->setY(16)->setZ(17);
+    
+   The methods setX, setY and setZ are chained to the object positionObj
+   This is possible because each method return \*this pointer
+   This is equivalent to
 
-The methods setX, setY and setZ are chained to the object positionObj
-This is possible because each method return \*this pointer
-This is equivalent to
-positionObj->setX(15)
-positionObj->setY(16)
-positionObj->setZ(17)
+   positionObj->setX(15)
+   positionObj->setY(16)
+   positionObj->setZ(17)
 
-.. code:: cpp
+   .. code:: cpp
 
-	#include<iostream> 
-	using namespace std; 
-
-	class Test { 
+    #include <iostream>
+    using namespace std;
+    class Test { 
 		private: int x; int y; 
 		
 		public: 
@@ -111,26 +155,24 @@ positionObj->setZ(17)
 		Test & setX(int a) { x = a; return *this; } 
 		Test & setY(int b) { y = b; return *this; } 
 		void print() { cout << "x = " << x << " y = " << y << endl; } 
-	}; 
-
-	int main() { 
-		Test obj1(5, 5); 
-
-		// Chained function calls.  All calls modify the same object 
-		// as the same object is returned by reference 
-		obj1.setX(10).setY(20); 
-
-		obj1.print(); 
-		return 0; 
-	}
-
-Output::
+    };
+    
+    int main() {
+        Test obj1(5, 5);
+        // Chained function calls.  All calls modify the same object 
+        // as the same object is returned by reference 
+        obj1.setX(10).setY(20);
+        obj1.print();
+        return 0;
+    }
+    
+   Output::
 
 	x = 10 y = 20
 
-4. Very important when operators are overloaded
+#. Very important when operators are overloaded
 
-Exercise
+**Exercise**
 
 Predict the output of following programs. If there are compilation errors, then fix them.
 
@@ -161,7 +203,7 @@ Output::
 
 .. code:: cpp
 
-	#include<iostream> 
+	#include <iostream> 
 	using namespace std; 
 
 	class Test { 
@@ -185,7 +227,7 @@ Output::
 
 .. code:: cpp
 
-	#include<iostream> 
+	#include <iostream> 
 	using namespace std; 
 
 	class Test { 
@@ -210,7 +252,7 @@ Output::
 
 .. code:: cpp
 
-	#include<iostream> 
+	#include <iostream> 
 	using namespace std; 
 
 	class Test { 
@@ -236,22 +278,25 @@ Output::
 	Abort signal from abort(3) (SIGABRT)
 
 Type of this pointer in C++
----------------------------
+^^^^^^^^^^^^^^
 
 This pointer is passed as a hidden argument to all non-static member function calls
 
 Type of this pointer depends upon function declaration
 
-const X*		if the member function of a class X is declared const
-volatile X*		if the member function is declared volatile
-const volatile X*	if the member function is declared const volatile
+
+const X*          if the member function of a class X is declared const
+
+volatile X*       if the member function is declared volatile
+
+const volatile X* if the member function is declared const volatile
 
 .. code:: cpp
 
-	class X {
+    class X {
 		void fun() const { ... } 
 	}
-	// 'this' is const X*
+    // 'this' is const X*
 
 .. code:: cpp
 
@@ -269,13 +314,15 @@ const volatile X*	if the member function is declared const volatile
 
 
 ‘delete this’ in C++
----------------------
+^^^^^^^^^^^^^^
 
-- Ideally delete operator should not be used for this pointer
-- Deleting ‘this’ leaves it as a ‘dangling pointer’ which leads to undefined behaviour if it is accessed
-- Deleting ‘this’ is only valid if it is guaranteed 
-	- That the this pointer is never dereferenced gain
-	- That the object was allocated using ‘new’ operator
+Ideally **delete operator should not be used for this pointer**
+
+Deleting ‘this’ leaves it as a ‘dangling pointer’ which leads to undefined behaviour if it is accessed
+
+Deleting ‘this’ is only valid if it is guaranteed 
+    - That the this pointer is never dereferenced gain
+    - That the object was allocated using ‘new’ operator
 
 Example
 
@@ -323,12 +370,16 @@ Example
 	// must ensure that this always points to an object on the heap
 	// must ensure that the deleted object is never dereferenced again
 
-.. note:: best is not to use 'delete this' at all
+.. note::
+
+    - best is not to use 'delete this' at all
 
 Understanding ‘nullptr’ in C++
 ------------------------------
 
-.. note:: NULL and nullptr are different
+.. note::
+
+    - NULL and nullptr are different
 
 .. code:: cpp
 
@@ -354,11 +405,11 @@ Output::
 
 NULL is typically defined as (void \*)0 and conversion of NULL to integral types is allowed. So the function call fun(NULL) becomes ambiguous.
 
-::
+.. code:: cpp
 
 	int x = NULL;
-	C	Compilation warning: initialization makes integer from pointer without a cast [-Wint-conversion]
-	C++	Compilation warning: converting to non-pointer type 'int' from NULL [-Wconversion-null]
+	//C	Compilation warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+	//C++	Compilation warning: converting to non-pointer type 'int' from NULL [-Wconversion-null]
 
 **How does nullptr solve the problem?**
 
@@ -366,12 +417,14 @@ nullptr is a keyword that can be used at all places where NULL is expected.
 Like NULL, nullptr is implicitly convertible and comparable to any pointer type. 
 Unlike NULL, it is not implicitly convertible or comparable to integral types.
 
-::
+.. code:: cpp
 
 	int x = nullptr;
-	Compilation error: cannot convert 'std::nullptr_t' to 'int' in initialization
+	//Compilation error: cannot convert 'std::nullptr_t' to 'int' in initialization
 
-.. note:: nullptr is convertible to bool
+.. note::
+
+    - nullptr is convertible to bool
 
 .. code:: cpp
 
@@ -426,7 +479,7 @@ Output::
 	x is null
 
 delete nullptr
---------------
+^^^^^^^^^^^^
 
 deleting nullptr in C++ is valid
 
@@ -474,54 +527,45 @@ We can have shared code which would be used by all platforms and then different 
 
 .. code:: cpp
 
-	/* === image.h === */
+	// === image.h ===
+	// class provides API
+	// different platform can implement these operations in different way
 	class CImage {
-
 		public:
 			CImage();
 			~CImage();
-			
 			struct SImageInfo * pImageInfo;
 			void rotate(double angle);
 			void scale(double scaleFactor x, double scaleFactor y);
 			void move(int toX, int toY);
-			
 		private:
 			void InitImageInfo();		
 	};
-	// class provides API
-	// different platform can implement these operations in different way
 
-
-	/* === image.cpp === */
-	CImage::CImage()	{	InitImageInfo();	}
-	CImage::~CImage()	{	/* destroy object */	}
+	// === image.cpp ===
 	// constructor and destructor for CImage
+	CImage::CImage()	{ InitImageInfo();		}
+	CImage::~CImage()	{ /* destroy object */	}
 
-
-	/* === image_windows.cpp === */
-	struct SImageInfo {
-		// windows specific dataset
-	}
+	// === image_windows.cpp ===
+	struct SImageInfo { /* windows specific dataset */ };
 
 	void CImage::InitImageInfo() {
 		pImageInfo = new SImageInfo;
 		// initialize windows specific info
 	}
 
-	void CImage::rotate()	{	/* windows specific SImageInfo */	}
+	void CImage::rotate() { /* windows specific SImageInfo */ }
 
-
-	/* === image_apple.cpp === */
-	struct SImageInfo	{	/* apple specific dataset */	};
+	// === image_apple.cpp ===
+	struct SImageInfo {	/* apple specific dataset */ };
 
 	void CImage::InitImageInfo() {
 		pImageInfo = new SImageInfo;
 		// initialize apple specific info
 	}
 
-	void CImage::rotate()	{	/* apple specific SImageInfo */	}
-
+	void CImage::rotate() {	/* apple specific SImageInfo */ }
 
 Explanation:
 

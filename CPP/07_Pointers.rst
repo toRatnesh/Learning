@@ -61,6 +61,7 @@ used for two things
         Address of Var = 0x7ffe547f2d7c
    
    ::
+
     (a)	int	*p;
     (b)	int*	p;
     (c)	int  * 	p;
@@ -80,11 +81,13 @@ Pointer Expressions and Pointer Arithmetic
 A pointer may be
 
 - Incremented ( ++ )
-- Decremented ( — )
+- Decremented ( -- )
 - An integer may be added to a pointer ( + or += )
 - An integer may be subtracted from a pointer ( – or -= )
 
-.. note:: Pointer arithmetic can be performed only on an array
+.. note:: 
+
+    - Pointer arithmetic can be performed only on an array
 
 .. code:: cpp
 
@@ -151,10 +154,11 @@ Pointers and Multidimensional Arrays
 
 int nums[2][3]  =  { {16, 18, 20}, {25, 26, 27} };
 
-``In general, nums[i][j] is equivalent to *(*(nums+i)+j)``
+In general, **nums[i][j] is equivalent to \*(\*(nums+i)+j)**
 
 
 .. list-table::
+    :header-rows: 1
 
 	*	-	Pointer notation	
 		-	Array notation		
@@ -217,7 +221,7 @@ Why C treats array parameters as pointers?
 
 Array parameters treated as pointers because of efficiency
 
-It is inefficient to copy the array data in terms of both memory and time; and most of the times
+It is inefficient to copy the array data in terms of both memory and time
 
 The following two definitions of function look different, but to the compiler they mean exactly the same thing. It’s preferable to use whichever syntax is more accurate for readability.
 
@@ -264,23 +268,27 @@ Because compiler converts the array operation in pointers before accessing the a
 Pointer vs Array in C
 ---------------------
 
-Most of the time, pointer and array accesses can be treated as acting the same, the major exceptions being:
+Most of the time, pointer and array accesses can be treated as acting the same, the major exceptions being
 
 #. **The sizeof() operator**
+
    - sizeof(array) returns the amount of memory used by all elements in array
-     - sizeof(pointer) only returns the amount of memory used by the pointer variable itself
+   - sizeof(pointer) only returns the amount of memory used by the pointer variable itself
 
 #. **The & operator**
+
    - &array is an alias for &array[0] and returns the address of the first element in array
    - &pointer returns the address of pointer
 
 #. **A string literal initialization of a character array**
+
    - ``char array[] = “abc”`` sets the first four elements in array to ‘a’, ‘b’, ‘c’, and ‘\0’
    - ``char *pointer = “abc”`` sets pointer to the address of the “abc” string (which may be stored in read-only memory and thus unchangeable)
 
 #. **Pointer variable can be assigned a value whereas array variable cannot**
-   
+
    .. code:: cpp
+
     int a[10];
     int *p;
     p=a;		/* legal */
@@ -296,7 +304,7 @@ Most of the time, pointer and array accesses can be treated as acting the same, 
 Array Decay
 -----------
 
-The loss of type and dimensions of an array is known as decay of an array.
+The **loss of type and dimensions** of an array is known as decay of an array.
 
 This generally occurs when we pass the array into function by value or pointer. 
 
@@ -351,18 +359,18 @@ Send the array into functions by reference. This prevents conversion of array in
 
 .. code:: cpp
 
-    #include<iostream> 
-	using namespace std;
-
-	// by passing array by reference 
-	void fun(int (&p)[7]) { 
+    #include <iostream>
+    using namespace std;
+    
+    // by passing array by reference
+    void fun(int (&p)[7]) { 
 		// Printing size of array 
 		cout << "Modified size of array by "
 				"passing by reference: "; 
-		cout << sizeof(p) << endl; 
-	} 
-	  
-	int main() { 
+		cout << sizeof(p) << endl;
+    }
+
+    int main() { 
 		int a[7] = {1, 2, 3, 4, 5, 6, 7,}; 
 		
 		// Printing original size of array 
@@ -371,8 +379,8 @@ Send the array into functions by reference. This prevents conversion of array in
 		
 		fun(a);	// Calling function by reference 
 		
-		return 0; 
-	} 
+		return 0;
+    } 
 
 Output::
 
@@ -428,10 +436,10 @@ In case, if we don’t have address to be assigned to a pointer, then we can sim
 
 	#include <stdio.h> 
 	int main() {
-		int *ptr = NULL;
-		printf("The value of ptr is %p", ptr); 
-	    return 0; 
-	} 
+        int *ptr = NULL;
+        printf("The value of ptr is %p", ptr);
+        return 0;
+    }
 
 Output::
 
@@ -459,7 +467,7 @@ C standards say about null pointer. From C11 standard clause 6.3.2.3,
 
 “An integer constant expression with the value 0, or such an expression cast to type ``void *``, is called a null pointer constant. If a null pointer constant is converted to a pointer type, the resulting pointer, called a null pointer, is guaranteed to compare unequal to a pointer to any object or function.”
 
-Since NULL is defined as ``((void *)0)``, we can think of NULL as a special pointer and its size would be equal to any pointer .
+Since **NULL is defined as ((void \*)0)**, we can think of NULL as a special pointer and its size would be equal to any pointer.
 
 As per C11 standard “The void type comprises an empty set of values, it is an incomplete object type that cannot be completed”
 
@@ -470,7 +478,7 @@ Basically, it means that void is an incomplete type whose size doesn’t make an
 .. note::
 
     - Always initialize pointer variable as NULL
-	- Always perform NULL check before accessing any pointer
+    - Always perform NULL check before accessing any pointer
 
 .. code:: cpp
 
@@ -478,6 +486,8 @@ Basically, it means that void is an incomplete type whose size doesn’t make an
 	int main() {
 		printf("%zu\n",sizeof(void));
 		printf("%zu\n",sizeof(void *));
+		printf("%zu\n",sizeof(NULL));
+
 		printf("%c\n",NULL);
 		//printf("%s\n",NULL);
 		// This line causes SIGSEGV in C11 and C++
@@ -488,10 +498,11 @@ Basically, it means that void is an incomplete type whose size doesn’t make an
 
 Output::
 
-	1
-	8
+    1
+    8
+    8
 
-	0.000000
+    0.000000
 
 Void Pointer
 ^^^^^^^^^^^^
@@ -515,10 +526,12 @@ Void Pointer
 
 .. code:: cpp
 
-	int* ptr = malloc(sizeof(int) * 10);
+    int* ptr = malloc(sizeof(int) * 10);
 
 C	- no error
+
 C++	- Error invalid conversion from ‘void*’ to ‘int*’
+
 C++	- Explicit typecast is necessary in C++
 
 .. code:: cpp
@@ -530,8 +543,7 @@ Correct in both C and C++
 .. note::
 
     - Void pointers cannot be dereferenced
-	- C standard does not allow pointer arithmetic with void pointers
-		(in GNU C it is allowed by considering the size of void is 1)
+    - C standard does not allow pointer arithmetic with void pointers (in GNU C it is allowed by considering the size of void is 1)
 
 .. code:: cpp
 
@@ -588,6 +600,7 @@ A pointer pointing to a memory location that has been deleted (or freed)
 3 different ways where Pointer acts as dangling pointer
 
 #. **De-allocation of memory**
+
    .. code:: cpp
     
     int * ptr = (int*) malloc (sizeof(int));
@@ -595,52 +608,59 @@ A pointer pointing to a memory location that has been deleted (or freed)
     ptr = NULL;		// no more dangling
 
 #. **Function Call**
+
    // Pointer pointing to local variable becomes dangling
 
    .. list-table::
 
-    *	-
-			.. code:: cpp
-
-				#include <stdio.h>
-				int * fun() {
-					int x = 5;
-					return &x;
-				}
-				int main() {
-					int * ptr = fun();
-					fflush(stdin);
-					printf("%d", ``*ptr``);
-					return 0;
-				}
+        *	-
             
-            Runtime Errors
+                .. code:: cpp
 
-				Segmentation Fault (SIGSEGV)
-
-				Compilation warning: function returns address of local variable [-Wreturn-local-addr]
-
-		-
-			.. code:: cpp
-
-				#include <stdio.h>
-				int * fun() {
-					static int x = 5;
-					return &x;
-				}
-				int main() {
-					int * ptr = fun();
-					fflush(stdin);
-					printf("%d", ``*ptr``);
-					return 0;
-				}
+                    #include <stdio.h>
+                    int * fun() {
+                        int x = 5;
+                        return &x;
+                    }
+                    int main() {
+                        int * ptr = fun();
+                        fflush(stdin);
+                        printf("%d", ``*ptr``);
+                        return 0;
+                    }
+                    
+                Output::
                 
-            Output::
+                    Compilation warning: function returns address of local variable [-Wreturn-local-addr]
+                    
+                    Runtime Errors
+                    Segmentation Fault (SIGSEGV)
+
+
+            -
             
-                5
+                .. code:: cpp
+
+                    #include <stdio.h>
+                    int * fun() {
+                        static int x = 5;
+                        return &x;
+                    }
+                    int main() {
+                        int * ptr = fun();
+                        fflush(stdin);
+                        printf("%d", ``*ptr``);
+                        return 0;
+                    }
+                        
+                Output::
+                
+                    5
 
 #. **Variable goes out of scope**
+
    .. code:: cpp
+
     void main() {
         int * ptr;
 		{
@@ -678,7 +698,7 @@ In case of far pointers
 
 It used to be a good question 30 years ago.
 
-Right know you don't have to know anything about near and far pointers; but if you still use a 16-bit compiler, select 'Large Model' (or 'Huge Model'), and forget 'near' and 'far'.
+Right now you don't have to know anything about near and far pointers; but if you still use a 16-bit compiler, select 'Large Model' (or 'Huge Model'), and forget 'near' and 'far'.
 
 Function Pointer in C
 ----------------------
@@ -712,10 +732,10 @@ How to declare a pointer to a function?
 
 .. code:: cpp
 
-	int foo(int);			// function with one int argument
-	int (*fun_ptr)(int);	// pointer to function
+	int foo(int);         // function with one int argument
+	int (*fun_ptr)(int);  // pointer to function
 
-	int * fun_ptr(int);		// WRONG
+	int * fun_ptr(int);   // WRONG
 
 	// not a function pointer because operator () will take priority
 
@@ -728,7 +748,7 @@ NOTES about function pointer
 
    .. code:: cpp
 
-    void (*fun_ptr)(int) = &fun;    // or
+    void (*fun_ptr)(int) = &fun;
     void (*fun_ptr)(int) = fun;     // & removed
 
 #. Like normal pointers, we can have an array of function pointers
@@ -743,6 +763,7 @@ NOTES about function pointer
 #. Like normal data pointers, a function pointer can be passed as an argument and can also be returned from a function
 
    .. code:: cpp
+
     #include <stdio.h>
     void fun1() { printf("Fun1\n"); } 
     void fun2() { printf("Fun2\n"); }
@@ -754,8 +775,8 @@ NOTES about function pointer
         wrapper(fun2);
         return 0;
     }
-
-Output::
+    
+   Output::
 
     Fun1
     Fun2
