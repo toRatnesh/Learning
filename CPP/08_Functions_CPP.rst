@@ -43,7 +43,7 @@ Function
 		return 0;
 	}
 
-Output:::
+Output::
 
 	m is 20
 
@@ -82,72 +82,69 @@ We cannot return values but there is something we can surely return from void fu
 
 #. **A void function can do return**
 
-	We can simply write return statement in a void fun(). 
+   We can simply write return statement in a void fun().
 
-	In-fact it is considered a good practice (for readability of code) to write return; statement to indicate end of function.
+   In-fact it is considered a good practice (for readability of code) to write return; statement to indicate end of function.
 
-	.. code:: cpp
+   .. code:: cpp
 
-		//In C and C++
+    //In C and C++
+    #include <stdio.h>
+    void fun() {
+        printf("Inside void function\n");
+        return;				// We can write return in void
+    }
+    int main() {
+        fun();
+        //int retval = fun();	// CE: void value not ignored as it ought to be
+        return 0;
+    }
 
-		#include <stdio.h>
-		void fun() {
-		   printf("Inside void function\n"); 
-		   return;				// We can write return in void
-		}
-		int main() {
-		   fun();
-		   //int retval = fun();	// CE: void value not ignored as it ought to be
-		   return 0;
-		}
-
-	Output:::
+   Output:::
 
 		Inside void function
 
 #. **A void fun() can return another void function**
 
-	.. code:: cpp
+   .. code:: cpp
 
-		//In C and C++
+    //In C and C++
+    #include <stdio.h>
+    void work() { 	printf("Inside void function work\n"); }
+    void test() {
+        printf("Inside void function test\n");
+        return work();				// return void function
+    }
+    int main() {
+        test();
+        return 0;
+    }
 
-		#include <stdio.h>
-		void work() { 	printf("Inside void function work\n"); }
-		void test() {
-			printf("Inside void function test\n");
-		return work();				// return void function
-		}
-		int main() {
-		    test();
-		    return 0;
-		}
-
-	Output::
+   Output::
 
 		Inside void function test
 		Inside void function work
 
 #. **A void() can return a void value**
 
-	A void() cannot return a value that can be used. 
+   A void() cannot return a value that can be used.
 
-	But it can return a value which is void without giving an error.
+   But it can return a value which is void without giving an error.
 
-	.. code:: cpp
+   .. code:: cpp
+    //In C and C++
+    #include <stdio.h>
+    void test() {
+        printf("Inside void function test\n");  
+        return (void)"Void value";		// returning void value	
+    }
+    int main() {
+        test();
+        return 0;
+    }
+    
+   Output::
 
-		//In C and C++
-
-		#include <stdio.h>
-		void test() {
-		    printf("Inside void function test\n");  
-		    return (void)"Void value";		// returning void value	
-		}
-		int main() {  
-		    test();
-		    return 0;
-		}
-
-	Output::
 	Inside void function test
 
 Trailing return type (since C++11)
@@ -155,14 +152,14 @@ Trailing return type (since C++11)
 
 Trailing return type, useful if the return type depends on argument names, such as 
 
-::
+.. code:: cpp
 
 	template <class T, class U> 
 	auto add(T t, U u) -> decltype(t + u); 
 
 or is complicated, such as in 
 
-::
+.. code:: cpp
 
 	auto fpif(int)->int(*)(int)
 
@@ -194,8 +191,8 @@ Static variable inside a function have local scope but lifetime till execution o
 	Lifetime is a runtime property, and scope is a compile-time property.
 
 **Best practice**
-	
-	Define your local variables as close to their first use as reasonable.
+
+Define your local variables as close to their first use as reasonable.
 
 Forward declarations and definitions
 ------------------------------------
@@ -206,7 +203,7 @@ To write a forward declaration for a function, we use a declaration statement ca
 
 Here’s a function prototype for the add function:
 
-::
+.. code:: cpp
 
 	int add(int x, int y); // function prototype includes return type, name, parameters, and semicolon.  No function body!
 
@@ -239,11 +236,13 @@ In C++, any name that is not defined inside a class, function, or a namespace is
 Accessing an identifier that is defined in a namespace
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Scope resolution operator :: (Explicit namespace qualifier)**
+Scope resolution operator :: (Explicit namespace qualifier)
+~~~~~~~~~~~~~
 The :: symbol is an operator called the scope resolution operator. The identifier to the left of the :: symbol identifies the namespace that the name to the right of the :: symbol is contained within. If no identifier to the left of the :: symbol is provided, the global namespace is assumed.
 **Best practice:** Use explicit namespace prefixes to access identifiers defined in a namespace.
 
-**using directive**
+using directive
+~~~~~~~~~~~
 
 A using directive tells the compiler to check a specified namespace when trying to resolve an identifier that has no namespace prefix. So in the above example, when the compiler goes to determine what identifier cout is, it will check both locally (where it is undefined) and in the std namespace (where it will match to std::cout).
 
@@ -251,13 +250,14 @@ A using directive tells the compiler to check a specified namespace when trying 
 
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std; // this is a using directive telling the compiler to check the std namespace when resolving identifiers with no prefix
-	int main() {
-	    std::cout << "Hello world!\n"; // when we say cout, we mean the cout defined in the std namespace
-	    cout << "Hello world!\n"; // cout has no prefix, so the compiler will check to see if cout is defined locally or in namespace std
-	    return 0;
-	}
+    #include <iostream>
+    using namespace std;    // this is a using directive telling the compiler to 
+                            // check the std namespace when resolving identifiers with no prefix
+    int main() {
+        std::cout << "Hello world!\n"; // when we say cout, we mean the cout defined in the std namespace
+        cout << "Hello world!\n"; // cout has no prefix, so the compiler will check to see if cout is defined locally or in namespace std
+        return 0;
+    }
 
 Default Arguments in C++
 ------------------------
@@ -282,6 +282,9 @@ One interesting note: **Default parameters won’t work for functions called thr
 	    printf("sum : %d\n",sum(10, 15, 25, 30));
 	    return 0;
 	}
+
+Output::
+
 	G:\coding\test>g++ -Wall -g cppmain.cpp -o cppout
 	G:\coding\test>cppout.exe
 	sum : 25
@@ -408,15 +411,13 @@ we can have pointers to functions
 	 
 	int main() {
 		void (*fun_ptr)(int) = &fun;	// fun_ptr is a pointer to function fun()
-		
-	/* The above line is equivalent of following two
-	void (*fun_ptr)(int);
-	fun_ptr = &fun; 
-	*/
-		
-	(*fun_ptr)(10);		// Invoking fun() using fun_ptr
-		
-	return 0;
+        
+        /* The above line is equivalent of following two
+            void (*fun_ptr)(int);
+            fun_ptr = &fun; */
+        
+        (*fun_ptr)(10);		// Invoking fun() using fun_ptr
+        return 0;
 	}
 
 Output::
@@ -428,17 +429,17 @@ Following are some interesting facts about function pointers.
 #. Unlike normal pointers, a function pointer points to code, not data. Typically a function pointer stores the start of executable code.
 #. Unlike normal pointers, we do not allocate de-allocate memory using function pointers.
 #. A function’s name can also be used to get functions’ address. For example, in the below program, we have removed address operator ‘&’ in assignment.
-	
-	.. code:: cpp
 
-		void (*fun_ptr)(int) = fun;	// & removed
-		fun_ptr(10);			// * removed	// implicit dereference
+   .. code:: cpp
+
+    void (*fun_ptr)(int) = fun;	// & removed
+    fun_ptr(10);		        // * removed	// implicit dereference
 
 #. Like normal pointers, we can have an array of function pointers. Below example in point 5 shows syntax for array of pointers.
 
-	.. code:: cpp
+   .. code:: cpp
 
-	void (*fun_ptr_arr[])(int, int) = {add, subtract, multiply};
+   void (*fun_ptr_arr[])(int, int) = {add, subtract, multiply};
 
 #. Function pointer can be used in place of switch case.
 #. Like normal data pointers, a function pointer can be passed as an argument and can also be returned from a function.
@@ -451,38 +452,38 @@ typedef or type aliases
 
 typedefs can be used to make pointers to functions look more like regular variables:
 
-::
+.. code:: cpp
 
 	typedef bool (*validateFcn)(int, int);
 
 This defines a typedef called “validateFcn” that is a pointer to a function that takes two ints and returns a bool.
 Now instead of doing this:
 
-::
+.. code:: cpp
 
-	bool validate(int x, int y, bool (*fcnPtr)(int, int));	// ugly
+	bool validate(int x, int y, bool (*fcnPtr)(int, int));  // ugly
 
 You can do this:
 
-::
+.. code:: cpp
 
-	bool validate(int x, int y, validateFcn pfcn)		// clean
+	bool validate(int x, int y, validateFcn pfcn);  // clean
 
 Which reads a lot nicer! However, the syntax to define the typedef itself can be difficult to remember.
 
-**In C++11,** you can instead use type aliases to create aliases for function pointers types:
+**In C++11,** you can instead use type aliases to create aliases for function pointers types
 
-::
+.. code:: cpp
 	
-	using validateFcn = bool(*)(int, int);		// type alias
+	using validateFcn = bool(*)(int, int);      // type alias
 
 This reads more naturally than the equivalent typedef, since the name of the alias and the alias definition are placed on opposite sides of the equals sign.
 
-Using a type alias is identical to using a typedef:
+Using a type alias is identical to using a typedef
 
-::
+.. code:: cpp
 
-	bool validate(int x, int y, validateFcn pfcn)	// clean
+	bool validate(int x, int y, validateFcn pfcn);  // clean
 
 Using std::function in C++11
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -503,8 +504,8 @@ Introduced in C++11, an alternate method of defining and storing function pointe
 	int goo() {    return 6; }
 
 	int main() {
-	    std::function<int()> fcnPtr; 
-	// declare function pointer that returns an int and takes no parameters
+	    std::function<int()> fcnPtr;
+        // declare function pointer that returns an int and takes no parameters
 	    fcnPtr = goo; // fcnPtr now points to function goo
 	    std::cout << fcnPtr(); // call the function just like normal
 	 

@@ -430,7 +430,7 @@ delete nullptr
 
 deleting nullptr in C++ is valid
 
-`https://en.cppreference.com/w/cpp/language/delete`_
+https://en.cppreference.com/w/cpp/language/delete
 
 .. code:: cpp
 
@@ -465,6 +465,7 @@ Its safe to assign NULL to an opaque pointer.
 can't know the data contained in STest structure by looking at the definition.
 
 **Why opaque pointer?**
+
 When we deal with shared code where implementation of DS is prepared at compilation unit
 
 Example: 

@@ -38,7 +38,7 @@ Function Declaration
 
 - Function declaration tells compiler about number of parameters function takes, data-types of parameters and return type of function. 
 - Putting parameter names in function declaration is optional in function declaration, but it is necessary to put them in definition. 
-::
+.. code:: cpp
 
 	int fun(char, int);		(parameter names are not there in below declarations)
 
@@ -105,6 +105,7 @@ However, in C, we can use pointers to get the effect of pass by reference.
 	    printf("Inside main after fun(x) x = %d\n", x);
 	    return 0;
 	}
+
 Output::
 
 	Inside main before fun(x) x = 20
@@ -350,7 +351,7 @@ https://gcc.gnu.org/onlinedocs/gcc-4.7.2/gcc/Function-Attributes.html
 Return statement vs exit() in main()
 ------------------------------------
 
-Check in `08_Functions_CPP.rst`_
+Check in `Return statement vs exit() in main() <08_Functions_CPP.rst#return-statement-vs-exit-in-main>_`
 
 
 How to Count Variable Numbers of Arguments in C?
@@ -371,7 +372,7 @@ For example, a function call like below may very well behave differently from on
 
 	void func (int, int);
 	int i = 2;
-	func (i++, i++);
+    func (i++, i++);
 
 There is no guarantee (in either the C or the C++ standard language definitions) that the increments will be evaluated in any particular order. 
 
@@ -388,7 +389,7 @@ One of the approach is as follows.
 
 Have a void * type of pointer as an argument to the function and another argument telling the actual data type of the first argument that is being passed.
 
-::
+.. code:: cpp
 
 	int foo(void * arg1, int arg2);
 
@@ -397,9 +398,9 @@ Suppose, arg2 can be interpreted as follows.
 1 = Struct2 type variable etc. 
 Here Struct1 and Struct2 are user defined struct types.
 
-::
+.. code:: cpp
 
-	foo(arg1, 0);   /*Here, arg1 is pointer to struct type Struct1 variable*/
+    foo(arg1, 0);   /*Here, arg1 is pointer to struct type Struct1 variable*/
 	foo(arg1, 1);    /*Here, arg1 is pointer to struct type Struct2 variable*/
 
 .. code:: cpp
@@ -441,6 +442,7 @@ Here Struct1 and Struct2 are user defined struct types.
 	}
 
 Output::
+
 	1
 	Ratnesh
 
@@ -531,6 +533,9 @@ Another reason for making functions static can be reuse of the same function nam
 		printf("inside fun1\n");
 		return 0;
 	}
+
+Output::
+
 	linux$
 	linux$gcc -Wall  cmain.c cfun1.c -o cout
 	cmain.c:3:12: warning: 'fun1' used but never defined
@@ -578,6 +583,8 @@ To use static function defined in different file, use function pointer
 		return 0;
 	}
 	int (*funptr2)(void) = &fun1;
+
+Output::
 
 	linux$gcc -Wall  cmain.c cfun1.c cfun2.c -o cout
 	linux$./cout
@@ -700,7 +707,7 @@ C language standard (i.e. C99 and C11) defines a predefined identifier as follow
 
 “The identifier __func__ shall be implicitly declared by the translator as if, immediately following the opening brace of each function definition, the declaration
 
-::
+.. code:: cpp
 
 	static const char __func__[] = “function-name”;
 
@@ -719,7 +726,9 @@ C compiler implicitly adds __func__ in every function so that it can be used in 
 	    printf("In file:%s, function:%s() line:%d date:%s time:%s",__FILE__,__func__,__LINE__,__DATE__,__TIME__);
 	    return 0;
 	}
-	Output:
+
+Output::
+
 	foo
 	bar
 	In file:cmain.c, function:main() line:15 date:Dec 18 2017 time:01:32:13
@@ -735,6 +744,9 @@ You might get error but C standard says “undefined behaviour” if someone exp
 		printf("%d",__func__);
 		return 0;
 	}
+
+Output::
+
 	linux$gcc -Wall -g cmain.c -o cout
 	cmain.c:2:5: error: expected identifier or '(' before '__func__'
 	 int __func__ = 10;
@@ -767,6 +779,9 @@ If the programmer tries to return any value from that function which is declared
 		printf("NOT over till now\n");
 		return 0;
 	}
+
+Output::
+
 	linux$gcc -Wall -g cmain.c -o cout
 	cmain.c: In function 'view':
 	cmain.c:8:1: warning: 'noreturn' function does return
@@ -805,6 +820,8 @@ In C++, the below program is not valid except few old C++ compilers like Turbo C
 	    printf("%d", fun(10));
 	    return 0;
 	}
+
+Output::
 
 	linux$
 	linux$gcc -Wall -g -std=c99 cmain.c -o cout
@@ -856,12 +873,12 @@ exit() function performs some cleaning before termination of the program like co
 
 _exit, _Exit - terminate the calling process
 
-::
+.. code:: cpp
 
 	#include <unistd.h>
 	void _exit(int status);
 
-::
+.. code:: cpp
 
 	#include <stdlib.h>
 	void _Exit(int status);
@@ -884,11 +901,12 @@ For example it does not execute functions registered with atexit() and on_exit()
 	   exit(10);
 	   //_Exit(10);		// 2 _Exit()
 	}
-	Output:
+
+Output::
+
 	exiting...
 
 	// 2 _Exit()
-	Output:
 	(no output)
 
 You should use _exit (or its synonym _Exit) to abort the child program when the exec fails, because in this situation, the child process may interfere with the parent process' external data (files) by calling its atexit handlers, calling its signal handlers, and/or flushing buffers.
@@ -899,7 +917,7 @@ exit(), abort() and assert()
 exit()
 ^^^^^^
 
-::
+.. code:: cpp
 
 	#include <stdlib.h>
 	void exit(int status);
@@ -917,7 +935,7 @@ The C standard atexit() function can be used to customize exit() to perform addi
 abort()
 ^^^^^^^
 
-::
+.. code:: cpp
 
 	#include <stdlib.h>
 	void abort(void);
@@ -951,7 +969,7 @@ So programs like below might not write “Geeks for Geeks” to “myfile.txt”
 assert()
 ^^^^^^^^^
 
-::
+.. code:: cpp
 
 	#include <assert.h>
 	void assert(scalar expression);
@@ -985,6 +1003,9 @@ Assertion failed: expression, file filename, line line-number
 	   open_record(NULL);
 	   return 0;
 	}   
+
+Output::
+
 	G:\coding\test>gcc -Wall -g cmain.c -o cout
 	G:\coding\test>cout.exe
 	Assertion failed: record_name != NULL, file cmain.c, line 7

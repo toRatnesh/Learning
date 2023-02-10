@@ -33,9 +33,9 @@ The syntax for defining the function inline is:
 
 .. code:: cpp
 
-	inline return-type function-name(parameters) {
-		// function code
-	} 
+    inline return-type function-name(parameters) {
+        // function code
+    } 
 
 Remember, inlining is only a request to the compiler, not a command. Compiler can ignore the request for inlining. 
 
@@ -60,13 +60,12 @@ Inline inside classes
 To define an inline function, you must ordinarily precede the function definition with the inline keyword. However, this is not necessary inside a class definition.
 
 .. code:: cpp
-
-	class A {
-		public:
-			int default_inline()	{}	// default inline
-			int make_inline();
-	};
-	inline int A::make_inline()	{};	// making inline
+    class A {
+        public:
+            int default_inline()	{}	// default inline
+            int make_inline();
+    };
+    inline int A::make_inline()	{};	// making inline
 
 Advantages
 ^^^^^^^^^^

@@ -95,9 +95,9 @@ Output::
 		std::cout << std::endl;
 		
 		// example-04
-		std::vector<std::string> vect_st{"geeksforgeeks practice",
-							"geeksforgeeks write",
-							"geeksforgeeks ide"};
+		std::vector<std::string> vect_st{"Learning C++ practice",
+							"Learning C++ write",
+							"Learning C++ ide"};
 		std::cout << "vector elements: " << std::endl;
 		for (const auto &x : vect_st)
 			std::cout << x << std::endl;
@@ -115,9 +115,9 @@ Output::
 	vector elements: 15 25 35 45 
 
 	vector elements: 
-	geeksforgeeks practice
-	geeksforgeeks write
-	geeksforgeeks ide
+	Learning C++ practice
+	Learning C++ write
+	Learning C++ ide
 
 Lvalue references to const
 --------------------------
@@ -126,17 +126,17 @@ By using the const keyword when declaring an lvalue reference, we tell an lvalue
 
 .. code:: cpp
 
-	int x { 5 };		// x is a modifiable lvalue
-	const int& ref { x };	// okay: we can bind a const reference to a modifiable lvalue
-	std::cout << ref; 	// okay: we can access the object through our const reference
-	ref = 7;			// error: we can not modify an object through a const reference
-	x = 6;			// okay: x is a modifiable lvalue, we can still modify it through the original identifier
+	int x { 5 };            // x is a modifiable lvalue
+	const int& ref { x };   // okay: we can bind a const reference to a modifiable lvalue
+	std::cout << ref;       // okay: we can access the object through our const reference
+	ref = 7;                // error: we can not modify an object through a const reference
+	x = 6;                  // okay: x is a modifiable lvalue, we can still modify it through the original identifier
 
 **Initializing an lvalue reference to const with an rvalue**
 
 lvalues references to const can also bind to rvalues
 
-::
+.. code:: cpp
 
 	const int& ref { 5 };	// okay: 5 is an rvalue
 	std::cout << ref;		// prints 5
@@ -158,36 +158,36 @@ C++11 adds a new type of reference called an r-value reference. An r-value refer
 .. code:: cpp
 
 	int x{ 5 };
-	int &lref{ x };	// l-value reference initialized with l-value x
+	int &lref{ x };     // l-value reference initialized with l-value x
 	int &&rref{ 5 };	// r-value reference initialized with r-value 5
 
 R-values references cannot be initialized with l-values.
 
-=======================		=========================	==============
-R-value reference		Can be initialized with		Can modify
-=======================		=========================	==============
-Modifiable l-values		No				No
-Non-modifiable l-values		No				No
-R-values			Yes				Yes
-=======================		=========================	==============
+=======================     =========================   ==============
+R-value reference		    Can be initialized with		Can modify
+=======================     =========================   ==============
+Modifiable l-values         No                          No
+Non-modifiable l-values     No                          No
+R-values                    Yes                         Yes
+=======================     =========================   ==============
 
-=======================		=========================	==============
-R-value reference to const	Can be initialized with		Can modify
-=======================		=========================	==============
-Modifiable l-values		No				No
-Non-modifiable l-values		No				No
-R-values			Yes				No
-=======================		=========================	==============
+R-values references to const
+
+==========================      =========================   ==============
+R-value reference to const      Can be initialized with     Can modify
+==========================      =========================   ==============
+Modifiable l-values             No                          No
+Non-modifiable l-values         No                          No
+R-values                        Yes                         No
+==========================      =========================   ==============
 
 R-value references have two properties that are useful 
 
 #. r-value references extend the lifespan of the object they are initialized with to the lifespan of the r-value reference (l-value references to const objects can do this too). 
 
 #. non-const r-value references allow you to modify the r-value
-
-.. code:: cpp
-
-	int &&rref{ 5 }; // because we're initializing an r-value reference with a literal, a temporary with value 5 is created here
+   .. code:: cpp
+    int &&rref{ 5 }; // because we're initializing an r-value reference with a literal, a temporary with value 5 is created here
 	rref = 10;
 	std::cout << rref << '\n';
 
@@ -206,19 +206,17 @@ Reference variables are safer than pointers because reference variables must be 
 
 #. **Reference to value at uninitialized pointer**
 
-	.. code:: cpp
+   .. code:: cpp
 
-		int *ptr; 
-		int &ref = *ptr;  // Reference to value at some random memory location
+    int *ptr;
+    int &ref = *ptr;  // Reference to value at some random memory location
 
 #. **Reference to a local variable is returned**
-
-	.. code:: cpp
-
-		int& fun() {
-			int a = 10;
-			return a; 
-		}
+   .. code:: cpp
+    int& fun() {
+        int a = 10;
+        return a;
+    }
 
 	Once fun() returns, the space allocated to it on stack frame will be taken back. So the reference to a local variable will be invalid.
 
@@ -239,7 +237,9 @@ Reference variables are safer than pointers because reference variables must be 
 					std::cout << fun();
 					return 0;
 				}
-				Output
+                
+            Output::
+
 				30
 
 		-
@@ -258,7 +258,9 @@ Reference variables are safer than pointers because reference variables must be 
 					
 					return 0;
 				}
-				Output
+
+            Output::
+
 				10
 
 
@@ -276,15 +278,19 @@ Reference variables are safer than pointers because reference variables must be 
 					return 0;
 				}
 
-				Compilation warning: reference to local variable 'x' returned [-Wreturn-local-addr]
 
-				Output
-				Runtime Errors:
-				Segmentation Fault (SIGSEGV)	#include <iostream>
+            Output::
+
+				// Compilation warning: 
+                // reference to local variable 'x' returned [-Wreturn-local-addr]
+
+				Runtime Errors
+				Segmentation Fault (SIGSEGV)
 
 		-
 			.. code:: cpp
 
+				#include <iostream>
 				void swap(char* & str1, char* & str2) {
 					char* temp = str1;
 					str1 = str2;
@@ -299,7 +305,9 @@ Reference variables are safer than pointers because reference variables must be 
 					std::cout << "str2: " << str2 << std::endl;
 					return 0;
 				}
-				Output
+
+            Output::
+
 				str1: for Geeks
 				str2: Geeks
 
@@ -309,23 +317,24 @@ References are safer and easier to use
 **Safer:** 	wild references like wild pointers are unlikely to exist (It is still possible to have references that don’t refer to a valid location
 
 **Easier:** 	can be used like normal variables
-		‘&’ operator is needed only at the time of declaration
-		don’t need dereferencing operator to access the value
-		members of an object reference can be accessed with dot operator (‘.’), unlike pointers where arrow operator (->) is needed
+    ‘&’ operator is needed only at the time of declaration
+
+    don’t need dereferencing operator to access the value
+
+    members of an object reference can be accessed with dot operator (‘.’), unlike pointers where arrow operator (->) is needed
 
 .. note::
 
-	Reference must be used for overloading some operator like ++
-	In copy constructor argument pointer cannot be used
-
-	In copy constructor passing by reference ensures an actual object is passed, whilst a pointer can have NULL value and make the constructor fail.
-
-	Reference is also use for consistency. Operator like =, ==, <=, += would normally be defined using references.
+	- Reference must be used for overloading some operator like ++
+	- In copy constructor argument pointer cannot be used
+	- In copy constructor passing by reference ensures an actual object is passed, whilst a pointer can have NULL value and make the constructor fail.
+	- Reference is also use for consistency. Operator like =, ==, <=, += would normally be defined using references.
 
 Pointers vs Reference
 ---------------------
 
 .. list-table::
+    :header-rows: 1
 
 	*	-	Pointer
 		-	Reference
@@ -368,6 +377,7 @@ References are less powerful than pointers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
+    :header-rows: 1
 
 	*	-	Reference
 		-	Pointers
@@ -394,9 +404,9 @@ Performances are the same
 
 References are implemented internally as pointers
 
-**Reference**	In function parameters and return type
+**Reference** In function parameters and return type
 
-**Pointers**	To implement data structure
+**Pointers** To implement data structure
 		If pointer arithmetic or passing NULL pointer is needed
 
 .. note::
@@ -419,121 +429,116 @@ Variables are passed by reference due to following reasons
 
 #. **To modify local variables of the caller function**
 
-	.. code:: cpp
-
-		#include <iostream>
-		void fun(int &x) {
-		    x = 20; 
-		}
-		int main() {
-		    int x = 10;
-		    std::cout << "Value of x is " << x << std::endl;
-		    fun(x);
-		    std::cout << "New value of x is " << x << std::endl;
-		    return 0; 
-		}
-
-	Output::
+   .. code:: cpp
+    #include <iostream>
+    void fun(int &x) {
+        x = 20;
+    }
+    int main() {
+        int x = 10;
+        std::cout << "Value of x is " << x << std::endl;
+        fun(x);
+        std::cout << "New value of x is " << x << std::endl;
+        return 0;
+    }
+    
+   Output::
 
 		Value of x is 10
 		New value of x is 20
 
 #. **For passing large sized arguments**
 
-	because only an address is really passed, not the entire object
+   because only an address is really passed, not the entire object
 
-	(This point is valid only for struct and class variables as we don’t get any efficiency advantage for basic types like int, char.. etc.)
+   (This point is valid only for struct and class variables as we don’t get any efficiency advantage for basic types like int, char.. etc.)
 
-	.. code::cpp
+   .. code:: cpp
 
-		void printEmpDetails(Employee emp) { 
-			// statements
-		}
-
-		void printEmpDetails(const Employee & emp) {
-			// statements
-		}
+    void printEmpDetails(Employee emp) { 
+        // statements
+    }
+    
+    void printEmpDetails(const Employee & emp) {
+        // statements
+    }
 
 #. **To avoid Object Slicing**
 
-	If we pass an object of subclass to a function that expects an object of superclass then the passed object is sliced if it is pass by value.
+   If we pass an object of subclass to a function that expects an object of superclass then the passed object is sliced if it is pass by value.
 
-	.. code:: cpp
+   .. code:: cpp
+    #include <iostream>
+    #include <string>
+    class Pet {
+        public:
+            virtual std::string getDescription() const {
+                return "This is Pet class";
+            }
+    }; 
 
-		#include <iostream> 
-		#include <string>
-		  
-		class Pet { 
-			public: 
-				virtual std::string getDescription() const { 
-					return "This is Pet class"; 
-				} 
-		}; 
-		  
-		class Dog : public Pet { 
-			public: 
-				virtual std::string getDescription() const { 
-					return "This is Dog class"; 
-				} 
-		}; 
-		  
-		void describe1(Pet p) { // Slices the derived class object
-			std::cout << p.getDescription() << std::endl; 
-		} 
-
-		void describe2(const Pet & p) { // Do not slices the derived class object
-			std::cout << p.getDescription() << std::endl; 
-		} 
-		  
-		int main() { 
-			Dog d; 
-			describe1(d);
-			describe2(d); 
-			return 0; 
-		}
-
-	Output::
+    class Dog : public Pet {
+        public:
+            virtual std::string getDescription() const {
+                return "This is Dog class";
+            }
+    };
+    
+    void describe1(Pet p) { // Slices the derived class object
+        std::cout << p.getDescription() << std::endl;
+    }
+    void describe2(const Pet & p) { // Do not slices the derived class object
+        std::cout << p.getDescription() << std::endl;
+    }
+    
+    int main() {
+        Dog d;
+        describe1(d);
+        describe2(d);
+        return 0;
+    }
+    
+   Output::
 
 		This is Pet class
 		This is Dog class
 
 #. **To achieve Run Time Polymorphism in a function**
+   by passing objects as reference (or pointer) to it
 
-	by passing objects as reference (or pointer) to it
+   .. code:: cpp
 
-	.. code:: cpp
+    #include <iostream>
+    using namespace std;
+    
+    class base {
+        public:
+            virtual void show() {  // Note the virtual keyword here
+                cout << "In base \n";
+            }
+    };
+    
+    class derived: public base {
+        public:
+            void show() {
+                cout << "In derived \n";
+            }
+    };
+    
+    // Since we pass b as reference, we achieve run time polymorphism here.
+    void print(base &b) {
+        b.show();
+    }
+    
+    int main(void) {
+        base b;
+        derived d;
+        print(b);
+        print(d);
+        return 0;
+    }
 
-		#include<iostream> 
-		using namespace std; 
-		  
-		class base { 
-			public: 
-				virtual void show() {  // Note the virtual keyword here 
-					cout << "In base \n"; 
-				} 
-		};
-
-		class derived: public base { 
-			public: 
-				void show() { 
-					cout << "In derived \n"; 
-				} 
-		}; 
-		  
-		// Since we pass b as reference, we achieve run time polymorphism here. 
-		void print(base &b) { 
-		    b.show(); 
-		}
-
-		int main(void) { 
-			base b; 
-			derived d; 
-			print(b); 
-			print(d); 
-			return 0; 
-		}
-
-	Output::
+   Output::
 
 		In base 
 		In derived
@@ -560,20 +565,20 @@ Passing by pointer Vs Passing by Reference in C++
 
 .. code:: cpp
 
-	#include "stdio.h"
-	#include <iostream>
-	using namespace std;
+    #include "stdio.h"
+    #include <iostream>
 
-	struct demo {
+    using namespace std;
+    struct demo {
 		int a;
 	};
-
-	int main() {
-		int x = 5, y = 6;
-		demo d;
-		int * p;
-		
-		p = &x;	p = &y;
+    
+    int main() {
+        int x = 5, y = 6;
+        demo d;
+        int * p;
+        
+        p = &x;	p = &y;
 		
 		int & r = x;
 		//&r = y;     // error: lvalue required as left operand of assignment
@@ -599,6 +604,8 @@ Passing by pointer Vs Passing by Reference in C++
 		return 0;
 	}
 
+   Compilation Error::
+
 	prog.cpp: In function 'int main()':
 	prog.cpp:17:5: error: lvalue required as left operand of assignment
 	  &r = y;
@@ -613,17 +620,17 @@ Passing by pointer Vs Passing by Reference in C++
 	  qq->a = 8;
 	    ^
 	
-Output::
+   Output::
 
-	0x7ffdea3e3858 : 0x7ffdea3e3850
-	0x7ffdea3e3850 : 0x7ffdea3e3850
-	0x4
-	7
+    0x7ffdea3e3858 : 0x7ffdea3e3850
+    0x7ffdea3e3850 : 0x7ffdea3e3850
+    0x4
+    7
 
 References
 ----------
 
-| Pointers and References | https://www.geeksforgeeks.org/c-plus-plus/
+| Pointers and References | https://www.Learning C++.org/c-plus-plus/
 | Chapter 9 Compound Types: References and Pointers | https://learncpp.com/
 | https://en.cppreference.com/w/cpp/language/pointer
 | https://en.cppreference.com/w/cpp/language/this

@@ -18,10 +18,12 @@ Output of following program?
 	    return 0;
 	}
 
-A. 7 6 5
-B. 5 6 7
-C. 7 7 7
-**D. Compiler Dependent**
+
+| A. 7 6 5
+| B. 5 6 7
+| C. 7 7 7
+| **D. Compiler Dependent**
+
 
 Explanation:
 
@@ -38,10 +40,12 @@ When parameters are passed to a function, the value of every parameter is evalua
 	  return 0;
 	}
 
-**A. Address of main function**
-B. Compiler Error
-C. Runtime Error
-D. Some random value
+
+| **A. Address of main function**
+| B. Compiler Error
+| C. Runtime Error
+| D. Some random value
+
 
 Explanation:
 
@@ -80,10 +84,10 @@ Output?
 	  return 0;
 	}
 
-A. GeeksQuiz GeeksQuiz GeeksQuiz
-B. GeeksQuiz GeeksQuiz
-**C. Compiler Error**
-D. Runtime Error
+| A. GeeksQuiz GeeksQuiz GeeksQuiz
+| B. GeeksQuiz GeeksQuiz
+| **C. Compiler Error**
+| D. Runtime Error
 
 Explanation:
 
@@ -101,10 +105,10 @@ What is the meaning of using extern before function declaration? For example fol
 		return (x + y + z);
 	}
 
-A. Function is made globally available
-**B. extern means nothing, sum() is same without extern keyword.**
-C. Function need not to be declared before its use
-D. Function is made local to the file.
+| A. Function is made globally available
+| **B. extern means nothing, sum() is same without extern keyword.**
+| C. Function need not to be declared before its use
+| D. Function is made local to the file.
 
 Explanation: 
 
@@ -121,10 +125,10 @@ What is the meaning of using static before function declaration? For example fol
 	}
 
 
-A. Static means nothing, sum() is same without static keyword.
-B. Function need not to be declared before its use
-**C. Access to static functions is restricted to the file where they are declared**
-D. Static functions are made inline
+| A. Static means nothing, sum() is same without static keyword.
+| B. Function need not to be declared before its use
+| **C. Access to static functions is restricted to the file where they are declared**
+| D. Static functions are made inline
 
 Explanation: 
 
@@ -148,10 +152,10 @@ What’s going to happen when we compile and run the following C program snippet
 	 return 0;
 	}
 
-A. =11 15=
-**B. =11 12=**
-C. Compiler Error due to (b=a+2) in the first printf().
-D. No compile error but output would be =11 X= where X would depend on compiler implementation.
+| A. =11 15=
+| **B. =11 12=**
+| C. Compiler Error due to (b=a+2) in the first printf().
+| D. No compile error but output would be =11 X= where X would depend on compiler implementation.
 
 Explanation: 
 
@@ -176,10 +180,10 @@ Pick the best statement for the following program.
 	 return 0;
 	}
 
-A. It’ll result in compile error because foo is used without parentheses.
-B. No compile error and some garbage value would be passed to foo function. This would make foo to be executed with output “garbage integer”.
-**C. No compile error but foo function wouldn’t be executed. The program wouldn't print anything.**
-D. No compile error and ZERO (i.e. 0) would be passed to foo function. This would make foo to be executed with output 0.
+| A. It’ll result in compile error because foo is used without parentheses.
+| B. No compile error and some garbage value would be passed to foo function. This would make foo to be executed with output “garbage integer”.
+| **C. No compile error but foo function wouldn’t be executed. The program wouldn't print anything.**
+| D. No compile error and ZERO (i.e. 0) would be passed to foo function. This would make foo to be executed with output 0.
 
 Explanation: 
 
@@ -190,10 +194,10 @@ In C, if a function name is used without parentheses, the reference to the funct
 
 Given a boolean function f (x1, x2, ..., xn), which of the following equations is NOT true  
 
-A. f (x1, x2, ..., xn) = x1'f(x1, x2, ..., xn) + x1f(x1, x2, ..., xn)
-B. f (x1, x2, ..., xn) = x2f(x1, x2, …, xn) + x2'f(x1, x2, …,xn)
-C. f (x1, x2, ..., xn) = xn'f(x1, x2, …, 0) + xnf(x1, x2, …,1)
-**D. f (x1, x2, ..., xn) = f(0, x2, …, xn) + f(1, x2, .., xn)**
+| A. f (x1, x2, ..., xn) = x1'f(x1, x2, ..., xn) + x1f(x1, x2, ..., xn)
+| B. f (x1, x2, ..., xn) = x2f(x1, x2, …, xn) + x2'f(x1, x2, …,xn)
+| C. f (x1, x2, ..., xn) = xn'f(x1, x2, …, 0) + xnf(x1, x2, …,1)
+| **D. f (x1, x2, ..., xn) = f(0, x2, …, xn) + f(1, x2, .., xn)**
 
 Explanation: 
 
