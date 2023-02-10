@@ -434,8 +434,8 @@ In case, if we don’t have address to be assigned to a pointer, then we can sim
 
 .. code:: cpp
 
-	#include <stdio.h> 
-	int main() {
+    #include <stdio.h>
+    int main() {
         int *ptr = NULL;
         printf("The value of ptr is %p", ptr);
         return 0;
@@ -659,14 +659,13 @@ A pointer pointing to a memory location that has been deleted (or freed)
 #. **Variable goes out of scope**
 
    .. code:: cpp
-
-    void main() {
+    int main() {
         int * ptr;
-		{
-			int ch;
-			ptr = &ch;
-		}
-	}
+        {
+            int ch;
+            ptr = &ch;
+        }
+    }
 
 Near, far and huge pointers
 ----------------------------

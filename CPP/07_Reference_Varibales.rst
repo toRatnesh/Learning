@@ -163,30 +163,53 @@ C++11 adds a new type of reference called an r-value reference. An r-value refer
 
 R-values references cannot be initialized with l-values.
 
-=======================     =========================   ==============
-R-value reference		    Can be initialized with		Can modify
-=======================     =========================   ==============
-Modifiable l-values         No                          No
-Non-modifiable l-values     No                          No
-R-values                    Yes                         Yes
-=======================     =========================   ==============
+.. list-table::
+    :header-rows: 1
 
-R-values references to const
+    *   -   R-value reference
+        -   Can be initialized with
+        -   Can modify
 
-==========================      =========================   ==============
-R-value reference to const      Can be initialized with     Can modify
-==========================      =========================   ==============
-Modifiable l-values             No                          No
-Non-modifiable l-values         No                          No
-R-values                        Yes                         No
-==========================      =========================   ==============
+    *   -   Modifiable l-values
+        -   No
+        -   No
+
+    *   -   Non-modifiable l-values
+        -   No
+        -   No
+
+    *   -   R-values
+        -   Yes
+        -   Yes
+
+
+.. list-table::
+    :header-rows: 1
+
+    *   -   R-value reference to const
+        -   Can be initialized with
+        -   Can modify
+
+    *   -   Modifiable l-values
+        -   No
+        -   No
+
+    *   -   Non-modifiable l-values
+        -   No
+        -   No
+
+    *   -   R-values
+        -   Yes
+        -   No
 
 R-value references have two properties that are useful 
 
 #. r-value references extend the lifespan of the object they are initialized with to the lifespan of the r-value reference (l-value references to const objects can do this too). 
 
 #. non-const r-value references allow you to modify the r-value
+
    .. code:: cpp
+
     int &&rref{ 5 }; // because we're initializing an r-value reference with a literal, a temporary with value 5 is created here
 	rref = 10;
 	std::cout << rref << '\n';
@@ -212,7 +235,9 @@ Reference variables are safer than pointers because reference variables must be 
     int &ref = *ptr;  // Reference to value at some random memory location
 
 #. **Reference to a local variable is returned**
+
    .. code:: cpp
+
     int& fun() {
         int a = 10;
         return a;
@@ -224,7 +249,8 @@ Reference variables are safer than pointers because reference variables must be 
 
 .. list-table::
 
-	*	-
+	*
+        -
 			.. code:: cpp
 
 				#include <iostream>

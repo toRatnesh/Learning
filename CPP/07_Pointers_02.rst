@@ -295,7 +295,7 @@ const volatile X* if the member function is declared const volatile
 
     class X {
 		void fun() const { ... } 
-	}
+    }
     // 'this' is const X*
 
 .. code:: cpp
