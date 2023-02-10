@@ -211,8 +211,8 @@ R-value references have two properties that are useful
    .. code:: cpp
 
     int &&rref{ 5 }; // because we're initializing an r-value reference with a literal, a temporary with value 5 is created here
-	rref = 10;
-	std::cout << rref << '\n';
+    rref = 10;
+    std::cout << rref << '\n';
 
 Can references refer to invalid location in C++?
 ------------------------------------------------
@@ -242,21 +242,21 @@ Reference variables are safer than pointers because reference variables must be 
         int a = 10;
         return a;
     }
-
-	Once fun() returns, the space allocated to it on stack frame will be taken back. So the reference to a local variable will be invalid.
+    
+   Once fun() returns, the space allocated to it on stack frame will be taken back. So the reference to a local variable will be invalid.
 
 **Examples**
 
 .. list-table::
 
 	*
-        -
-			.. code:: cpp
+                -
+                        .. code:: cpp
 
-				#include <iostream>
-				int & fun() {
-					static int x = 10;
-					return x;
+                                #include <iostream>
+                                int & fun() {
+                                        static int x = 10;
+                                        return x;
 				}
 				int main() {
 					fun() = 30;
@@ -264,7 +264,7 @@ Reference variables are safer than pointers because reference variables must be 
 					return 0;
 				}
                 
-            Output::
+                        Output::
 
 				30
 
@@ -277,15 +277,14 @@ Reference variables are safer than pointers because reference variables must be 
 				}
 				int main() {
 				    int val = 10;
-					std::cout << fun(val);
-					
-					//std::cout << fun(10);   // CE
-					// Compilation error: invalid initialization of non-const reference of type 'int&' from an rvalue of type 'int'
-					
-					return 0;
-				}
+                                    std::cout << fun(val);
+                                    
+                                    //std::cout << fun(10);   // CE
+                                    // Compilation error: invalid initialization of non-const reference of type 'int&' from an rvalue of type 'int'
+                                    return 0;
+                                }
 
-            Output::
+                        Output::
 
 				10
 
@@ -304,11 +303,10 @@ Reference variables are safer than pointers because reference variables must be 
 					return 0;
 				}
 
+                        Output::
 
-            Output::
-
-				// Compilation warning: 
-                // reference to local variable 'x' returned [-Wreturn-local-addr]
+                                // Compilation warning: 
+                                // reference to local variable 'x' returned [-Wreturn-local-addr]
 
 				Runtime Errors
 				Segmentation Fault (SIGSEGV)
@@ -332,7 +330,7 @@ Reference variables are safer than pointers because reference variables must be 
 					return 0;
 				}
 
-            Output::
+                        Output::
 
 				str1: for Geeks
 				str2: Geeks
@@ -456,6 +454,7 @@ Variables are passed by reference due to following reasons
 #. **To modify local variables of the caller function**
 
    .. code:: cpp
+
     #include <iostream>
     void fun(int &x) {
         x = 20;
@@ -494,6 +493,7 @@ Variables are passed by reference due to following reasons
    If we pass an object of subclass to a function that expects an object of superclass then the passed object is sliced if it is pass by value.
 
    .. code:: cpp
+
     #include <iostream>
     #include <string>
     class Pet {
