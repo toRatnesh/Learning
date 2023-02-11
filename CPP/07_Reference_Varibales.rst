@@ -18,18 +18,17 @@ Declaration
 .. code:: cpp
 
 	#include <iostream>
-	int main() {
-		int x = 10;
-		int & ref = x;
-		std::cout << "x: " << x << " ref: " << ref << std::endl;
-		
-		ref = 20;
-		std::cout << "x: " << x << " ref: " << ref << std::endl;
-		
-		x = 30;
-		std::cout << "x: " << x << " ref: " << ref << std::endl;
-		
-		return 0;	
+	int main() {\
+        int x = 10;
+        int & ref = x;
+        std::cout << "x: " << x << " ref: " << ref << std::endl;
+        
+        ref = 20;
+        std::cout << "x: " << x << " ref: " << ref << std::endl;
+        
+        x = 30;
+        std::cout << "x: " << x << " ref: " << ref << std::endl;
+        return 0;
 	}
 
 Output::
@@ -55,55 +54,53 @@ Output::
 	#include <vector>
 
 	struct Student {
-		std::string name;
-		std::string address;
-		int rollNo; 
+        std::string name;
+        std::string address;
+        int rollNo; 
 	};
 
 	void swap (int& first, int& second) {
-		int temp = first;
-		first = second;
-		second = temp; 
+        int temp = first;
+        first = second;
+        second = temp; 
 	}
 
 	void print_student(const Student &s) {
-		std::cout << "Student name: " << s.name << " address: " << s.address << " roll No " << s.rollNo << std::endl; 
+        std::cout << "Student name: " << s.name << " address: " << s.address << " roll No " << s.rollNo << std::endl; 
 	} 
 
 	int main() {
-		
-		// example-01
-		int a = 2, b = 3; 
-	    std::cout << "Before swap a: " << a << " b: " << b << std::endl;
-		swap(a, b);  
-	    std::cout << "After swap a: " << a << " b: " << b << std::endl;
-		std::cout << std::endl;
-		
-		// example-02
-		Student st = {"Student_01", "Addr of student_01", 12};
-		print_student(st);
-		std::cout << std::endl;
-		
-		// example-03
-		std::vector<int> vect{ 10, 20, 30, 40 }; 
-		for (int &x : vect)
-			x = x + 5;
-		std::cout << "vector elements: ";
-		for (int &x : vect)
-			std::cout << x << " ";
-		std::cout << std::endl;
-		std::cout << std::endl;
-		
-		// example-04
-		std::vector<std::string> vect_st{"Learning C++ practice",
-							"Learning C++ write",
-							"Learning C++ ide"};
-		std::cout << "vector elements: " << std::endl;
-		for (const auto &x : vect_st)
-			std::cout << x << std::endl;
-		
-		return 0;
-	}
+        // example-01
+        int a = 2, b = 3;
+        std::cout << "Before swap a: " << a << " b: " << b << std::endl;
+        swap(a, b);
+        std::cout << "After swap a: " << a << " b: " << b << std::endl;
+        std::cout << std::endl;
+        
+        // example-02
+        Student st = {"Student_01", "Addr of student_01", 12};
+        print_student(st);
+        std::cout << std::endl;
+        
+        // example-03
+        std::vector<int> vect{ 10, 20, 30, 40 };
+        for (int &x : vect)
+            x = x + 5;
+
+        std::cout << "vector elements: ";
+        for (int &x : vect)
+            std::cout << x << " ";
+        
+        std::cout << std::endl;
+        std::cout << std::endl;
+        
+        // example-04
+        std::vector<std::string> vect_st{"Learning C++ practice", "Learning C++ write", "Learning C++ ide"};
+        std::cout << "vector elements: " << std::endl;
+        for (const auto &x : vect_st)
+            std::cout << x << std::endl;
+        return 0;
+    }
 
 Output::
 
@@ -290,7 +287,7 @@ Reference variables are safer than pointers because reference variables must be 
 
 
 	*	-
-			.. code:: cpp
+                        .. code:: cpp
 	
 				#include <iostream>
 				int & fun() {
@@ -312,7 +309,7 @@ Reference variables are safer than pointers because reference variables must be 
 				Segmentation Fault (SIGSEGV)
 
 		-
-			.. code:: cpp
+                        .. code:: cpp
 
 				#include <iostream>
 				void swap(char* & str1, char* & str2) {
@@ -605,30 +602,31 @@ Passing by pointer Vs Passing by Reference in C++
         int * p;
         
         p = &x;	p = &y;
-		
-		int & r = x;
-		//&r = y;     // error: lvalue required as left operand of assignment
-		r = y;
-		p = NULL;
-		//&r = NULL;  // error: lvalue required as left operand of assignment
-		
-		p++;	r++;
-		cout << &p << " : " << &x << endl;	// diff address
-		cout << &r << " : " << &x << endl;	// same address
-		
-		demo * q = &d;
-		demo &qq = d;
-		
-		q->a = 8;
-		//q.a = 8;
-		qq.a = 8;
-		//qq->a = 8;
-		
-		cout << p << endl;
-		cout << r << endl;
-		
-		return 0;
-	}
+        
+        int & r = x;
+        //&r = y;     // error: lvalue required as left operand of assignment
+        r = y;
+        p = NULL;
+        //&r = NULL;  // error: lvalue required as left operand of assignment
+
+        p++;
+        r++;
+        cout << &p << " : " << &x << endl;	// diff address
+        cout << &r << " : " << &x << endl;	// same address
+        
+        demo * q = &d;
+        demo &qq = d;
+        
+        q->a = 8;
+        //q.a = 8;
+        qq.a = 8;
+        //qq->a = 8;
+        
+        cout << p << endl;
+        cout << r << endl;
+        return 0;
+        
+    }
 
    Compilation Error::
 

@@ -16,18 +16,18 @@ To declare a pointer to a const value, use the const keyword before the pointer�
 
 .. code:: cpp
 
-	#include <stdio.h>
-	int main() {
-		const int x = 5;
-		const int* ptr = &x;    // ptr points to const int x
-		printf("*ptr %d\n", *ptr);
-		//*ptr = 6;   // error: assignment of read-only location '* ptr'
-
-		const int y = 6;
-		ptr = &y; // okay: ptr now points at const int y
-		printf("*ptr %d\n", *ptr);
-		return 0;
-	}
+    #include <stdio.h>
+    int main() {
+        const int x = 5;
+        const int* ptr = &x;    // ptr points to const int x
+        printf("*ptr %d\n", *ptr);
+        //*ptr = 6;   // error: assignment of read-only location '* ptr'
+        
+        const int y = 6;
+        ptr = &y; // okay: ptr now points at const int y
+        printf("*ptr %d\n", *ptr);
+        return 0;
+    }
 
 Output::
 
@@ -43,20 +43,19 @@ To declare a const pointer, use the const keyword after the asterisk in the poin
 
 .. code:: cpp
 
-	#include <stdio.h>
-	int main() {
-    	int x = 5;
-    	int * const ptr = &x; // okay: the const pointer is initialized to the address of x
-    	printf("x: %d, *ptr: %d\n", x , *ptr);
-    
-    	x = 7;
-    	printf("x: %d, *ptr: %d\n", x , *ptr);
-	
-	    int y = 6;
-	    //ptr = &y; //error: assignment of read-only variable 'ptr'
-	
+    #include <stdio.h>
+    int main() {
+        int x = 5;
+        int * const ptr = &x; // okay: the const pointer is initialized to the address of x
+        printf("x: %d, *ptr: %d\n", x , *ptr);
+        
+        x = 7;
+        printf("x: %d, *ptr: %d\n", x , *ptr);
+        
+        int y = 6;
+        //ptr = &y; //error: assignment of read-only variable 'ptr'
 	    return 0;
-	}
+    }
 
 Output::
 
@@ -71,19 +70,18 @@ To declare a const pointer to a const value by using the const keyword both befo
 
 .. code:: cpp
 
-	#include <stdio.h>
-	int main() {
-    	int x = 5;
-    	const int* const ptr = &x; // a const pointer to a const value
-    	printf("x: %d, *ptr: %d\n", x , *ptr);
-    
-    	//*ptr=7; // error: assignment of read-only location '*(const int *)ptr'
-
-    	int cx = 8;
-    	//ptr = &cx;  // error: assignment of read-only variable 'ptr'
-
-    	return 0;
-	}
+    #include <stdio.h>
+    int main() {
+        int x = 5;
+        const int* const ptr = &x; // a const pointer to a const value
+        printf("x: %d, *ptr: %d\n", x , *ptr);
+        
+        //*ptr=7; // error: assignment of read-only location '*(const int *)ptr'
+        
+        int cx = 8;
+        //ptr = &cx;  // error: assignment of read-only variable 'ptr'
+        return 0;
+    }
 
 Output::
 
@@ -139,28 +137,27 @@ Use of 'this' pointer
    This is possible because each method return \*this pointer
    This is equivalent to
 
-   positionObj->setX(15)
-   positionObj->setY(16)
-   positionObj->setZ(17)
+   .. code:: cpp
+    positionObj->setX(15);
+    positionObj->setY(16);
+    positionObj->setZ(17);
 
    .. code:: cpp
 
     #include <iostream>
     using namespace std;
-    class Test { 
-		private: int x; int y; 
-		
-		public: 
-		Test(int x = 0, int y = 0) { this->x = x; this->y = y; } 
-		Test & setX(int a) { x = a; return *this; } 
-		Test & setY(int b) { y = b; return *this; } 
-		void print() { cout << "x = " << x << " y = " << y << endl; } 
+    class Test {
+        private: int x; int y;
+        public:
+        Test(int x = 0, int y = 0) { this->x = x; this->y = y; }
+        Test & setX(int a) { x = a; return *this; }
+        Test & setY(int b) { y = b; return *this; }
+        void print() { cout << "x = " << x << " y = " << y << endl; }
     };
-    
     int main() {
         Test obj1(5, 5);
-        // Chained function calls.  All calls modify the same object 
-        // as the same object is returned by reference 
+        // Chained function calls.  All calls modify the same object
+        // as the same object is returned by reference
         obj1.setX(10).setY(20);
         obj1.print();
         return 0;
@@ -181,22 +178,23 @@ Predict the output of following programs. If there are compilation errors, then 
 	#include <iostream> 
 	using namespace std; 
 
-	class Test { 
-		private: int x; 
-		public: 
-		Test(int x = 0) { this->x = x; } 
-		void change(Test *t) { this = t; } 
-		void print() { cout << "x = " << x << endl; } 
+	class Test {
+        private: int x;
+
+        public:
+        Test(int x = 0) { this->x = x; }
+        void change(Test *t) { this = t; }
+        void print() { cout << "x = " << x << endl; } 
 	}; 
 
-	int main() { 
-		Test obj(5); 
-		Test *ptr = new Test (10); 
-		obj.change(ptr); 
-		obj.print(); 
-		return 0; 
-	} 
-	
+	int main() {
+        Test obj(5);
+        Test *ptr = new Test (10);
+        obj.change(ptr);
+        obj.print();
+        return 0;
+    } 
+
 Output::
 	
 	Compilation Error: lvalue required as left operand of assignment void change(Test *t) { this = t; }
@@ -206,18 +204,18 @@ Output::
 	#include <iostream> 
 	using namespace std; 
 
-	class Test { 
-		private:  int x; int y; 
-		public: 
-		Test(int x = 0, int y = 0) { this->x = x; this->y = y; } 
-		static void fun1() { cout << "Inside fun1()"; } 
-		static void fun2() { cout << "Inside fun2()"; this->fun1(); } 
+	class Test {
+        private:  int x; int y;
+        public:
+        Test(int x = 0, int y = 0) { this->x = x; this->y = y; }
+        static void fun1() { cout << "Inside fun1()"; }
+        static void fun2() { cout << "Inside fun2()"; this->fun1(); } 
 	}; 
 
-	int main() { 
-		Test obj; 
-		obj.fun2(); 
-		return 0; 
+	int main() {
+        Test obj;
+        obj.fun2();
+        return 0; 
 	}
 
 Output::
@@ -230,20 +228,20 @@ Output::
 	#include <iostream> 
 	using namespace std; 
 
-	class Test { 
-		private:  int x;  int y; 
-		public: 
-		Test (int x = 0, int y = 0) { this->x = x; this->y = y; } 
-		Test setX(int a) { x = a; return *this; } 
-		Test setY(int b) { y = b; return *this; } 
-		void print() { cout << "x = " << x << " y = " << y << endl; } 
+	class Test {
+        private:  int x;  int y;
+        public:
+        Test (int x = 0, int y = 0) { this->x = x; this->y = y; }
+        Test setX(int a) { x = a; return *this; }
+        Test setY(int b) { y = b; return *this; }
+        void print() { cout << "x = " << x << " y = " << y << endl; } 
 	}; 
 
-	int main() { 
-		Test obj1; 
-		obj1.setX(10).setY(20); 
-		obj1.print(); 
-		return 0; 
+	int main() {
+        Test obj1;
+        obj1.setX(10).setY(20);
+        obj1.print();
+        return 0; 
 	} 
 
 Output::
@@ -255,21 +253,21 @@ Output::
 	#include <iostream> 
 	using namespace std; 
 
-	class Test { 
-		private:  int x; int y; 
-		public: 
-		Test(int x = 0, int y = 0) { this->x = x; this->y = y; } 
-		void setX(int a) { x = a; } 
-		void setY(int b) { y = b; } 
-		void destroy()  { delete this; } 
-		void print() { cout << "x = " << x << " y = " << y << endl; } 
+	class Test {
+        private:  int x; int y;
+        public:
+        Test(int x = 0, int y = 0) { this->x = x; this->y = y; }
+        void setX(int a) { x = a; }
+        void setY(int b) { y = b; }
+        void destroy()  { delete this; }
+        void print() { cout << "x = " << x << " y = " << y << endl; } 
 	}; 
 
-	int main() { 
-		Test obj; 
-		obj.destroy(); 
-		obj.print(); 
-		return 0; 
+	int main() {
+        Test obj;
+        obj.destroy();
+        obj.print();
+        return 0; 
 	} 
 
 Output::
@@ -330,21 +328,21 @@ Example
 
 	//non-complaint code
 	class X {
-		public:
-			void doSomething();
-			void destroy();
+        public:
+            void doSomething();
+            void destroy();
 	};
 
 	void X::destroy() {
-		delete this;
-		// NOTE: object is allocated on the stack and deleting it will fail
+        delete this;
+        // NOTE: object is allocated on the stack and deleting it will fail
 	}
 
 	int main() {
-		X obj;
-		obj.destroy();
-		...
-		return 0;
+        X obj;
+        obj.destroy();
+        ...
+        return 0;
 	}
 
 
@@ -352,8 +350,8 @@ Example
 
 	// complaint solution (destructor)
 	{
-		X obj;
-		...
+        X obj;
+        ...
 	}
 	//	obj.~X() is implicitly invoked
 	// objects allocated on the stack have their destructors invoked when the object goes out of scope
@@ -362,10 +360,10 @@ Example
 
 	// complaint solution (dynamic objects)
 	{
-		X* pobj = new X();
-		...
-		pobj->destroy();
-		pobj = NULL;	// prevent future reference to deleted object
+        X* pobj = new X();
+        ...
+        pobj->destroy();
+        pobj = NULL;	// prevent future reference to deleted object
 	}
 	// must ensure that this always points to an object on the heap
 	// must ensure that the deleted object is never dereferenced again
@@ -389,11 +387,11 @@ Understanding ‘nullptr’ in C++
 	void fun(int n) { cout << "fun(int)" << endl; }
 	void fun(char * s) { cout << "fun(char*)" << endl; }
 	int main() {
-		//fun(NULL);
-		// Compilation error: call of overloaded 'fun(NULL)' is ambiguous
-		
-		fun(nullptr);
-		return 0;
+        //fun(NULL);
+        // Compilation error: call of overloaded 'fun(NULL)' is ambiguous
+        
+        fun(nullptr);
+        return 0;
 	}
 
 Output::
@@ -462,15 +460,15 @@ Output::
 	using namespace std;
 
 	int main() {
-		nullptr_t np1, np2;
-		
-		if(np1 >= np2) { cout << "can compare" << endl; }
-		else           { cout << "can not compare" << endl; }
-		
-		char * x = nullptr;     // same as x = nullptr;
-		if(nullptr == x) { cout << "x is null" << endl; }
-		else             { cout << "x is not null" << endl; }
-		return 0;
+        nullptr_t np1, np2;
+        
+        if(np1 >= np2) { cout << "can compare" << endl; }
+        else           { cout << "can not compare" << endl; }
+        
+        char * x = nullptr;     // same as x = nullptr;
+        if(nullptr == x) { cout << "x is null" << endl; }
+        else             { cout << "x is not null" << endl; }
+        return 0;
 	}
 
 Output::
@@ -531,15 +529,16 @@ We can have shared code which would be used by all platforms and then different 
 	// class provides API
 	// different platform can implement these operations in different way
 	class CImage {
-		public:
-			CImage();
-			~CImage();
-			struct SImageInfo * pImageInfo;
-			void rotate(double angle);
-			void scale(double scaleFactor x, double scaleFactor y);
-			void move(int toX, int toY);
-		private:
-			void InitImageInfo();		
+        public:
+            CImage();
+            ~CImage();
+            
+            struct SImageInfo * pImageInfo;
+            void rotate(double angle);
+            void scale(double scaleFactor x, double scaleFactor y);
+            void move(int toX, int toY);
+        private:
+            void InitImageInfo();		
 	};
 
 	// === image.cpp ===

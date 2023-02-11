@@ -58,10 +58,14 @@ Also, the arguments which A sends to B are called actual arguments and the param
 - **Formal parameters:** parameters received by function appear in the prototype of the function or method.
 	For example, in the above program x and y are formal parameters.
 
-Modes:
+Modes
+
 **In:**		Passes info from caller to calle.
+
 **Out:**	Callee writes values in caller.
+
 **In/Out:**	Caller tells callee value of variable, which may be updated by callee.
+
 
 There are two most popular ways to pass parameters.
 
@@ -351,7 +355,7 @@ https://gcc.gnu.org/onlinedocs/gcc-4.7.2/gcc/Function-Attributes.html
 Return statement vs exit() in main()
 ------------------------------------
 
-Check in `Return statement vs exit() in main() <08_Functions_CPP.rst#return-statement-vs-exit-in-main>_`
+Check in `Return statement vs exit() in main() <08_Functions_CPP.rst#return-statement-vs-exit-in-main>`_
 
 
 How to Count Variable Numbers of Arguments in C?
@@ -370,8 +374,8 @@ For example, a function call like below may very well behave differently from on
 
 .. code:: cpp
 
-	void func (int, int);
-	int i = 2;
+    void func (int, int);
+    int i = 2;
     func (i++, i++);
 
 There is no guarantee (in either the C or the C++ standard language definitions) that the increments will be evaluated in any particular order. 
@@ -401,7 +405,7 @@ Here Struct1 and Struct2 are user defined struct types.
 .. code:: cpp
 
     foo(arg1, 0);   /*Here, arg1 is pointer to struct type Struct1 variable*/
-	foo(arg1, 1);    /*Here, arg1 is pointer to struct type Struct2 variable*/
+    foo(arg1, 1);   /*Here, arg1 is pointer to struct type Struct2 variable*/
 
 .. code:: cpp
 
@@ -608,18 +612,18 @@ In C, a callback function is a function that is called through a function pointe
 
 	#include <stdio.h>
 	void A() {
-		printf("Inside function A\n");
+        printf("Inside function A\n");
 	}
 
 	void B(void (*ptr)()) {
-	printf("Inside function B\n");
-	(*ptr) ();		// callback to A
+        printf("Inside function B\n");
+        (*ptr) ();		// callback to A
 	}
 
 	int main() {
-		void (*ptr)() = &A;
-		B(ptr);
-		return 0;
+        void (*ptr)() = &A;
+        B(ptr);
+        return 0;
 	}
 
 Output::

@@ -129,9 +129,9 @@ Macro cannot access private members of class. Macros looks like function call bu
 .. code:: cpp
 
 	class S {
-			int m;
-		public:
-			#define MAC(S::m)    // CE: "::" may not appear in macro parameter list
+        int m;
+        public:
+            #define MAC(S::m)    // CE: "::" may not appear in macro parameter list
 	};
 
 

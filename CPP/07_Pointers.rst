@@ -364,22 +364,20 @@ Send the array into functions by reference. This prevents conversion of array in
     
     // by passing array by reference
     void fun(int (&p)[7]) { 
-		// Printing size of array 
-		cout << "Modified size of array by "
-				"passing by reference: "; 
-		cout << sizeof(p) << endl;
+        // Printing size of array 
+        cout << "Modified size of array by "
+                "passing by reference: "; 
+        cout << sizeof(p) << endl;
     }
 
     int main() { 
-		int a[7] = {1, 2, 3, 4, 5, 6, 7,}; 
-		
-		// Printing original size of array 
-		cout << "Actual size of array is: "; 
-		cout << sizeof(a) <<endl;
-		
-		fun(a);	// Calling function by reference 
-		
-		return 0;
+        int a[7] = {1, 2, 3, 4, 5, 6, 7,};
+        
+        // Printing original size of array
+        cout << "Actual size of array is: ";
+        cout << sizeof(a) <<endl;
+        fun(a);	// Calling function by reference
+        return 0;
     } 
 
 Output::
@@ -393,10 +391,10 @@ Dereference, Reference, Dereference, Reference …
 .. code:: cpp
 
 	#include<stdio.h> 
-	int main() { 
-		char *ptr = "Learning C++"; 
-		printf("%c\n", *&*&*ptr); 
-		return 0; 
+	int main() {
+        char *ptr = "Learning C++";
+        printf("%c\n", *&*&*ptr);
+        return 0; 
 	}
 
 Output::
@@ -406,10 +404,10 @@ Output::
 .. code:: cpp
 
 	#include<stdio.h> 
-	int main() { 
-		char *ptr = "Learning C++"; 
-		printf("%s\n", *&*&ptr); 
-		return 0; 
+	int main() {
+        char *ptr = "Learning C++";
+        printf("%s\n", *&*&ptr);
+        return 0; 
 	}
 
 Output::
@@ -484,16 +482,15 @@ Basically, it means that void is an incomplete type whose size doesn’t make an
 
 	#include <stdio.h>
 	int main() {
-		printf("%zu\n",sizeof(void));
-		printf("%zu\n",sizeof(void *));
-		printf("%zu\n",sizeof(NULL));
-
-		printf("%c\n",NULL);
-		//printf("%s\n",NULL);
-		// This line causes SIGSEGV in C11 and C++
-		
-		printf("%f\n",NULL);
-		return 0;
+        printf("%zu\n",sizeof(void));
+        printf("%zu\n",sizeof(void *));
+        printf("%zu\n",sizeof(NULL));
+        
+        printf("%c\n",NULL);
+        //printf("%s\n",NULL);
+        // This line causes SIGSEGV in C11 and C++
+        printf("%f\n",NULL);
+        return 0;
 	}
 
 Output::
@@ -549,13 +546,12 @@ Correct in both C and C++
 
 	#include <stdio.h>
 	int main() {
-		int a = 10;
-		void * ptr = &a;
-		//printf("%d\n", *ptr);       
-		// error: 'void*' is not a pointer-to-object type
-		
-		printf("%d\n", *(int*)ptr);
-		return 0;
+        int a = 10;
+        void * ptr = &a;
+        //printf("%d\n", *ptr);
+        // error: 'void*' is not a pointer-to-object type
+        printf("%d\n", *(int*)ptr);
+        return 0;
 	}
 
 Output::
@@ -566,13 +562,13 @@ Output::
 
 	#include <stdio.h>
 	int main() {
-		int a[2] = {1, 2};
-		void * ptr = &a;
-		ptr = ptr + sizeof(int);
-		// warning: pointer of type 'void *' used in arithmetic [-Wpointer-arith]
-		
-		printf("%d", *(int*)ptr);
-		return 0;
+        int a[2] = {1, 2};
+        void * ptr = &a;
+        ptr = ptr + sizeof(int);
+        // warning: pointer of type 'void *' used in arithmetic [-Wpointer-arith]
+
+        printf("%d", *(int*)ptr);
+        return 0;
 	}
 
 Output::
@@ -707,19 +703,17 @@ We can have pointers to functions also
 
 	#include <stdio.h>
 	void fun(int a) {
-		printf("Value of a is %d\n", a); 
+        printf("Value of a is %d\n", a); 
 	} 
 	  
 	int main() {
-		void (*fun_ptr)(int) = &fun;
-		/* The above line is equivalent of following two 
-		void (*fun_ptr)(int); 
-		fun_ptr = &fun;  
-		*/
-
-		(*fun_ptr)(10);	// Invoking fun() using fun_ptr
-		return 0; 
-	} 
+        void (*fun_ptr)(int) = &fun;
+        /* The above line is equivalent of following two
+        void (*fun_ptr)(int);
+        fun_ptr = &fun; */
+        (*fun_ptr)(10);	// Invoking fun() using fun_ptr
+        return 0; 
+	}
 
 Output::
 
