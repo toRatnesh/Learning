@@ -403,15 +403,15 @@ we can have pointers to functions
 
 .. code:: cpp
 
-	#include <stdio.h>
-	// A normal function with an int parameter and void return type
-	void fun(int a) {
+    #include <stdio.h>
+    // A normal function with an int parameter and void return type
+    void fun(int a) {
         printf("Value of a is %d\n", a);
-	}
-	 
-	int main() {
+    }
+
+    int main() {
         void (*fun_ptr)(int) = &fun;	// fun_ptr is a pointer to function fun()
-        
+
         /* The above line is equivalent of following two
             void (*fun_ptr)(int);
             fun_ptr = &fun; */
@@ -497,18 +497,17 @@ Introduced in C++11, an alternate method of defining and storing function pointe
 
 .. code:: cpp
 
-	#include <functional>
-	#include <iostream> 
-	int foo() {    return 5; }
-	int goo() {    return 6; }
-
-	int main() {
+    #include <functional>
+    #include <iostream>
+    int foo() {    return 5; }
+    int goo() {    return 6; }
+    int main() {
         std::function<int()> fcnPtr;
         // declare function pointer that returns an int and takes no parameters
         fcnPtr = goo; // fcnPtr now points to function goo
         std::cout << fcnPtr(); // call the function just like normal
         return 0;
-	}
+    }
 
 Pointers to member functions in C++
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -628,18 +627,17 @@ In C++, what is the difference between exit(0) and return 0 ?
 
 .. code:: cpp
 
-	#include <iostream>
-	#include <stdio.h>
-	#include <stdlib.h>
-	using namespace std;
-
-	class Test {
+    #include <iostream>
+    #include <stdio.h>
+    #include <stdlib.h>
+    using namespace std;
+    
+    class Test {
         public:
         Test() { printf("Inside Test's Constructor\n"); }
         ~Test() {printf("Inside Test's Destructor\n"); }
-	};
-
-	int main() {
+    };
+    int main() {
         Test t1;		// destrutor for t1 will not be called
         static Test t2;
         // using exit(0) to exit from main
@@ -655,23 +653,21 @@ Output::
 
 .. code:: cpp
 
-	#include <iostream>
-	#include <stdio.h>
-	#include <stdlib.h>
-	using namespace std;
-
-	class Test {
-	    public:
-	    Test() { printf("Inside Test's Constructor\n"); }
-	    ~Test() {printf("Inside Test's Destructor\n"); }
-	};
-
-	int main() {
+    #include <iostream>
+    #include <stdio.h>
+    #include <stdlib.h>
+    using namespace std;
+    class Test {
+        public:
+        Test() { printf("Inside Test's Constructor\n"); }
+        ~Test() {printf("Inside Test's Destructor\n"); }
+    };
+    int main() {
         Test t1;
         static Test t2;
         // using return 0 to exit from main
         return 0;
-	}
+    }
 
 Output::
 

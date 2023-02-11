@@ -610,21 +610,19 @@ In C, a callback function is a function that is called through a function pointe
 
 .. code:: cpp
 
-	#include <stdio.h>
-	void A() {
+    #include <stdio.h>
+    void A() {
         printf("Inside function A\n");
-	}
-
-	void B(void (*ptr)()) {
+    }
+    void B(void (*ptr)()) {
         printf("Inside function B\n");
         (*ptr) ();		// callback to A
-	}
-
-	int main() {
+    }
+    int main() {
         void (*ptr)() = &A;
         B(ptr);
         return 0;
-	}
+    }
 
 Output::
 

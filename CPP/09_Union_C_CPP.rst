@@ -151,6 +151,7 @@ Difference between structure and union
 --------------------------------------
 
 .. list-table::
+    :header-rows: 1
 
 	* - 
 	  - Structure

@@ -14,52 +14,53 @@ Notes
 	struct st {
 	    int x;
 	    static int y;
-		// In C, CE: expected specifier-qualifier-list before 'static'
+        // In C, CE: expected specifier-qualifier-list before 'static'
 	};
 
 	For union In C++, CE: ???????????
 
 .. list-table::
+    :header-rows: 1
+
+    *   - 
+		-   C
+		-   C++
+
+	*	-   struct	
+		-   | Static member
+            | CE: expected specifier-qualifier-list before ‘static’	
+		-   Static member
 
 	*	- 
-		- C
-		- C++
-
-	*	- struct	
-		- | Static member
-		  | CE: expected specifier-qualifier-list before ‘static’	
-		- Static member
+		-   Const member
+		-   | Const member
+            | //compilation error will begerated if not initialized at time of variable declaration
+            | error: uninitialized const member in ‘struct st’
 
 	*	- 
-		- Const member
-		- | Const member
-		  | //compilation error will begerated if not initialized at time of variable declaration
-		  | error: uninitialized const member in ‘struct st’
-
-	*	- 
-		- | Const static member
-		  | CE: expected identifier or ‘(’ before ‘static’
-		- Const static member
+		-   | Const static member
+            | CE: expected identifier or ‘(’ before ‘static’
+		-   Const static member
 
 
-	*	- union
-		- | Static member
-		  | CE: expected specifier-qualifier-list before ‘static’
-		- | Static member
-		  | CE: ‘st::y’ may not be static because it is a member of a union
-
-	*	- 
-		- Const member
-		- Const member
+	*	-   union
+		-   | Static member
+            | CE: expected specifier-qualifier-list before ‘static’
+		-   | Static member
+            | CE: ‘st::y’ may not be static because it is a member of a union
 
 	*   - 
-	    - | Const static member
-		  | CE: expected identifier or ‘(’ before ‘static’
-		- | Const static member
-		  | CE: ‘st::y’ may not be static because it is a member of a union
+		-   Const member
+		-   Const member
+
+	*   - 
+	    -   | Const static member
+            | CE: expected identifier or ‘(’ before ‘static’
+		-   | Const static member
+            | CE: ‘st::y’ may not be static because it is a member of a union
 
 
-.. image:: 
+.. image:: ./.resources/09_structure_union_note.png
  
 
 - A structure cannot contain a member of its own type  because if this is allowed then it becomes impossible for compiler to know size of such struct
@@ -150,8 +151,8 @@ Question
 
 Answer::
 
-TRUE	[x]
-FALSE	[y]	// second declaration is wrong
+    TRUE	[x]
+    FALSE	[y]	// second declaration is wrong
 
 Explanation:
 
@@ -209,14 +210,14 @@ Here, struct type definition and definition of arr using that struct type has be
 Following is also correct
 
 ..code:: cpp
-	
-	struct {inta[2];} arr[] = {1,2};
+
+    struct {int a[2];} arr[] = {1,2};
 
 No compile error and it’ll create array arr of 1 element. Each of the element of arr contain a struct field of int array of 2 elements. arr[0]. a[0] would be 1 and arr[0].a[1] would be 2.
 
 .. code:: cpp
 
-	struct {inta[2], b;} arr[] = {[0].a = {1}, [1].a = {2}, [0].b = 1, [1].b = 2};
+	struct {int a[2], b;} arr[] = {[0].a = {1}, [1].a = {2}, [0].b = 1, [1].b = 2};
 	printf("%d %d %d and",arr[0].a[0],arr[0].a[1],arr[0].b);
 	printf("%d %d %d\n",arr[1].a[0],arr[1].a[1],arr[1].b);
 

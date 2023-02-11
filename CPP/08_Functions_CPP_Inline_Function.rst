@@ -128,11 +128,11 @@ Macro cannot access private members of class. Macros looks like function call bu
 
 .. code:: cpp
 
-	class S {
+    class S {
         int m;
         public:
             #define MAC(S::m)    // CE: "::" may not appear in macro parameter list
-	};
+    };
 
 
 C++ compiler checks the argument types of inline functions and necessary conversions are performed correctly. Preprocessor macro is not capable for doing this. 

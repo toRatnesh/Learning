@@ -45,8 +45,8 @@ Initialize structure members
 
 - In C, Structure members cannot be initialized with declaration
 - Reason, structure is a user defined data type and 
-	when a datatype is declared, no memory is allocated for it,
-	Memory is allocated only when variables are created
+  - when a datatype is declared, no memory is allocated for it,
+  - Memory is allocated only when variables are created
 - can be initialized using curly braces ‘{}’
 
 .. code:: cpp
@@ -119,23 +119,19 @@ Operations on struct variables in C
 - Any other operation (e.g. equality check) is not allowed
 
 .. code:: cpp
-
-	#include <stdio.h>
-	struct Point { int x; int y; };
-	int main() {
-	  struct Point p1 = {10, 20};
-	  struct Point p2 = p1; // works: contents of p1 are copied to p1
-	  printf(" p2.x = %d, p2.y = %d", p2.x, p2.y);
-
-	  /*
-	  if (p1 == p2)	// In C compiler error: invalid operands to binary == (have 'struct Point' and
-		       'struct Point')
-	// In C++ error: no match for 'operator==' (operand types are 'Point' and 'Point')
-	    printf("p1 and p2 are same ");
-	  */
-	  
-	  return 0;
-	}
+    
+    #include <stdio.h>
+    struct Point { int x; int y; };
+    int main() {
+        struct Point p1 = {10, 20};
+        struct Point p2 = p1; // works: contents of p1 are copied to p1
+        printf(" p2.x = %d, p2.y = %d", p2.x, p2.y);
+        
+        /* if (p1 == p2)	// In C compiler error: invalid operands to binary == (have 'struct Point' and 'struct Point')
+            // In C++ error: no match for 'operator==' (operand types are 'Point' and 'Point')
+            printf("p1 and p2 are same "); */
+        return 0;
+    }
 
 Array of structures
 -------------------
@@ -166,10 +162,8 @@ Size of structure
 -----------------
 
 #. By observation
-	Calculate by adding Individual Sizes
+   Calculate by adding Individual Sizes
 #. By Using sizeof Operator
-	sizeof is not a library function
-	sizeof is C Operator.
 #. Without using sizeof Operator, using array of structure
 
 .. code:: cpp
@@ -266,23 +260,23 @@ also known as unnamed structures
 
 .. code:: cpp
 
-	#include<stdio.h>
-	struct Scope {
-	    // Anonymous structure
-	    Struct {
-		char alpha;
-		int num;
-	    };
-	};
-	 
-	int main() {
-	struct Scope x;
-	x.num = 65;
-	x.alpha = 'B';
+    #include <stdio.h>
+    struct Scope {
+        // Anonymous structure
+        struct {
+            char alpha;
+            int num;
+        };
+    };
 
-	printf("x.alpha = %c, x.num = %d", x.alpha, x.num);
-		return 0;
-	}
+    int main() {
+        struct Scope x;
+        x.num = 65;
+        x.alpha = 'B';
+        
+        printf("x.alpha = %c, x.num = %d", x.alpha, x.num);
+        return 0;
+    }
 
 Output::
 	
@@ -314,18 +308,19 @@ Similarities and difference between Structure and Union
 **Similarities:**
 
 #. Both are user-defined data types used to store data of different types as a single unit.
-#. Their members can be objects of any type, including other structures and unions or arrays. 
-	A member can also consist of a bit field.
+#. Their members can be objects of any type, including other structures and unions or arrays.
+   - A member can also consist of a bit field.
 #. Both support only assignment = and sizeof operators.
-	The two structures or unions in the assignment must have the same members and member types.
+   - The two structures or unions in the assignment must have the same members and member types.
 #. A structure or a union can be passed by value to functions and returned by value by functions.
-	The argument must have the same type as the function parameter.
-	A structure or union is passed by value just like a scalar variable as a corresponding parameter.
+   - The argument must have the same type as the function parameter.
+   - A structure or union is passed by value just like a scalar variable as a corresponding parameter.
 
-**Differnece:**
+**Difference:**
 
 
 .. list-table::
+    :header-rows: 1
 
 	*	-	
 		-	Structure
@@ -344,22 +339,23 @@ Similarities and difference between Structure and Union
 		-	memory is shared by individual members
 
 	*	-	Value altering
-                -       altering the value of a member will not affect other members
-                -       altering the value of any of the member will alter other member values
+        -   altering the value of a member will not affect other members
+        -   altering the value of any of the member will alter other member values
 
-        *       -       accessing members
-                -       individual members can be accessed at a time
-                -       only one member can be accessed at a time
+    *   -   accessing members
+        -   individual members can be accessed at a time
+        -   only one member can be accessed at a time
 
-        *       -       Initialization of members
-                -       several members of a structure can be initialized at once
-                -       only the first member of a union can be initialized
+    *   -   Initialization of members
+        -   several members of a structure can be initialized at once
+        -   only the first member of a union can be initialized
 
  
 Difference between C structures and C++ structures
 --------------------------------------------------
 
 .. list-table::
+    :header-rows: 1
 
         *       -       
                 -       C
@@ -413,12 +409,14 @@ Struct Hack (FAM)
 
 .. code:: cpp
 
-        struct employee {
-            int		emp_id;
-            int		name_len;
-            char		name[0];
-        };
-        4 + 4 + 0 = 8 bytes.
+    struct employee {
+        int		emp_id;
+        int		name_len;
+        char    name[0];
+    };
+
+
+4 + 4 + 0 = 8 bytes.
 
 - In gcc, when we create an array of zero length, it is considered as array of incomplete type
 - This technique is known as “Struct Hack”
@@ -429,13 +427,13 @@ Struct Hack (FAM)
 
 .. code:: cpp
 
-        struct employee *e = malloc(sizeof(*e) + sizeof(char) * 128); 
-        is equivalent to
-        struct employee {
-            int		emp_id;
-            int		name_len;
-            char		name[128]; /* character array of size 128 */
-        };
+    struct employee *e = malloc(sizeof(*e) + sizeof(char) * 128); 
+    //is equivalent to
+    struct employee {
+        int		emp_id;
+        int		name_len;
+        char	name[128]; /* character array of size 128 */
+    };
 
 
 When we allocate memory as given above, compiler will allocate memory to store “emp_id” and “name_len” plus 
@@ -489,23 +487,18 @@ In the above example, an array is created without any name. Address of first ele
 
 .. code:: cpp
 
-        #include <stdio.h>
-        struct Point { int x, y; };
-        void printPoint(struct Point p) { 
-                printf("%d, %d", p.x, p.y);
-        }
-         
-        int main() {	
-                printPoint((struct Point){2, 3});
-                
-        /*	
-        Without compound literal, above statement would have been written as
+    #include <stdio.h>
+    struct Point { int x, y; };
+    void printPoint(struct Point p) {
+        printf("%d, %d", p.x, p.y);
+    }
+    int main() {
+        printPoint((struct Point){2, 3});
+        /* Without compound literal, above statement would have been written as
         struct Point temp = {2, 3};
-        printPoint(temp);  
-        */
-         
-           return 0;
-        }
+        printPoint(temp); */
+        return 0;
+    }
 
 References
 -----------

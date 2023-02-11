@@ -285,28 +285,24 @@ What is structure packing?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Sometimes it is mandatory to avoid padded bytes among the members of structure
-For example, reading contents of ELF file header or BMP or JPEG file header
+  For example, reading contents of ELF file header or BMP or JPEG file header
 - Need to define a structure similar to that of the header layout and map it.
 - care should be exercised in accessing such members
 - reading byte by byte is an option to avoid misaligned exceptions-
 - There will be hit on performance
-- Most of the compilers provide non standard extensions to switch off 
-	- the default padding like pragmas or command line switches
+- Most of the compilers provide non standard extensions to switch off
+  - the default padding like pragmas or command line switches
 
 Pointer Mishaps
 ^^^^^^^^^^^^^^^
 
-- There is possibility of potential error while dealing with pointer arithmetic
-example, dereferencing a generic pointer (void \*) can cause misaligned exception,
+- There is possibility of potential error while dealing with pointer arithmetic example, dereferencing a generic pointer (void \*) can cause misaligned exception,
 	- Deferencing a generic pointer (not safe)
 	- There is no guarantee that pGeneric is integer aligned
 	- \*(int \*)pGeneric;
-- If the pointer pGeneric is not aligned as per the requirements of casted data type, 
-there is possibility to get misaligned exception.	
-- few processors will not have the last two bits of address decoding, 
-and there is no way to access misaligned address.	
-- The processor generates misaligned exception, 
-if the programmer tries to access such address.	
+- If the pointer pGeneric is not aligned as per the requirements of casted data type, there is possibility to get misaligned exception.	
+- few processors will not have the last two bits of address decoding, and there is no way to access misaligned address.	
+- The processor generates misaligned exception, if the programmer tries to access such address.	
 
 malloc() returned pointer
 ^^^^^^^^^^^^^^^^^^^^^^^^^
