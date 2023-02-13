@@ -53,10 +53,9 @@ Let us assume that a function B() is called from another function A(). In this c
 
 Also, the arguments which A sends to B are called actual arguments and the parameters of B are called formal arguments.
 
-- **Actual parameters:** parameters passed to function appears in the function or method call in the calling environment.
-	For example, in the above program 10 and 20 are actual parameters.
-- **Formal parameters:** parameters received by function appear in the prototype of the function or method.
-	For example, in the above program x and y are formal parameters.
+**Actual parameters:** parameters passed to function appears in the function or method call in the calling environment. For example, in the above program 10 and 20 are actual parameters.
+
+**Formal parameters:** parameters received by function appear in the prototype of the function or method. For example, in the above program x and y are formal parameters.
 
 Modes
 
@@ -158,10 +157,11 @@ Importance of function prototype in C
 -------------------------------------
 
 Function prototype tells compiler about 
-- return type of the data that the function will return.
-- the number of arguments passed to the function.
-- the data types of the each of the passed arguments.
-- the order in which the arguments are passed to the function.
+
+- return type of the data that the function will return
+- the number of arguments passed to the function
+- the data types of the each of the passed arguments
+- the order in which the arguments are passed to the function
 
 By using this information, compiler cross checks function parameters and their data-type with function definition and function call. 
 
@@ -318,7 +318,7 @@ __attribute__((constructor)) and __attribute__((destructor)) syntaxes in C
 GCC specific syntaxes:
 
 #. **__attribute__((constructor)) syntax:** This particular GCC syntax, when used with a function, executes the same function at the start-up of the program, i.e. before main() function.
-#. __attribute__((destructor)) syntax:** This particular GCC syntax, when used with a function, executes the same function just before the program terminates through _exit, i.e. after main() function.
+#. **__attribute__((destructor)) syntax:** This particular GCC syntax, when used with a function, executes the same function just before the program terminates through _exit, i.e. after main() function.
 
 Explanation:
 
@@ -361,7 +361,7 @@ Check in `Return statement vs exit() in main() <08_Functions_CPP.rst#return-stat
 How to Count Variable Numbers of Arguments in C?
 ------------------------------------------------
 
-Check variable arguments topic
+Check `variable arguments <08_Functions_Variable_Arguments.rst>`_
 
 What is evaluation order of function parameters in C?
 -----------------------------------------------------
@@ -982,9 +982,9 @@ If expression evaluates to 0 (false), then the expression, sourcecode filename, 
 
 If the identifier NDEBUG (“no debug”) is defined with
 
-**#define NDEBUG
+**#define NDEBUG**
 
-then the macro assert does nothing.**
+**then the macro assert does nothing.**
 
 
 Common error outputting is in the form:

@@ -51,23 +51,21 @@ Initialize structure members
 
 .. code:: cpp
 
-	struct Point {
-	   int x = 0;  	// COMPILER ERROR:  cannot initialize members here
-	// gcc :  warning: non-static data member initializers
-			     only available with –std=c++11 or -std=gnu++11
-	   int y = 0; 	// COMPILER ERROR:  cannot initialize members here
-	};
-
-	int main()	{ 
-	   struct Point p1 = {0, 1};	// The order of declaration is followed.
-	}
+    struct Point {
+        int x = 0;  	// COMPILER ERROR:  cannot initialize members here
+            // gcc :  warning: non-static data member initializers only available with –std=c++11 or -std=gnu++11
+        int y = 0; 	// COMPILER ERROR:  cannot initialize members here
+    };
+    int main()	{ 
+        struct Point p1 = {0, 1};	// The order of declaration is followed.
+    }
 	
 Designated Initialization
 --------------------------
 
 - allows structure members to be initialized in any order
-	added in C99 standard
-	not available in C++ and works only in C.
+    - added in C99 standard
+    - not available in C++ and works only in C.
 - In C++ Compilation error : sorry, unimplemented: non-trivial designated initializers not supported
 
 .. code:: cpp
@@ -321,24 +319,24 @@ Similarities and difference between Structure and Union
 
 .. list-table::
     :header-rows: 1
+    
+    *   -
+        -   Structure
+        -   Union
+          
+    *   -   Keyword
+        -   struct is used to define structure
+        -   union is used to define a union
 
-	*	-	
-		-	Structure
-		-	Union
+    *   -   Size
+        -   greater than or equal to the sum of size of its members	
+        -   equal to the size of largest member
 
-	*	-	Keyword
-		-	struct is used to define structure
-		-	union is used to define a union
+    *   -   Memory
+        -   each member is assigned unique storage area of location
+        -   memory is shared by individual members
 
-	*	-	Size
-		-	greater than or equal to the sum of size of its members	
-		-	equal to the size of largest member
-
-	*	-	Memory
-		-	each member is assigned unique storage area of location
-		-	memory is shared by individual members
-
-	*	-	Value altering
+    *   -   Value altering
         -   altering the value of a member will not affect other members
         -   altering the value of any of the member will alter other member values
 
@@ -356,39 +354,39 @@ Difference between C structures and C++ structures
 
 .. list-table::
     :header-rows: 1
+    
+    *   -
+        -   C
+        -   C++
+          
+    *   -   Member functions inside structure
+        -   not allowed
+        -   allowed
+          
+    *   -   Direct Initialization
+        -   not permitted
+        -   permitted since C++ 11
+          
+    *   -   variable declaration
+        -   struct keyword is necessary
+        -   struct keyword is optional
 
-        *       -       
-                -       C
-                -       C++
+    *   -   static member
+        -   not permitted // C error: expected specifier-qualifier-list before 'static'
+        -   Permitted
+          
+    *   -   sizeof operator	
+        -   0 for an empty structure in C
+        -   1 for an empty structure in C++
 
-        *       -       Member functions inside structure
-                -       cannot have member functions
-                -       can have member functions along with data members
+    *   -   Data Hiding
+        -   does not allow concept of Data hiding
+        -   Data hiding is permitted
 
-        *       -       Direct Initialization
-                -       not permitted
-                -       permitted since C++ 11
+    *   -   Access Modifiers
+        -   does not have access modifiers
+        -   access modifiers is inbuilt in
 
-        *       -       variable declaration
-                -       struct keyword is necessary
-                -       struct keyword is optional
-
-        *       -       static member
-                -       not permitted
-                        // C error: expected specifier-qualifier-list before 'static'
-                -       Permitted
-
-        *       -       sizeof operator	
-                -       0 for an empty structure in C
-                -       1 for an empty structure in C++
-
-        *       -       Data Hiding
-                -       does not allow concept of Data hiding
-                -       Data hiding is permitted
-
-        *       -       Access Modifiers
-                -       does not have access modifiers
-                -       access modifiers is inbuilt in
 
 Flexible Array Members (FAM) in a structure in C
 ------------------------------------------------
@@ -398,7 +396,8 @@ Flexible Array Members (FAM) in a structure in C
 - Such an array inside the structure should preferably be declared as the last member of structure and its size is variable(can be changed be at runtime).
 - The structure must contain at least one more named member in addition to the flexible array member.
 
-Important Points:
+Important Points
+
 - Adjacent memory locations are used to store structure members in memory.
 - In previous standards of the C programming language, we were able to to declare a zero size array member in place of a flexible array member. 
 - The GCC compiler with C89 standard considers it as zero size array.
@@ -475,6 +474,7 @@ Output::
         2 4 6
 
 The above example is an example of compound literals. 
+
 - Compound literals were introduced in C99 standard of C. 
 - Compound literals feature allows us to create unnamed objects with given list of initialized values. 
 

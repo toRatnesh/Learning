@@ -20,6 +20,7 @@ Bit Fields
 The variables defined with a predefined width are called bit fields
 
 Examples include
+
 - Packing several objects into a machine word. e.g. 1 bit flags can be compacted.
 - Reading external file formats -- non-standard file formats could be read in, 
 e.g., 9-bit integers.
@@ -42,8 +43,7 @@ Here, the packed_struct contains 6 members: Four 1 bit flags f1..f3, a 4-bit typ
 
 - C automatically packs the above bit fields as compactly as possible, provided that 
 - the maximum length of the field is less than or equal to the integer word length of the computer. 
-- If this is not the case, then some compilers may allow memory overlap for the 
-fields while others would store the next field in the next word.
+- If this is not the case, then some compilers may allow memory overlap for the fields while others would store the next field in the next word.
 
 .. code:: cpp
 
@@ -99,24 +99,23 @@ value of m is from 1 to 12, we can optimize the space using bit fields.
 
 .. code:: cpp
 
-	#include <stdio.h> 
-	// A space optimized representation of date
-	struct date {
-	// d has value between 1 and 31, so 5 bits are sufficient
-	unsigned int d: 5;
-
-	// m has value between 1 and 12, so 4 bits are sufficient
-	unsigned int m: 4;
-
-	unsigned int y;
-	};
-
-	int main() {
-	printf("Size of date is %d bytes\n", sizeof(struct date));
-	struct date dt = {31, 12, 2014};
-	printf("Date is %d/%d/%d", dt.d, dt.m, dt.y);
-	return 0;
-	}
+    #include <stdio.h> 
+    // A space optimized representation of date
+    struct date {
+        // d has value between 1 and 31, so 5 bits are sufficient
+        unsigned int d: 5;
+        
+        // m has value between 1 and 12, so 4 bits are sufficient
+        unsigned int m: 4;
+        
+        unsigned int y;
+    };
+    int main() {
+        printf("Size of date is %d bytes\n", sizeof(struct date));
+        struct date dt = {31, 12, 2014};
+        printf("Date is %d/%d/%d", dt.d, dt.m, dt.y);
+        return 0;
+    }
 
 Output::
 
@@ -179,7 +178,7 @@ Example-02
 	   test t;
 	 
 	   // Uncommenting the following line will make the program compile and run
-	   printf("Address of t.x is %p", &t.x); //CE: cannot take address of bit-field 'x'
+	   // printf("Address of t.x is %p", &t.x); //CE: cannot take address of bit-field 'x'
 	 
 	   // The below line works fine as z is not a bit field member
 	   printf("Address of t.z is %p", &t.z);
@@ -256,7 +255,7 @@ Data Alignment
 - The memory addressing still be sequential 
 	- If bank 0 occupies an address X, bank 1, bank 2 and bank 3 will be at (X + 1), (X + 2) and (X + 3) addresses
 	- If an integer of 4 bytes is allocated on X address (X is multiple of 4), 
-the processor needs only one memory cycle to read entire integer. 
+  the processor needs only one memory cycle to read entire integer. 
 
 - if the integer is allocated at an address other than multiple of 4, it spans across two rows of the banks
 	- Such an integer requires two memory read cycle to fetch the data
@@ -288,7 +287,7 @@ What is structure packing?
   For example, reading contents of ELF file header or BMP or JPEG file header
 - Need to define a structure similar to that of the header layout and map it.
 - care should be exercised in accessing such members
-- reading byte by byte is an option to avoid misaligned exceptions-
+- reading byte by byte is an option to avoid misaligned exceptions
 - There will be hit on performance
 - Most of the compilers provide non standard extensions to switch off
   - the default padding like pragmas or command line switches
@@ -311,9 +310,7 @@ malloc() returned pointer
 | can be converted to any data type as per the need of programmer
 | malloc() should return a pointer that is aligned to maximum size of primitive data types
 | It is usually aligned to 8 byte boundary on 32 bit machines
-| Object File Alignment, Section Alignment, Page Alignment 
-| These are specific to operating system implementer 
-| to know more study about compiler writers 
+| Object File Alignment, Section Alignment, Page Alignment These are specific to operating system implementer 
 
 General Questions
 ------------------

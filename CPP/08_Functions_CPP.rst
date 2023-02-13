@@ -9,8 +9,9 @@ Function
 
 - A function is a set of statements that take inputs, do some specific computation and produces output.
 - The idea is to put some commonly or repeatedly done task together and make a function, so that instead of writing the same code again and again for different inputs, we can call the function.
+- The function initiating the function call is called the caller, and the function being called is the callee or called function.
 
-**Basic Syntax:**
+**Basic Syntax**
 
 .. code:: cpp
 
@@ -48,7 +49,6 @@ Output::
 	m is 20
 
 
-The function initiating the function call is called the caller, and the function being called is the callee or called function.
 
 Return values
 -------------
@@ -71,7 +71,7 @@ Best practice
 
 .. note::
 
-	The return type of a function cannot be a function type or an array type (but can be a pointer or reference to those).
+    - The return type of a function cannot be a function type or an array type (but can be a pointer or reference to those).
 
 Return from void functions in C/C++
 -----------------------------------
@@ -132,6 +132,7 @@ We cannot return values but there is something we can surely return from void fu
    But it can return a value which is void without giving an error.
 
    .. code:: cpp
+
     //In C and C++
     #include <stdio.h>
     void test() {
@@ -145,7 +146,7 @@ We cannot return values but there is something we can surely return from void fu
     
    Output::
 
-	Inside void function test
+    Inside void function test
 
 Trailing return type (since C++11)
 ----------------------------------
@@ -168,6 +169,8 @@ Nested functions are not supported
 
 Unlike some other programming languages, in C++, functions cannot be defined inside other functions.
 
+**Since C++11 Lambda can be used to overcome this limitation.**
+
 Function parameters and arguments
 ----------------------------------
 
@@ -177,7 +180,7 @@ An **argument** is a value that is passed from the caller to the function when a
 
 .. note::
 
-	The C++ specification does not define whether arguments are matched with parameters in left to right order or right to left order.
+    - The C++ specification does not define whether arguments are matched with parameters in left to right order or right to left order.
 
 Lifetime and scope
 ^^^^^^^^^^^^^^^^^^
@@ -188,7 +191,7 @@ Static variable inside a function have local scope but lifetime till execution o
 
 .. note::
 
-	Lifetime is a runtime property, and scope is a compile-time property.
+    - Lifetime is a runtime property, and scope is a compile-time property.
 
 **Best practice**
 
@@ -271,9 +274,9 @@ One interesting note: **Default parameters won’t work for functions called thr
 .. code:: cpp
 
 	#include <stdio.h>
-	int sum(int x, int y, int z, int w); 
+	int sum(int x, int y, int z=0, int w=0); 
 	// A function with default arguments, it can be called with 2, 3 or 4 arguments
-	int sum(int x, int y, int z=0, int w=0) {
+	int sum(int x, int y, int z, int w) {
 	    return (x + y + z + w);
 	}
 	int main() {
@@ -328,7 +331,9 @@ This class couples together a pair of values, which may be of different types
 
 A pair is a specific case of a std::tuple with two elements
 
-.. note:: Tuple can also be used to return two values instead of using pair.
+.. note::
+
+    - Tuple can also be used to return two values instead of using pair.
 
 .. code:: cpp
 
@@ -337,12 +342,12 @@ A pair is a specific case of a std::tuple with two elements
 	using namespace std;
 	// A Method that returns multiple values using tuple in C++.
 	tuple<int, int, char> foo(int n1, int n2) {
-	    return make_tuple(n2, n1, 'a');		// Packing values to return a tuple   
+	    return make_tuple(n2, n1, 'a');     // Packing values to return a tuple   
 	}
 
 	// A Method returns a pair of values using pair
 	std::pair<int, int> foo1(int num1, int num2) {
-	    return std::make_pair(num2, num1);	// Packing two values to return a pair 
+	    return std::make_pair(num2, num1);  // Packing two values to return a pair 
 	}
 
 	int main() {
@@ -431,10 +436,10 @@ Following are some interesting facts about function pointers.
 
    .. code:: cpp
 
-    void (*fun_ptr)(int) = fun;	// & removed
-    fun_ptr(10);		        // * removed	// implicit dereference
+    void (*fun_ptr)(int) = fun; // & removed
+    fun_ptr(10);        // * removed	// implicit dereference
 
-#. Like normal pointers, we can have an array of function pointers. Below example in point 5 shows syntax for array of pointers.
+#. Like normal pointers, we can have an array of function pointers. Below example shows syntax for array of pointers.
 
    .. code:: cpp
 
@@ -442,27 +447,27 @@ Following are some interesting facts about function pointers.
 
 #. Function pointer can be used in place of switch case.
 #. Like normal data pointers, a function pointer can be passed as an argument and can also be returned from a function.
-#. Many object oriented features in C++ are implemented using function pointers in C. For example virtual functions. Class methods are another example implemented using function pointers. Refer this book for more details.
+#. Many object oriented features in C++ are implemented using function pointers in C. For example virtual functions. Class methods are another example implemented using function pointers.
 
 One interesting note: **Default parameters won’t work for functions called through function pointers.** Default parameters are resolved at compile-time (that is, if you don’t supply an argument for a defaulted parameter, the compiler substitutes one in for you when the code is compiled). However, function pointers are resolved at run-time. Consequently, default parameters cannot be resolved when making a function call with a function pointer. You’ll explicitly have to pass in values for any defaulted parameters in this case.
 
 typedef or type aliases
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-typedefs can be used to make pointers to functions look more like regular variables:
+typedefs can be used to make pointers to functions look more like regular variables
 
 .. code:: cpp
 
 	typedef bool (*validateFcn)(int, int);
 
 This defines a typedef called “validateFcn” that is a pointer to a function that takes two ints and returns a bool.
-Now instead of doing this:
+Now instead of doing this
 
 .. code:: cpp
 
 	bool validate(int x, int y, bool (*fcnPtr)(int, int));  // ugly
 
-You can do this:
+You can do this
 
 .. code:: cpp
 

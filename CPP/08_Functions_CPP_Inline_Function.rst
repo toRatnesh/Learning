@@ -37,7 +37,7 @@ The syntax for defining the function inline is:
         // function code
     } 
 
-Remember, inlining is only a request to the compiler, not a command. Compiler can ignore the request for inlining. 
+Remember, **inlining is only a request to the compiler, not a command**. Compiler can ignore the request for inlining. 
 
 Compiler may not perform inlining in such circumstances like:
 
@@ -60,6 +60,7 @@ Inline inside classes
 To define an inline function, you must ordinarily precede the function definition with the inline keyword. However, this is not necessary inside a class definition.
 
 .. code:: cpp
+
     class A {
         public:
             int default_inline()	{}	// default inline
@@ -99,25 +100,24 @@ If you need to explicitly declare inline function in the class then just declare
 
 .. code:: cpp
 
-	class S {
-	public:
-	    inline int square(int s) {	// redundant use of inline, bad use of inline
-		// this function is automatically inline
-		// function body
-	    }
-	};
+    class S {
+        public:
+            inline int square(int s) {	// redundant use of inline, bad use of inline
+            // this function is automatically inline
+            // function body
+        }
+    };
 
 
 .. code:: cpp
 
-	class S {
-		public:
-			int square(int s);		// declare the function
-	};
-	 
-	inline int S::square(int s) {	// use inline prefix, correct use of inline
-		/* inline function */
-	}
+    class S {
+        public:
+            int square(int s);		// declare the function
+    };
+    inline int S::square(int s) {	// use inline prefix, correct use of inline
+        /* inline function */
+    }
 
 What is wrong with macro?
 -------------------------
@@ -130,8 +130,9 @@ Macro cannot access private members of class. Macros looks like function call bu
 
     class S {
         int m;
+
         public:
-            #define MAC(S::m)    // CE: "::" may not appear in macro parameter list
+        #define MAC(S::m)    // CE: "::" may not appear in macro parameter list
     };
 
 
@@ -182,24 +183,23 @@ if an inline makes a forward reference to a function that hasn’t yet been decl
 
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std;
-
-	class Forward {
-			int i;
-		public:
-			Forward() : i(0) {}
-			// Call to undeclared function:
-			int f() const { return g() + 1; }
-			int g() const { return i; }
-	};
-
-	int main() {
-		Forward frwd;
-		frwd.f();
-		
-		return 0;
-	}
+    #include <iostream>
+    using namespace std;
+    
+    class Forward {
+        int i;
+        
+        public:
+        Forward() : i(0) {}
+        // Call to undeclared function:
+        int f() const { return g() + 1; }
+        int g() const { return i; }
+    };
+    int main() {
+        Forward frwd;
+        frwd.f();
+        return 0;
+    }
 
 Reducing clutter
 ----------------
@@ -215,13 +215,13 @@ One of the most important uses of inlines inside classes is the access function.
 
 .. code:: cpp
 
-	class Access {
-			int i;
-		
-		public:
-			int read() const { return i; }
-			void set(int ii) { i = ii; }
-	};
+    class Access {
+        int i;
+        
+        public:
+        int read() const { return i; }
+        void set(int ii) { i = ii; }
+    };
 
 Accessors and mutators
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -230,18 +230,18 @@ Some people further divide the concept of access functions into accessors (to re
 
 .. code:: cpp
 
-	// Accessors & mutators
-	class Rectangle {
-			int wide, high;
-		
-		public:
-			Rectangle(int w = 0, int h = 0) : wide(w), high(h) {}
-			int width() const { return wide; }		// Read
-			void width(int w) { wide = w; }		// Set
-			
-			int height() const { return high; }		// Read
-			void height(int h) { high = h; }		// Set
-	};
+    // Accessors & mutators
+    class Rectangle {
+        int wide, high;
+        
+        public:
+        Rectangle(int w = 0, int h = 0) : wide(w), high(h) {}
+        int width() const { return wide; }  // Read
+        void width(int w) { wide = w; }     // Set
+        
+        int height() const { return high; } // Read
+        void height(int h) { high = h; }    // Set
+    };
 
 The inline keyword, modernly
 ----------------------------
@@ -253,7 +253,7 @@ In modern C++, the inline keyword is no longer used to request that a function b
 The compiler is also free to perform inline expansion of functions that do not use the inline keyword as part of its normal set of optimizations.
 - The inline keyword is defined at the wrong level of granularity. We use the inline keyword on a function declaration, but inline expansion is actually determined per function call. It may be beneficial to expand some function calls and detrimental to expand others, and there is no syntax to affect this.
 
-In modern C++, the inline concept has evolved to have a new meaning: multiple definitions are allowed in the program. This is true for functions as well as variables. Thus, if we mark a function as inline, then that function is allowed to have multiple definitions (in different files), as long as those definitions are identical.
+In modern C++, the inline concept has evolved to have a **new meaning: multiple definitions are allowed in the program**. This is true for functions as well as variables. Thus, if we mark a function as inline, then that function is allowed to have multiple definitions (in different files), as long as those definitions are identical.
 
 Constexpr functions are implicitly inline
 -----------------------------------------

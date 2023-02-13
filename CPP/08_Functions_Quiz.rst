@@ -58,8 +58,8 @@ Name of the function is actually a pointer variable to the function and prints t
 	   int (*funcptr)();
 	}
 	symtab[] = {
-	   "func", func,
-	   "anotherfunc", anotherfunc,
+	   {"func", func},
+	   {"anotherfunc", anotherfunc}
 	};
 
 

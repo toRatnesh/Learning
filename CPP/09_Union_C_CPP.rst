@@ -152,34 +152,34 @@ Difference between structure and union
 
 .. list-table::
     :header-rows: 1
+    
+    *   -
+        -   Structure
+        -   Union
 
-	* - 
-	  - Structure
-	  - Union
+    *   -   Keyword
+        -   struct
+        -   union
+          
+    *   -   Size
+        -   >= sum of size of its members
+        -   Equal to the size of largest member
+          
+    *   -   Memory
+        -   Each member is allocated it’s own memory
+        -   Memory allocated is shared by individual members of union
+    
+    *   -   Value Altering
+        -   Altering the value of a member will not affect other members of the structure
+        -   Altering the value of a member will alter other member values
 
-	* - Keyword
-	  - struct
-	  - union
+    *   -   Accessing Members
+        -   Individual member can be accessed at a time
+        -   Only one member can be accessed at a time
 
-	* - Size
-	  - >= sum of size of its members
-	  - Equal to the size of largest member
-
-	* - Memory
-	  - Each member is allocated it’s own memory
-	  - Memory allocated is shared by individual members of union
-
-	* - Value Altering
-	  - Altering the value of a member will not affect other members of the structure
-	  - Altering the value of a member will alter other member values
-
-	* - Accessing Members
-	  - Individual member can be accessed at a time
-	  - Only one member can be accessed at a time
-
-	* - Initializations of members
-	  - Several members of a structure can be initialized at once
-	  - Only the first member of a union can be initialized
+    *   -   Initializations of members
+        -   Several members of a structure can be initialized at once
+        -   Only the first member of a union can be initialized
 
 References
 ----------
