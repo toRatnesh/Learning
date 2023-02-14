@@ -44,6 +44,45 @@ The goal of never allocating storage for a const also fails with complicated str
 
 Because the compiler cannot always avoid allocating storage for a const, const definitions must default to internal linkage, that is, linkage only within that particular translation unit. Otherwise, linker errors would occur with complicated consts because they cause storage to be allocated in multiple cpp files. The linker would then see the same definition in multiple object files, and complain.
 
+.. code:: cpp
+
+    // === fun.h ===
+    int fun();
+    //int global_value = 5; // linker error: multiple definition of `global_value'
+    extern int global_extern_value;
+    const int global_const_value = 7; // this has internal linkage
+    
+    // === fun.cpp ===
+    #include "fun.h"
+    #include <iostream>
+    
+    int global_extern_value = 6;
+    int fun() {
+        std::cout << "Inside funciton " <<  __func__ << '\n';
+        std::cout << "const global value " << global_const_value << ", global value " << global_extern_value << '\n';
+        int arr[global_const_value] = {1,2,3};
+        return arr[0];
+    }
+    
+    // === main.cpp ===
+    #include <iostream>
+    #include "fun.h"
+    int main() {
+        std::cout << "Inside funciton " <<  __func__ << '\n';
+        std::cout << "const global value " << global_const_value << ", global value " << global_extern_value << '\n';
+        auto val = fun();
+        std::cout << "Fun return value is " << val << '\n';
+        return 0;
+    }
+
+Output::
+
+    Inside funciton main
+    const global value 7, global value 6
+    Inside funciton fun
+    const global value 7, global value 6
+    Fun return value is 1
+
 Safety consts
 ^^^^^^^^^^^^^
 
@@ -104,29 +143,28 @@ const in C, means an ordinary variable that cannot be changed.
 #. In C, a const always occupies storage and its name is global. 
 #. The C compiler cannot treat a const as a compile-time constant.
 
-	::
-	
-		const int bufsize = 100;
-		char buf[bufsize];		// Illegal
+   ::
+
+    const int bufsize = 100;
+    char buf[bufsize];		// Illegal
 
 #. In C, statement
 
-	::
+   ::
 
-		const int bufsize;
+    const int bufsize;
 
-	is valid, but not in C++, and the C compiler accepts it as a declaration indicating there is storage allocated elsewhere.
-
-	Because C defaults to external linkage for const and C++ defaults to internal linkage for const.
+   is valid, but not in C++, and the C compiler accepts it as a declaration indicating there is storage allocated elsewhere.
+   Because C defaults to external linkage for const and C++ defaults to internal linkage for const.
 
 
 #. In C++, you must explicitly change the linkage to external using extern:
-	
-	::
 
-		extern const int bufsize; // Declaration only
+   ::
+
+    extern const int bufsize; // Declaration only
 	
-	This line also works in C.
+   This line also works in C.
 
 #. In C++, a const doesn’t necessarily create storage. In C a const always creates storage.
 
@@ -202,6 +240,8 @@ use either of two legal forms:
 
 Now neither the pointer nor the object can be changed.
 
+For examples check `Pointers and const <07_Pointers_02.rst#pointers-and-const>`_
+
 Formatting
 ^^^^^^^^^^
 
@@ -228,18 +268,16 @@ Of course, you can always use a cast to force such an assignment, but this is ba
 
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std;
+    #include <stdio.h>
+    int main() {
+        int d = 1;
+        const int e = 2;
+        int* u = &d;    // OK
+        //int* v = &e;  // CE error: invalid conversion from 'const int*' to 'int*'
+        int* w = (int*)&e;  // OK but Bad Programming
+        return 0;
+    }
 
-	int d = 1;
-	const int e = 2;
-	int* u = &d;    // OK
-	//int* v = &e;    // CE error: invalid conversion from 'const int*' to 'int*'
-	int* w = (int*)&e;  // OK but Bad Programming
-
-	int main() { 
-		return 0; 
-	}
 
 Character array literals
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -269,8 +307,8 @@ If you want to be able to modify the string, put it in an array:
 	#include <iostream>
 	using namespace std;
 	int main(void) {
-		char * cp = "Ratnesh";  // CW warning: ISO C++ forbids converting a string constant to 'char*'
-		char ca[] = "Ratnesh";
+		char * cp = "Learning C++";  // CW warning: ISO C++ forbids converting a string constant to 'char*'
+		char ca[] = "Learning C++";
 		
 		cout << cp << endl;
 		cout << ca << endl;	
@@ -286,11 +324,11 @@ If you want to be able to modify the string, put it in an array:
 
 Output::
 
-	Ratnesh
-	Ratnesh
-	n
-	n
-	n
+	Learning C++
+	Learning C++
+	r
+	r
+	r
 	N
 
 Function arguments & return values
@@ -329,7 +367,7 @@ To avoid confusion to the caller, you can make the argument a const inside the f
 Returning by const value
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you say that a function’s return value is const:
+If you say that a function’s return value is const
 
 ::
 
@@ -517,14 +555,14 @@ You need to provide the initializer at the point of definition of the static con
 .. code:: cpp
 
 	class StringStack {
-			static const int size = 100;
-			const string* stack[size];
+        static const int size = 100;
+        const string* stack[size];
 	};
 
 The “enum hack” in old code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In older versions of C++, staticconst was not supported inside classes.
+In older versions of C++, static const was not supported inside classes.
 
 Typical solution (“enum hack”) was to use an untagged enum with no instances. An enumeration must have all its values established at compile time, it’s local to the class, and its values are available for constant expressions.
 
@@ -560,43 +598,42 @@ A const member function is safe to call with both const and non-const objects.
 
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std;
-
-	class A {
-			int m;
-		
-		public:
-			A(int n) : m(n){ }
-			~A() { m = 0;}
-			void fun1(int n);
-			void fun2(int m) const;
-			void display() { cout << "m: " << m << endl; }
-	};
-
-	void A::fun1(int n) {
-		m = n;
-	}
-
-	void A::fun2(int n) const {
-		//fun1();		// CE  error: no matching function for call to 'A::fun1() const'
-		//m = n;		// CE error: assignment of member 'A::m' in read-only object
-	}
-
-	int main() {
-		A obj(5);
-		const A cobj(7);
-		
-		obj.fun1(3);
-		obj.fun2(9);
-		obj.display();
-		
-		//cobj.fun1(3); // CE error: passing 'const A' as 'this' argument discards qualifiers
-		cobj.fun2(9);
-		//cobj.display(); // CE  error: passing 'const A' as 'this' argument discards qualifiers
-		
-		return 0;
-	}
+    #include <iostream>
+    using namespace std;
+    
+    class A {
+        int m;
+        
+        public:
+        A(int n) : m(n){ }
+        ~A() { m = 0;}
+        void fun1(int n);
+        void fun2(int m) const;
+        void display() { cout << "m: " << m << endl; }
+    };
+    
+    void A::fun1(int n) { 
+        m = n; 
+    }
+    
+    void A::fun2(int n) const {
+        //fun1();		// CE  error: no matching function for call to 'A::fun1() const'
+        //m = n;		// CE error: assignment of member 'A::m' in read-only object
+    }
+    
+    int main() {
+        A obj(5);
+        const A cobj(7);
+        
+        obj.fun1(3);
+        obj.fun2(9);
+        obj.display();
+        
+        //cobj.fun1(3); // CE error: passing 'const A' as 'this' argument discards qualifiers
+        cobj.fun2(9);
+        //cobj.display(); // CE  error: passing 'const A' as 'this' argument discards qualifiers
+        return 0;
+    }
 
 Output::
 
@@ -619,49 +656,50 @@ However, if the compiler is told that an object is const, it will jealously guar
 
 
 Two ways to effect logical constness, change a data member from within a const member function.
+
 #. casting away constness
 #. mutable
 
 #. **casting away constness**
 
-	You take this and cast it to a pointer to an object of the current type. It would seem that this is already such a pointer. However, inside a const member function it’s actually a const pointer, so by casting it to an ordinary pointer, you remove the constness for that operation.
+   You take this and cast it to a pointer to an object of the current type. It would seem that this is already such a pointer. However, inside a const member function it’s actually a const pointer, so by casting it to an ordinary pointer, you remove the constness for that operation.
 
-	.. code:: cpp
+   .. code:: cpp
 
-		class Y {
-				int i;
-			public:
-				Y();
-				void f() const;
-		};
+    class Y {
+        int i;
+        public:
+        Y();
+        void f() const;
+    };
 
-		Y::Y() { i = 0; }
-		void Y::f() const {
-			((Y*)this)->i++; // OK: cast away const-ness
-			(const_cast<Y*>(this))->i++;	// // Better: use C++ explicit cast syntax:
-		}
+    Y::Y() { i = 0; }
 
-	**Drawback:** this lack of constness is hidden away in a member function definition, and you have no clue from the class interface that the data of the object is actually being modified unless you have access to the source code.
+    void Y::f() const {
+        ((Y*)this)->i++; // OK: cast away const-ness
+        (const_cast<Y*>(this))->i++;	// // Better: use C++ explicit cast syntax:
+    }
+
+   **Drawback:** this lack of constness is hidden away in a member function definition, and you have no clue from the class interface that the data of the object is actually being modified unless you have access to the source code.
 
 #. **mutable**
 
-	Use mutable keyword in the class declaration to specify that a particular data member may be changed inside a const object.
+   Use mutable keyword in the class declaration to specify that a particular data member may be changed inside a const object.
 
-	.. code:: cpp
+   .. code:: cpp
 
-		class Y {
-				mutable int i;
-			public:
-				Y();
-				void f() const;
-		};
+    class Y {
+        mutable int i;
+        public:
+        Y();
+        void f() const;
+    };
+    Y::Y() { i = 0; }
+    void Y::f() const {
+        i = i + 1;
+    }
 
-		Y::Y() { i = 0; }
-		void Y::f() const {
-			i = i + 1;
-		}
-
-	This way, the user of the class can see from the declaration which members are likely to be modified in a const member function.
+   This way, the user of the class can see from the declaration which members are likely to be modified in a const member function.
 
 ROMability
 ~~~~~~~~~~
@@ -689,46 +727,44 @@ You create volatile objects using the same syntax that you use to create const o
 
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std;
-
-	class Comm {
-			const volatile unsigned char byte;
-			volatile unsigned char flag;
-			enum { bufsize = 100 };
-			unsigned char buf[bufsize];
-			int index;
-		
-		public:
-			Comm();
-			void isr() volatile;
-			char read(int index) const;
-	};
-
-	Comm::Comm() : index(0), byte(0), flag(0) {}
-	// Only a demo; won't actually work as an interrupt service routine:
-	void Comm::isr() volatile {
-		flag = 0;
-		buf[index++] = byte;
-		if(index >= bufsize) index = 0; // 	// Wrap to beginning of buffer:
-	}
-
-	char Comm::read(int index) const {
-		if(index < 0 || index >= bufsize)
-			return 0;
-		
-		return buf[index];
-	}
-
-	int main() {
-		volatile Comm Port;
-		Port.isr(); // OK
-		
-		// CE  error: passing 'volatile Comm' as 'this' argument discards qualifiers
-		//Port.read(0); // Error, read() not volatile
-		
-		return 0;
-	}
+    #include <iostream>
+    using namespace std;
+    
+    class Comm {
+        const volatile unsigned char byte;
+        volatile unsigned char flag;
+        enum { bufsize = 100 };
+        unsigned char buf[bufsize];
+        int index;
+        
+        public:
+        Comm();
+        void isr() volatile;
+        char read(int index) const;
+    };
+    
+    Comm::Comm() : index(0), byte(0), flag(0) { }
+    // Only a demo; won't actually work as an interrupt service routine:
+    void Comm::isr() volatile {
+        flag = 0;
+        buf[index++] = byte;
+        if(index >= bufsize) index = 0; // 	// Wrap to beginning of buffer:
+    }
+    
+    char Comm::read(int index) const {
+        if(index < 0 || index >= bufsize)
+            return 0;
+        return buf[index];
+    }
+    int main() {
+        volatile Comm Port;
+        Port.isr(); // OK
+        
+        // CE  error: passing 'volatile Comm' as 'this' argument discards qualifiers
+        //Port.read(0); // Error, read() not volatile
+        
+        return 0;
+    }
 
 You can use volatile for data members, member functions, and objects themselves. You can only call volatile member functions for volatile objects.
 

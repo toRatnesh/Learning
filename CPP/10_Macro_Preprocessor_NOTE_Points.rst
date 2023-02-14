@@ -7,18 +7,19 @@ Macro
 More Preprocessor features
 --------------------------
 
-Three special features in the C preprocessor (which is also the C++ preprocessor):
-1. stringizing
-2. string concatenation
-3. token pasting
+Three special features in the C preprocessor (which is also the C++ preprocessor)
+
+#. stringizing
+#. string concatenation
+#. token pasting
 
 Stringizing
------------
+~~~~~~~~~~~~
 
 Stringizing, introduced earlier in the book, is performed with the # directive and allows you to take an identifier and turn it into a character array. 
 
 String concatenation
---------------------
+~~~~~~~~~~~~~~
 
 String concatenation takes place when two adjacent character arrays have no intervening punctuation, in which case they are combined. 
 These two features are especially useful when writing debug code.
@@ -38,7 +39,7 @@ The #s stringizes the statement for output, and the second s reiterates the stat
 
 
 Token pasting
--------------
+~~~~~~~~~~~~~
 
 Token pasting, implemented with the ## directive, is very useful when you are manufacturing code. It allows you to take two identifiers and paste them together to automatically create a new identifier. 
 
@@ -65,7 +66,6 @@ After the pre-processing is over, all the undefined macros are initialized with 
 
 .. code:: cpp
 
-
 	#include <stdio.h>
 	#if X == 3
 	    #define Y 3
@@ -74,16 +74,16 @@ After the pre-processing is over, all the undefined macros are initialized with 
 	#endif
 	 
 	int main() {
-	printf("%d", Y);
-	return 0;
+	        printf("%d", Y);
+	        return 0;
 	}
 
-Answer::
+Answer
 
-	3					[x]
-	5					[y]
-	3 or 5 depending on value of X		[x]
-	Compile time error			[x]
+| 3					[x]
+| **5					[✓]**
+| 3 or 5 depending on value of X	[x]
+| Compile time error			[x]
 
 
 .. code:: cpp
@@ -92,22 +92,23 @@ Answer::
 	#define ISEQUAL(X, Y) X == Y
 	int main() {
 	    #if ISEQUAL(X, 0)
-	printf("Geeks");
+	        printf("Geeks");
 	    #else
-	printf("Quiz");
+	        printf("Quiz");
 	    #endif
 	    return 0;
 	}
 
-Answer::
+Answer
 
-	Geeks				[y]
-	Quiz				[x]
-	Any of Geeks or Quiz		[x]
-	Compile time error		[x]
+| **Geeks			[✓]**
+| Quiz				[x]
+| Any of Geeks or Quiz		[x]
+| Compile time error		[x]
 
-*Explanation:*
-The conditional macro #if ISEQUAL(X, 0) is expanded to #if X == 0. After the pre-processing is over, all the undefined macros are initialized with default value 0. Since macro X has not been defined, it is initialized with 0. So, Geeks is printed.
+Explanation::
+
+        The conditional macro #if ISEQUAL(X, 0) is expanded to #if X == 0. After the pre-processing is over, all the undefined macros are initialized with default value 0. Since macro X has not been defined, it is initialized with 0. So, Geeks is printed.
 
 Question
 --------
@@ -120,13 +121,16 @@ token pasting operator ## which concatenates parameters to macro.
 	#define macro(n, a, i, m) m##a##i##n
 	#define MAIN macro(n, a, i, m) 
 	int MAIN() {
-	printf("GeeksQuiz");
-	return 0;
+	        printf("GeeksQuiz");
+	        return 0;
 	}
-	Compiler Error	[x]
-	GeeksQuiz	[y]
-	MAIN		[x]
-	Main		[x]
+
+Answer
+
+| Compiler Error	[x]
+| **GeeksQuiz           [✓]**
+| MAIN                  [x]
+| Main                  [x]
 
 Question
 --------
@@ -140,19 +144,19 @@ Pre-processor takes the most recent value before use of and put it in place of a
 	#include <stdio.h>
 	#define a 10
 	int main() {
-	printf("%d ",a);
+	        printf("%d ",a);
 
-	#define a 50
-	printf("%d ",a);
-	return 0;
+	        #define a 50
+	        printf("%d ",a);
+	        return 0;
 	}
 
-Answer::
+Answer
 
-	Compiler Error	[x]
-	10 50		[y]
-	50 50		[x]
-	10 10		[x]
+| Compiler Error	[x]
+| **10 50		[✓]**
+| 50 50                 [x]
+| 10 10                 [x]
 
 "#pragma once" 
 --------------
@@ -168,9 +172,10 @@ Used in a header file to avoid its inclusion more than once.
 		return 0;
 	}
 
-Answer::
+Answer
 
-	program will not give compile error
+| program will not give compile error and print
+| Whether this statement would be printed?
 
 
 Question
@@ -189,12 +194,12 @@ The pre-processing operator '#' is used to convert a string argument into a stri
 		return 0;
 	}
 
-Answer::
+Answer
 
-	Compiler Error	[x]
-	#GeeksQuiz	[x]
-	GeeksQuiz	[y]
-	GGeeksQuiz	[x]
+| Compiler Error	[x]
+| #GeeksQuiz            [x]
+| **GeeksQuiz             [✓]**
+| GGeeksQuiz            [x]
 
 
 Question
@@ -209,13 +214,13 @@ In C, for macros with arguments, there cannot be any space between macro name an
 	#define INC3( a ) (( a ) + 1)
 	#define INC4 ( a ) (( a ) + 1)
 
-Answer::
+Answer
 
-	Only INC1 and INC3 are correct.
+Only INC1 and INC3 are correct.
 
-*Explanation:*
+Explanation::
 
-In C, for macros with arguments, there can’t be any space between macro name and open parenthesis. That’s why only INC1 and INC3 are correct. Basically, “#define INC2 (a) ((a)+1)” results in “INC2” expansion to “(a) ((a)+1)” which is not the desired expansion.
+        In C, for macros with arguments, there can’t be any space between macro name and open parenthesis. That’s why only INC1 and INC3 are correct. Basically, “#define INC2 (a) ((a)+1)” results in “INC2” expansion to “(a) ((a)+1)” which is not the desired expansion.
 
 References
 ----------

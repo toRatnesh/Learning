@@ -17,26 +17,26 @@ Example
 
 .. list-table::
 
-	*	- 123
-		-Decimal Integer
+    *   -   123
+        -   Decimal Integer
 
-	*	- 12.34
-		- Floating point integer
+    *   -   12.34
+        -   Floating point integer
+          
+    *   -   037
+        -   Octal integer
 
-	*	- 037
-		- Octal integer
+    *   -   0x2
+        -   Hexadecimal integer
 
-	*	- 0x2
-		- Hexadecimal integer
+    *   -   “C++”
+        -   String Constant
 
-	*	- “C++”
-		- String Constant
-
-	*	- ‘A’
-		- Character constant
-
-	*	- L’ab’
-		- Wide character constant
+    *   -   ‘A’
+        -   Character constant
+          
+    *   -   L’ab’
+        -   Wide character constant
 
 
 Defining Constants
@@ -48,7 +48,9 @@ make the variable as constant using
 ^^^^^^^^^^^^^^^^^^^^
 
 Defines a substitute text for a name
+
 Creates symbolic constants, called a macro
+
 Example
 
 .. code:: cpp
@@ -59,6 +61,7 @@ const keyword
 ^^^^^^^^^^^^^
 
 You can use const prefix to declare constants with a specific type
+
 const type variable = value;
 
 Example
@@ -116,13 +119,12 @@ Difference between #define and const
 
 ::
 
-        1.	In C++ we can use const in a constant expression, in C not
-                   const int size = 10;
-                   char name[size];		// C++ (y)		C (n)
-        
-        2.	Character literals have different type in C and C++
-                   - In C character literal is treated as an int type
-                   - In C++ character literal is treated as char type
+    1. In C++ we can use const in a constant expression, in C not
+           const int size = 10;
+           char name[size];     // C++ (y)		C (n)
+    2. Character literals have different type in C and C++
+           In C character literal is treated as an int type
+           In C++ character literal is treated as char type
 
 Raw String Literal (C++ 11)
 ---------------------------
@@ -131,33 +133,42 @@ From C++11 we can use raw strings in which escape characters (\n, \t or \” …
 
 .. code:: cpp
 
-        std::string str1 = “Geeks\nFor\nGeeks\n”;
-        std::string str2 = R“Geeks\nFor\nGeeks\n”;
+    #include <iostream>
+    using namespace std;
+
+    int main(void) {
+        std::string str1 = "Geeks\nFor\nGeeks\n";
+        std::string str2 = R"(Geeks\nFor\nGeeks\n)";
         std::cout << str1 << std::endl;
         std::cout << str2 << std::endl;
+        return 0;
+    }
 
 Output::
 
-        Geeks.
-        For.
-        Geeks.
+    Geeks
+    For
+    Geeks
 
-        Geeks.\nFor.\nGeeks.\n
+    Geeks\nFor\nGeeks\n
 
 User defined literals (C++11)
 -----------------------------
 
 Why to use UDL? Consider example
-Long double weight = 2.3;		// pounds?, Kilogram?, Grams?
+
+long double weight = 2.3;		// pounds?, Kilogram?, Grams?
+
 With UDL, we attach units to the values which has following advantages
+
 The code becomes readable 
 
 **Conversion computations are done at compile time**
 
 ::
 
-        weight  = 2.3kg;
-        ratio   = 2.3kg/1.21b;
+    weight  = 2.3kg;
+    ratio   = 2.3kg/1.21b;
 
 To calculate above ratio it is necessary to convert them to same units.
 
@@ -189,60 +200,60 @@ Example
 
 .. code:: cpp
 
-        #include<iostream> 
-        #include<iomanip> 
-        using namespace std; 
-
-        long double operator"" _kg( long double x )	{return x*1000;}
-        long double operator"" _g( long double x )	{return x;} 
-        long double operator"" _mg( long double x )	{return x / 1000;} 
-
-        int main() { 
-                long double weight = 3.6_kg; 
-                cout << weight << endl; 
-                cout << setprecision(8) << ( weight + 2.3_mg ) << endl; 
-                cout << ( 32.3_kg / 2.0_g ) << endl; 
-                cout << ( 32.3_mg *2.0_g ) << endl; 
-                return 0; 
-        }
+    #include <iostream>
+    #include <iomanip>
+    using namespace std; 
+    
+    long double operator"" _kg( long double x )	{return x*1000;}
+    long double operator"" _g( long double x )	{return x;}
+    long double operator"" _mg( long double x )	{return x / 1000;}
+    
+    int main() {
+        long double weight = 3.6_kg;
+        cout << weight << endl;
+        cout << setprecision(8) << ( weight + 2.3_mg ) << endl;
+        cout << ( 32.3_kg / 2.0_g ) << endl;
+        cout << ( 32.3_mg *2.0_g ) << endl;
+        return 0;
+    }
 
 Output::
 
-        3600
-        3600.0023
-        16150
-        0.0646
+    3600
+    3600.0023
+    16150
+    0.0646
 
 
 .. code:: cpp
 
-        #include <iostream> 
-        #include <complex> 
-        using namespace std;
+    #include <iostream>
+    #include <complex>
+    using namespace std;
+    
+    constexpr complex <double> operator"" _i(long double d) {
+        return complex <double> {0.0, static_cast<double>(d)};
+    }
 
-        constexpr complex <double> operator"" _i(long double d) {
-                return complex <double> {0.0, static_cast<double>(d)};
-        }
-
-        int main() { 
-                complex <double> z = 3.0 + 4.0_i;
-                complex <double> y = 2.3 + 5.0_i;
-                
-                std::cout << "z+y = " << (z+y) << std::endl;
-                std::cout << "z*y = " << (z*y) << std::endl;
-                std::cout << "abs(z) = " << abs(z) << std::endl;
-                
-                return 0; 
-        } 
+    int main() {
+        complex <double> z = 3.0 + 4.0_i;
+        complex <double> y = 2.3 + 5.0_i;
+        std::cout << "z+y = " << (z+y) << std::endl;
+        std::cout << "z*y = " << (z*y) << std::endl;
+        std::cout << "abs(z) = " << abs(z) << std::endl;
+        return 0;
+    } 
 
 Output::
 
-        z+y = (5.3,9)
-        z*y = (-13.1,24.2)
-        abs(z) = 5
+    z+y = (5.3,9)
+    z*y = (-13.1,24.2)
+    abs(z) = 5
 
 
-.. note:: constexpr is used to enable compile time evaluation
+.. note::
+
+    - constexpr is used to enable compile time evaluation
 
 Restriction
 -----------
