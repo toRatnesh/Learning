@@ -39,8 +39,11 @@ enum variable declaration
 -------------------------
 
 enum week{Mon, Tue, Wed};
-enum day;
+
+enum week day;
+
 // Or
+
 enum week{Mon, Tue, Wed}day;
 
 .. code:: cpp
@@ -55,42 +58,42 @@ enum week{Mon, Tue, Wed}day;
 	}
 
 Output::
+
 	2
 
 Interesting facts about initialization of enum
 -----------------------------------------------
 
-1. Two enum names can have same value
-enum State {Working = 1, Failed = 0, Freezed = 0};
-2. If we do not explicitly assign values to enum names, the compiler by default assigns values starting from 0
-3. We can assign values to some name in any order
-All unassigned names get value as value of previous name plus one
-4. The value assigned to enum names must be some integeral constant (+ve or -ve)
-5. All enum constants must be unique in their scope
+#. Two enum names can have same value
+   enum State {Working = 1, Failed = 0, Freezed = 0};
+#. If we do not explicitly assign values to enum names, the compiler by default assigns values starting from 0
+#. We can assign values to some name in any order
+   All unassigned names get value as value of previous name plus one
+#. The value assigned to enum names must be some integeral constant (+ve or -ve)
+#. All enum constants must be unique in their scope
 
 .. code:: cpp
 
-	#include<stdio.h> 
-	enum year{Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec};	//2
-	enum day {sunday = 1, monday, tuesday = 5, wednesday, 
-	thursday = 10,friday, saturday};						//3
-	enum state  {working = 1, failed = 1};						//1
-	//enum state  {working = 1.5, failed};			// 4 CE: enumerator value for 'working' is not an integer constant
-	//enum result {failed, passed};	//5 CE: redeclaration of enumerator'failed'
-
-	int main() {
-		int i;
-		for (i=Jan; i<=Dec; i++)
-			printf("%d ", i);
-	printf("\n%d %d %d %d %d %d %d", sunday, monday, tuesday,
-	wednesday, thursday, friday, saturday);
-	int ivar = Mar;
-		enum day evar = 5;	// in C++ error: invalid conversion from
-					 'int' to 'day' [-fpermissive]
-		printf("\nivar %d", ivar);
-		printf("\nevar %d", evar);
-		return 0;
-	}
+    #include <stdio.h>
+    enum year{Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec};	//2
+    enum day {sunday = 1, monday, tuesday = 5, wednesday,
+        thursday = 10,friday, saturday};						//3
+    enum state  {working = 1, failed = 1};						//1
+    //enum state  {working = 1.5, failed};			// 4 CE: enumerator value for 'working' is not an integer constant
+    //enum result {failed, passed};	//5 CE: redeclaration of enumerator'failed'
+    
+    int main() {
+        int i;
+        for (i=Jan; i<=Dec; i++)
+            printf("%d ", i);
+        printf("\n%d %d %d %d %d %d %d", sunday, monday, tuesday,
+            wednesday, thursday, friday, saturday);
+        int ivar = Mar;
+        enum day evar = 5;	// in C++ error: invalid conversion from 'int' to 'day' [-fpermissive]
+        printf("\nivar %d", ivar);
+        printf("\nevar %d", evar);
+        return 0;
+    }
 
 Output::
 
@@ -103,11 +106,13 @@ Enum vs Macro
 -------------
 
 advantages of using enum over macro
+
 - Enums follow scope rules
 - Enum variables are automatically assigned values. 
 
 Following is simpler
-	enum state  {Working, Failed, Freezed};
+
+enum state  {Working, Failed, Freezed};
 
 .. code:: cpp
 
@@ -173,15 +178,14 @@ Unscoped enumeration
 
 .. code:: cpp
 
-	1.	enum name { enumerator = constexpr , enumerator = constexpr , ... }
-	2.	enum name : type { enumerator = constexpr , enumerator = constexpr ,
-	... }
-	3.	enum name : type ;
+	1.	enum name { enumerator = constexpr, enumerator = constexpr, ... }
+	2.	enum name : type { enumerator = constexpr, enumerator = constexpr, ... }
+	3.	enum name : type;
 
 - Declares an unscoped enumeration type whose underlying type is not fixed 
-(in this case, the underlying type is an implementation-defined integral type that can represent all enumerator values;
-this type is not larger than int unless the value of an enumerator cannot fit in an int or unsigned int.
-If the enumerator-list is empty, the underlying type is as if the enumeration had a single enumerator with value 0).
+  (in this case, the underlying type is an implementation-defined integral type that can represent all enumerator values;
+  this type is not larger than int unless the value of an enumerator cannot fit in an int or unsigned int.
+  If the enumerator-list is empty, the underlying type is as if the enumeration had a single enumerator with value 0).
 - Declares an unscoped enumeration type whose underlying type is fixed.
 - Opaque enum declaration for an unscoped enumeration must specify the underlying type.
 
@@ -192,19 +196,17 @@ Scoped enumerations
 
 .. code:: cpp
 
-	1.	enum struct|class name { enumerator = constexpr , enumerator = constexpr , ... }
-	2.	enum struct|class name : type { enumerator = constexpr , enumerator = constexpr , ... }
-	3.	enum struct|class name ;
-	4.	enum struct|class name : type ;
+	1.	enum struct|class name { enumerator = constexpr, enumerator = constexpr, ... }
+	2.	enum struct|class name : type { enumerator = constexpr, enumerator = constexpr, ... }
+	3.	enum struct|class name;
+	4.	enum struct|class name : type;
 
-- declares a scoped enumeration type whose underlying type is int (the keywords class and struct are exactly equivalent)
-- declares a scoped enumeration type whose underlying type is type
-- opaque enum declaration for a scoped enumeration whose underlying type is int
-- opaque enum declaration for a scoped enumeration whose underlying type is type
+#. declares a scoped enumeration type whose underlying type is int (the keywords class and struct are exactly equivalent)
+#. declares a scoped enumeration type whose underlying type is type
+#. opaque enum declaration for a scoped enumeration whose underlying type is int
+#. opaque enum declaration for a scoped enumeration whose underlying type is type
 
-Each enumerator becomes a named constant of the enumeration's type (that is, name), 
-which is contained within the scope of the enumeration, and 
-can be accessed using scope resolution operator. 
+Each enumerator becomes a named constant of the enumeration's type (that is, name), which is contained within the scope of the enumeration, and can be accessed using scope resolution operator.
 
 **There are no implicit conversions from the values of a scoped enumerator to integral types, although static_cast may be used to obtain the numeric value of the enumerator.**
 

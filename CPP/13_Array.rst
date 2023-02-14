@@ -102,6 +102,10 @@ Example
 		char arr[] = “geeks”;		// size of arr is 6, 
 		printf(“%d”, sizeof(arr));	// it is (‘\0’ terminated)
 
+    Output::
+        
+        6
+
 Do not use sizeof() for array parameters
 ------------
 
@@ -122,9 +126,9 @@ sizeof() should not be used to get number of elements in case when array is pass
 		return 0;
 	}
 
-	Compilation warning: 'sizeof' on array function parameter 'arr' will return size of 'int *'
-
 Output::
+
+	Compilation warning: 'sizeof' on array function parameter 'arr' will return size of 'int *'
 
 	Array size inside main: 8
 	Array size inside fun: 2
@@ -132,23 +136,25 @@ Output::
 Variables sized array
 ---------
 
-In C, 		variable sized array cannot be initialized
-In C++,	variable sized array can be initialied
+In C,   variable sized array cannot be initialized
+
+In C++, variable sized array can be initialied
 
 .. code:: cpp
 
-	int main() {
-		int M = 2;
-		int arr[M][M] = {1};
-		int i, j;
-		for(i = 0; i < M; i++) {
-			for(j = 0; j < M; j++) {
-				printf("%d ", arr[i][j]);
-			}
-			printf("\n");
-		}
-		return 0;
-	}
+    #include <stdio.h>
+    int main() {
+        int M = 2;
+        int arr[M][M] = {1};
+        int i, j;
+        for(i = 0; i < M; i++) {
+            for(j = 0; j < M; j++) {
+                printf("%d ", arr[i][j]);
+            }
+            printf("\n");
+        }
+        return 0;
+    }
 
 Output::
 
@@ -163,18 +169,19 @@ Output::
 Difference between single quoted and double quoted declaration of char array
 -----------------
 
-#.
-	char arr[] = “geeks”;	// size is 6 as it is ‘\0’ terminated
-	When chart array is initialized with a double quoted string and array size is not specified, compiler automatically allocates one extra space for string terminator ‘\0’
+#. char arr[] = “geeks”;	// size is 6 as it is ‘\0’ terminated
 
-#.
-	char arr[5] = “geeks”;	// size is 5 as it is not terminated with ‘\0’
-				// compilation error in C++, works in C
-	In C++, error: initializer-string for array of chars is too long
+   When char array is initialized with a double quoted string and array size is not specified, compiler automatically allocates one extra space for string terminator ‘\0’
 
-#.
-	char arr[] = {‘g’, ‘e’, ‘e’, ‘k’, ‘s’};    // size 5 not terminated with ‘\0’
-	For comma separated list of characters, compiler does not create extra space for string terminator ‘\0’
+#. char arr[5] = “geeks”;	// size is 5 as it is not terminated with ‘\0’
+
+   // compilation error in C++, works in C
+
+   In C++, error: initializer-string for array of chars is too long
+
+#. char arr[] = {‘g’, ‘e’, ‘e’, ‘k’, ‘s’};    // size 5 not terminated with ‘\0’
+
+   For comma separated list of characters, compiler does not create extra space for string terminator ‘\0’
 
 Are array members deeply copied?
 --------------
@@ -241,31 +248,32 @@ Output::
 
 
 Initialization of a multidimensional array in C/C++
+-----------------------------------------
 
 In C/C++, Initialization of a multidimensional array can have left most dimension as optional
 
 Except left most dimension, all other dimensions must be specified
 
 #.
-	::
+    .. code:: cpp
 
-	int a[][2] = { {1, 2}, {3, 4} };	// works
-
-#.
-	::
-
-	int a[][2][2] =	{ 	{{1, 2}, {3, 4}},	// works
-				{{5, 6}, {7, 8}}
-			};
+	    int a[][2] = { {1, 2}, {3, 4} };	// works
 
 #.
-	::
+    .. code:: cpp
 
-	int a[][][2] =	{	{{1, 2}, {3, 4}},	// error
-				{{5, 6}, {7, 8}}
-			};
+        int a[][2][2] =	{ 	{{1, 2}, {3, 4}},	// works
+                            {{5, 6}, {7, 8}}
+                        };
 
-	// Compilation error: declaration of ‘a’ as multidimensional array must have bounds for all dimensions except the first
+#.
+    .. code:: cpp
+
+        int a[][][2] =	{	{{1, 2}, {3, 4}},	// error
+                            {{5, 6}, {7, 8}}
+                        };
+                        
+        // Compilation error: declaration of 'a' as multidimensional array must have bounds for all dimensions except the first
 
 One line function for strcat() and strcmp()
 --------------
@@ -328,23 +336,23 @@ char *
 - Creates a string literal
 - String literal is stored in read only part of memory by most of compilers
 - In C/C++, string literals have static storage duration any attempt at modifying them gives undefined behavior
-- S is just a pointer and stores address of string literal
+- s is just a pointer and stores address of string literal
 
 .. code:: cpp
 
-	#include <stdio.h>
-	int main() {
-		char * s = "geeksquiz";		// In C++, warning: ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
-		printf("%zu", sizeof(s));
-		//s[0] = 'j';				// In C/C++ causes undefined behavior
-		printf("\n%s", s);
-		return 0;
-	}
+    #include <stdio.h>
+    int main() {
+        char * s = "geeksquiz";     // In C++, warning: ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
+        printf("%zu", sizeof(s));
+        //s[0] = 'j';           // In C/C++ causes undefined behavior
+        printf("\n%s", s);
+        return 0;
+    }
 
 Output::
 
-	8			// size of pointer
-	geeksquiz
+    8			// size of pointer
+    geeksquiz
 
 gets() is risky to use
 ------------
@@ -363,10 +371,13 @@ gets() is risky to use
 		return 0;
 	}
 
+Input::
+
+    learning cpp
+
 Output::
 
-	learning cpp
-	learning cpp
+    learning cpp
 
 **fgets()** makes sure that not more than MAX_LIMIT characters are read
 
@@ -380,10 +391,13 @@ Output::
 		return 0;
 	}
 
+Input::
+
+    Learning CPP
+
 Output::
 
-	Learning CPP
-	Lea
+    Lea
 
 Write long strings in multi lines C/C++?
 ------------
@@ -424,27 +438,26 @@ When using character pointer for strings (not arrays)
 
 .. code:: cpp
 
-	#include <stdio.h>
-	#include <stdlib.h>
-	#include <string.h>
-	void swap1(char ** sptr1, char ** sptr2) {
-		fprintf(stdout, "Inside function: %s\n", __func__);
-		char * temp = *sptr1;
-		*sptr1 = *sptr2;
-		*sptr2 = temp;
-		return;
-	}
-	int main() {
-	fprintf(stdout, "Inside function: %s\n", __func__);
-		char * str1 = "geeks";
-		char * str2 = "for geeks";	
-		fprintf(stdout, "str1: %s	str2: %s\n", str1, str2); fflush(stdout);
-		
-		swap1(&str1, &str2);
-		fprintf(stdout, "str1: %s	str2: %s\n", str1, str2);
-		
-		return 0;
-	}
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    void swap1(char ** sptr1, char ** sptr2) {
+        fprintf(stdout, "Inside function: %s\n", __func__);
+        char * temp = *sptr1;
+        *sptr1 = *sptr2;
+        *sptr2 = temp;
+        return;
+    }
+    int main() {
+        fprintf(stdout, "Inside function: %s\n", __func__);
+        char * str1 = "geeks";
+        char * str2 = "for geeks";
+        fprintf(stdout, "str1: %s	str2: %s\n", str1, str2); fflush(stdout);
+        
+        swap1(&str1, &str2);
+        fprintf(stdout, "str1: %s	str2: %s\n", str1, str2);
+        return 0;
+    }
 
 Compilation::
 
@@ -469,31 +482,30 @@ When using character arrays to store strings
 
 .. code:: cpp
 
-	#include <stdio.h>
-	#include <stdlib.h>
-	#include <string.h>
-
-	void swap2(char * str1, char * str2) {
-		fprintf(stdout, "Inside function: %s\n", __func__);
-		char * temp = (char *)malloc( (strlen(str1)+ 1) * sizeof(char));
-		memset(temp, 0, strlen(str1)+ 1);
-		strcpy(temp, str1);
-		strcpy(str1, str2);
-		strcpy(str2, temp);
-		free(temp);
-		return;
-		
-	}
-	int main() {
-	    fprintf(stdout, "Inside function: %s\n", __func__);
-		char str1[16] = "geeks";
-		char str2[16] = "for geeks";
-		fprintf(stdout, "str1: %s	str2: %s\n", str1, str2); fflush(stdout);
-		
-		swap2(str1, str2);
-		fprintf(stdout, "str1: %s	str2: %s\n", str1, str2);
-		return 0;
-	}
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    
+    void swap2(char * str1, char * str2) {
+        fprintf(stdout, "Inside function: %s\n", __func__);
+        char * temp = (char *)malloc( (strlen(str1)+ 1) * sizeof(char));
+        memset(temp, 0, strlen(str1)+ 1);
+        strcpy(temp, str1);
+        strcpy(str1, str2);
+        strcpy(str2, temp);
+        free(temp);
+        return;
+    }
+    int main() {
+        fprintf(stdout, "Inside function: %s\n", __func__);
+        char str1[16] = "geeks";
+        char str2[16] = "for geeks";
+        fprintf(stdout, "str1: %s	str2: %s\n", str1, str2); fflush(stdout);
+        
+        swap2(str1, str2);
+        fprintf(stdout, "str1: %s	str2: %s\n", str1, str2);
+        return 0;
+    }
 
 Output::
 
@@ -512,8 +524,8 @@ Strings as character arrays
 
 .. code:: cpp
 
-	Char str[4] = “GFG”;			// one extra for ‘\0’
-	Char str[4] = {‘G’, ‘F’, ‘G’, ‘\0’};	// ‘\0’ is string termination
+    char str[4] = “GFG”;			// one extra for ‘\0’
+    char str[4] = {‘G’, ‘F’, ‘G’, ‘\0’};	// ‘\0’ is string termination
 
 Strings as character arrays, are stored like other types of arrays in C
 
@@ -534,9 +546,10 @@ Read only string in a shared segment
 
 - Directly assigned to a pointer
 - Stored in read only block (data segment) i.e. shared among function
-	::
 
-		char * str = “GFG”;
+  .. code:: cpp
+    
+    char * str = “GFG”;
 
 - “GFG” is stored in a shared read only location
 - Pointer str is stored in a read-write memory
@@ -633,7 +646,7 @@ Example – 2 (Try to return string from a function)
 
 		#include <stdio.h>
 		#include <stdlib.h>
-		char* getString() {
+		char * getString() {
 			char* str = "GFG";
 			return str;
 		}
@@ -641,11 +654,12 @@ Example – 2 (Try to return string from a function)
 			printf("%s\n", getString());
 			return 0;
 		}
-		compilation warning: ISO C++ forbids converting a string constant to 'char*'
 
 	Output::
-
-		GFG
+		
+        compilation warning: ISO C++ forbids converting a string constant to 'char*'
+        
+        GFG
 
 #.
 	String is stored in heap segment
@@ -656,7 +670,7 @@ Example – 2 (Try to return string from a function)
 
 		#include <stdio.h>
 		#include <stdlib.h>
-		char* getString() {
+		char * getString() {
 			int size=4;
 			char * str = (char *)malloc(sizeof(char) * size);
 			*(str + 0) = 'G';
@@ -684,7 +698,7 @@ Example – 2 (Try to return string from a function)
 
 		#include <stdio.h>
 		#include <stdlib.h>
-		char* getString() {
+		char * getString() {
 			char str[] = "GFG";
 			return str;
 		}
@@ -692,9 +706,10 @@ Example – 2 (Try to return string from a function)
 			printf("%s\n", getString());
 			return 0;
 		}
-		Compilation warning: address of local variable 'str' returned
 
 	Runtime Errors::
+
+		Compilation warning: address of local variable 'str' returned
 
 		Segmentation Fault (SIGSEGV)
 
@@ -707,12 +722,12 @@ Variable length arrays in C/C++
 
 .. code:: cpp
 
-	void fun(int n) {
-		int arr[n];
-	}
-	int main() {
-		fun(6);
-	}
+    void fun(int n) {
+        int arr[n];
+    }
+    int main() {
+        fun(6);
+    }
 
 Difference between Array and Pointer
 ------------------------
@@ -721,20 +736,20 @@ Pointer used for storing address of dynamically allocated arrays and for arrays 
 
 .. code:: cpp
 
-	#include <stdio.h>
-	#include <stdlib.h>
-	int main() {
-	    int arr[] = {10, 20, 30, 40, 50};
-	    int * ptr = arr;
-	    printf("size of arr[]	%zu\n", sizeof(arr));
-	    printf("size of ptr	%zu\n", sizeof(ptr));
-		return 0;
-	}
+    #include <stdio.h>
+    #include <stdlib.h>
+    int main() {
+        int arr[] = {10, 20, 30, 40, 50};
+        int * ptr = arr;
+        printf("size of arr[]	%zu\n", sizeof(arr));
+        printf("size of ptr	%zu\n", sizeof(ptr));
+        return 0;
+    }
 
 Output::
 
-	size of arr[]	20
-	size of ptr	8
+    size of arr[]	20
+    size of ptr	8
 
 Assigning any address to an array variable is not allowed
 
@@ -776,10 +791,11 @@ Following property of array make them look similar to pointer
 		return 0;
 	}
 	
-	Compilation warning: 'sizeof' on array function parameter 'ptr' will return size of 'int*' [-Wsizeof-array-argument]
-	  printf("size of ptr:    %zu\n", sizeof(ptr));
 	  
 Output::
+
+	Compilation warning: 'sizeof' on array function parameter 'ptr' will return size of 'int*' [-Wsizeof-array-argument]
+	  printf("size of ptr:    %zu\n", sizeof(ptr));
 
 	First element:	10
 	Third element:	30
@@ -791,9 +807,11 @@ Output::
 
 
 .. note::
-	int array[5];
-	- array		Pointer to the first element of the array
-	- &array	Pointer to whole array of 5 int
+
+    int array[5];
+
+    - array		Pointer to the first element of the array
+    - &array	Pointer to whole array of 5 int
  
 How to dynamically allocate a 2D array in C
 ----------
@@ -804,6 +822,7 @@ How to dynamically allocate a 2D array in C
 - Using a double pointer and one malloc() call for all rows
 
 r: number of rows
+
 c: number of columns
 
 Using a single pointer
@@ -1005,7 +1024,9 @@ An array name is a constant pointer to the first element of the array
 	p = balance;
 
 it is legal to use array names as constant pointers and vice versa
+
 balance - 	Pointer to first element of array
+
 &balance - 	Pointer to whole array of 5 double elements
 
 Passing arrays to functions
@@ -1046,8 +1067,8 @@ How to pass a 2D array as parameter
 
 .. note::
 
-	Array parameters treated as pointers because of efficiency
-	It is inefficient to copy the array data in terms of both memory and time
+    - Array parameters treated as pointers because of efficiency
+    - It is inefficient to copy the array data in terms of both memory and time
 
 A few examples
 ----------
@@ -1098,8 +1119,8 @@ A few examples
 
 	.. note::
 
-		&a is address of the whole array a[]
-		(&a + 1) gives "base address of a[] + sizeof(a) "
+		- &a is address of the whole array a[]
+		- (&a + 1) gives "base address of a[] + sizeof(a) "
 
 #.
 
@@ -1116,10 +1137,10 @@ A few examples
 	
 	::
 
-	a. printf("%d", *(((a + 5) + 2) + 2));
-	b. printf("%d", ***(((a + 5) + 2) + 2));
-	**c. printf("%d", *(*(*(a + 5) + 2) + 2));	[✓]**
-	d. None of these
+	    a. printf("%d", *(((a + 5) + 2) + 2));
+	    b. printf("%d", ***(((a + 5) + 2) + 2));
+	    c. **printf("%d", *(*(*(a + 5) + 2) + 2));	[✓]**
+	    d. None of these
 
 #.
 
@@ -1165,6 +1186,7 @@ A few examples
 		int [] fun() {		}
 
 	Compilation error: expected unqualified-id before '[' token
+
 	A function cannot have an explicit array as return type
 
 #.
@@ -1175,6 +1197,7 @@ A few examples
 		extern int arr[];		// in source_file2.c
 
 	In source_file2.c, we can use sizeof() on arr to find out the actual size of arr?
+
 	- TRUE
 	- **FALSE	[✓]**
 
@@ -1182,7 +1205,7 @@ A few examples
 	.. note::
 	
 	- sizeof() operator works at compile time
-	- sizeof() on arr in source_file2.c won’t work because arr in source_file1.c is an incomplete type
+	- sizeof() on arr in source_file2.c won’t work because arr in source_file2.c is an incomplete type
 
 #.
 
@@ -1197,6 +1220,7 @@ A few examples
 	Remaining elements of the array would be initialized to 0
 
 	In C, Initialization of element can be done for selected elements
+
 	**In C++, It is not supported**
 
 

@@ -108,7 +108,9 @@ Answer
 
 Explanation::
 
-        The conditional macro #if ISEQUAL(X, 0) is expanded to #if X == 0. After the pre-processing is over, all the undefined macros are initialized with default value 0. Since macro X has not been defined, it is initialized with 0. So, Geeks is printed.
+        The conditional macro #if ISEQUAL(X, 0) is expanded to #if X == 0.
+        After the pre-processing is over, all the undefined macros are initialized with default value 0.
+        Since macro X has not been defined, it is initialized with 0. So, Geeks is printed.
 
 Question
 --------
@@ -220,7 +222,9 @@ Only INC1 and INC3 are correct.
 
 Explanation::
 
-        In C, for macros with arguments, there can’t be any space between macro name and open parenthesis. That’s why only INC1 and INC3 are correct. Basically, “#define INC2 (a) ((a)+1)” results in “INC2” expansion to “(a) ((a)+1)” which is not the desired expansion.
+        In C, for macros with arguments, there can’t be any space between macro name and open parenthesis.
+        That’s why only INC1 and INC3 are correct.
+        Basically, “#define INC2 (a) ((a)+1)” results in “INC2” expansion to “(a) ((a)+1)” which is not the desired expansion.
 
 References
 ----------

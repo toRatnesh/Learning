@@ -17,42 +17,43 @@ Storage classes
 
 
 .. list-table::
+    header-rows: 1
 
-	* - Storage Class
-	  - Storage	
-	  - Initial value	
-	  - Scope
-	  - Lifetime
+    *   -   Storage Class
+        -   Storage
+        -   Initial value
+        -   Scope
+        -   Lifetime
 
-	* - Automatic
-	  - Stack
-	  - Garbage
-	  - Within block
-	  - Function block
+    *   -   Automatic
+        -   Stack
+        -   Garbage
+        -   Within block
+        -   Function block
+          
+    *   -   External
+        -   Data Segment
+        -   Zero
+        -   Global MF
+        -   Whole Program
+	
+    *   -   Static
+        -   Data Segment
+        -   Zero
+        -   Within block
+        -   Whole Program
 
-	* - External	
-	  - Data Segment
-	  - Zero
-	  - Global MF
-	  - Whole Program
+    *   -   Register
+        -   CPU register
+        -   Garbage
+        -   Within block
+        -   Function block
 
-	* - Static
-	  - Data Segment
-	  - Zero
-	  - Within block
-	  - Whole Program
-
-	* - Register
-	  - CPU register
-	  - Garbage
-	  - Within block
-	  - Function block
-
-	* - Mutable
-	  - Mutable
-	  - 
-	  - Class
-	  - Class
+    *   -   Mutable
+        -   Mutable
+        - 
+        -   Class
+        -   Class
 
 MF	- Multiple File
 
@@ -74,7 +75,8 @@ Automatic (auto)
 	auto int y;
 	auto int m = 10;
 
-NOTE
+.. note::
+
 - Since C++11 auto is used as a declaration specifier
 - Storage in primary memory
 
@@ -89,9 +91,10 @@ Register
 - It might be stored in a register depending on hardware and implementation restrictions
 - If there are no registers vacant to accommodate the variable then it is stored just like any other automatic variable
 - Register keyword can be used with pointer variables
-	.. code:: cpp
 
-	register int * ptr = &i;
+  .. code:: cpp
+
+    register int * ptr = &i;
 
 - Only register is allowed in a fun parameter declaration
 
@@ -117,7 +120,7 @@ Example
 Output::
 
 	m : 10
-	&amp;m : 372152084
+	&m : 372152084
 
 	x : 5
 
@@ -150,67 +153,62 @@ Example
 
 .. list-table::
 
-        *       - 
-					.. code:: cpp
+    *   -
+            .. code:: cpp
 
-
-							#include <stdio.h>
-							static int var;
-							static int var;
-							int main(void) {
-									int var = 7;
-									printf("%d", var);
-									return 0;
-							}
+                #include <stdio.h>
+                static int var;
+                static int var;
+                int main(void) {
+                    int var = 7;
+                    printf("%d", var);
+                    return 0;
+                }
 					
-					Output::
+            Output::
+            
+                7	
 
-									7	
+        -
+            .. code:: cpp
 
-                -
-					.. code:: cpp
+                #include <stdio.h>
+                static int var = 7;
+                static int var;
+                int main(void) {
+                    printf("%d", var);
+                    return 0;
+                }
 
+            Output::
+            
+                7	
 
-							#include <stdio.h>
-							static int var = 7;
-							static int var;
-							int main(void) {
-									printf("%d", var);
-									return 0;
-							}
+        -
+            .. code:: cpp
 
-					Output::
+                #include <stdio.h>
+                static int var = 3;
+                static int var;
+                int main(void) {
+                    var = 7;
+                    printf("%d", var);
+                    return 0;
+                }
 
-							7	
-
-
-                -
-					.. code:: cpp
-
-							#include <stdio.h>
-							static int var = 3;
-							static int var;
-							int main(void) {
-								var = 7;
-									printf("%d", var);
-									return 0;
-							}
-
-					Output::
-
-							7
-
-
-
+            Output::
+            
+                7
 
 External (extern)
 -----------------
 
 The extern keyword extends the visibility of the C variables and C functions.
+
 - Also called global variable
 - Declared outside a function but is accessible inside the function block
 - Visibility -	all across the program
-        - Accessible by all the functions present in the program
+  - Accessible by all the functions present in the program
 - Lifetime - lifetime of an external variable is same as the lifetime of a program
 - A declaration can be done any number of times but definition only once.
 - The extern keyword is used to extend the visibility of variables/functions.
@@ -218,8 +216,8 @@ The extern keyword extends the visibility of the C variables and C functions.
 
 .. code:: cpp
 
-        int foo(int arg1, char arg2);			// by programmer
-        extern int foo(int arg1, char arg2);		// by compiler
+    int foo(int arg1, char arg2);			// by programmer
+    extern int foo(int arg1, char arg2);    // by compiler
 
 - When extern is used with a variable, it’s only declared, not defined.
 - As an exception, when an extern variable is declared with initialization, it is taken as the definition of the variable as well.
@@ -227,56 +225,52 @@ The extern keyword extends the visibility of the C variables and C functions.
 
 .. list-table::
 
-        *       -
-					.. code:: cpp
+    *   -
+            .. code:: cpp
 
-							#include <stdio.h>
-							extern int var;
-							extern int var;
-							int main(void) {
-									int var = 7;
-									printf("%d", var);
-									return 0;
-							}
+                #include <stdio.h>
+                extern int var;
+                extern int var;
+                int main(void) {
+                    int var = 7;
+                    printf("%d", var);
+                    return 0;
+                }
 
-					Output::
-							
-							7
+            Output::
+            
+                7
 
-                - 
-					.. code:: cpp
+        - 
+            .. code:: cpp
 
-							#include <stdio.h>
-							extern int var = 7;	
-							// warning: 'var' initialized
-							// and declared 'extern'
-							int main(void) {
-									printf("%d", var);
-									return 0;
-							}
+                #include <stdio.h>
+                extern int var = 7;	
+                // warning: 'var' initialized and declared 'extern'
+                int main(void) {
+                    printf("%d", var);
+                    return 0;
+                }
 
-					Output::
+            Output::
+            
+                7
 
-							7
+        -
+            .. code:: cpp
 
-                - 
-					.. code:: cpp
-
-						#include <stdio.h>
-						extern int var;
-						int main(void) {
-							var = 7;			
-							// CE: undefined 
-							// reference to `var'
-								printf("%d", var);
-								return 0;
-						}
-
-					Output::
-							
-							Compilation Error
-
-
+                #include <stdio.h>
+                extern int var;
+                int main(void) {
+                    var = 7;
+                    // CE: undefined reference to `var'
+                    printf("%d", var);
+                    return 0;
+                }
+                
+            Output::
+            
+                Compilation Error
 
 
 Mutable (Only C++)
@@ -292,48 +286,43 @@ Example
 
 .. code:: cpp
 
-        #include <iostream>
-        using namespace std;
-
-        class test {
-                mutable int a;
-                int b;
-                
-                public:
-                test(int x, int y) {
-                        a = x; b = y;
-                }
-                
-                void square_a() const {
-                        a = a * a;
-                }
-                
-                void display() const {
-                        std::cout << "a : " << a << std::endl;
-                        std::cout << "b : " << b << std::endl;
-                }
-        };
-
-        int main(void) {
-        const test x(2, 3);
-                std::cout << "Initial value: " << std::endl;
-                x.display();
-                x.square_a();
-                
-                std::cout << "Final value: " << std::endl;
-                x.display();
-                
-                return 0;
+    #include <iostream
+    using namespace std;
+    class test {
+        mutable int a;
+        int b;
+        
+        public:
+        test(int x, int y) : a{x}, b{y} { }
+        void square_a() const { a = a * a; }
+        // error: assignment of member 'test::b' in read-only object
+        //void square_b() const { b = b * b; }
+        void display() const {
+            std::cout << "a : " << a << '\n';
+            std::cout << "b : " << b << '\n';
         }
+    };
+    
+    int main(void) {
+        const test x(2, 3);
+        std::cout << "Initial value: " << '\n';
+        x.display();
+        
+        x.square_a();
+        
+        std::cout << "Final value: " << '\n';
+        x.display();
+        return 0;
+    }
         
 Output::
 
-        Initial value: 
-        a : 2
-        b : 3
-        Final value: 
-        a : 4
-        b : 3
+    Initial value:
+    a : 2
+    b : 3
+    Final value:
+    a : 4
+    b : 3
 
         
 Automatic Type Specifier
@@ -343,63 +332,104 @@ Automatic Type Specifier
 - It acts as a type specifier that directs the compiler to deduce the type of a declared variable from its initialization expression
 - Compiler deduces the type of an auto variable from the type of its initializer expression
 
-        .. code:: cpp
+  .. code:: cpp
 
-                auto i = 1.1;		// i: double
+    auto i = 1.1;		// i: double
 
 - For variables, specifies that the type of the variable will be automatically deduced from its initializer
 - For functions, specifies that the return type is a trailing return type or will be deduced from its return statements (C++11)
 - For non-type template parameters, specifies that the type will be deduced from the argument (C++17)
+
+  .. code:: cpp
+
+    #include <iostream>
+    #include <string>
+    
+    template<auto val>
+    class S {
+        public:
+        void display() { std::clog << val << '\n'; }
+    };
+
+    char gmsg[] = "global const char aaray";
+    constexpr char gcmsg[] = "global constexpr char array";
+    
+    int main() {
+        std::clog << "=== auto as Template Parameter\n";
+        S<7>        s1;     s1.display();
+        S<'D'>      s4;     s4.display();
+        S<gmsg>     s2;     s2.display();
+        static char lsmsg[] = "static local const char array";
+        S<lsmsg>    s3;     s3.display();
+        static constexpr char lcmsg[] = "local constexpr char array";
+        S<gcmsg>    s5;     s5.display();
+        S<lcmsg>    s6;     s6.display();
+        return 0;
+    }
+    
+  Output::
+
+    === auto as Template Parameter
+    7
+    D
+    global const char aaray
+    static local const char array
+    global constexpr char array
+    local constexpr char array
+
+  For more info visit `C++17 - The Complete Guide Ch-13 <https://github.com/socialratnesh/Learning_Code_Practice/tree/main/books/Nicolai_M_Josuttis_CPP17_The_Complete_Guide/Ch_13_Placeholder_Types_like_auto_as_Template_Parameters>`_
+
 - In a function declaration that uses the trailing return type syntax auto does not perform automatic type detection. It only serves as a part of the syntax.
 - In a function declaration that does not use the trailing return type syntax auto indicate that the return type will be deduced from the operand of its return statement using the rules for template argument deduction.
 - In case of multiple variable declaration, the type of each declarator can be deduced independently 
 - If deduced type is not the same in each deduction the program is ill-formed
 
-.. code:: cpp
-
-        auto I = 5, 	*p = &I;		// well –formed (int)
-        auto x = 3,	y = 2.2;		// ill – formed (error)
-
-- Auto can be applied to new expression
-  
   .. code:: cpp
 
-        auto * p = new auto(1);
+    auto I = 5, 	*p = &I;		// well –formed (int)
+    auto x = 3,	y = 2.2;		// ill – formed (error)
+
+- Auto can be applied to new expression
+
+  .. code:: cpp
+
+  auto * p = new auto(1);
 
 - Auto cannot deduce array types
 
   .. code:: cpp
 
-        char a[5];
-        auto b[5] = a;  // Compialtion error
+    char a[5];
+    auto b[5] = a;  // Compialtion error
 
 - Auto cannot be used in function parameters
-  
+
   .. code:: cpp
 
-        int func(auto x = 3);   // Compilation error until C++20
+    int func(auto x = 3);   // Compilation error until C++20
 
 Example
 
 .. code:: cpp
 
-        #include <iostream>
-        using namespace std;
-
-        int func(auto x = 3) {		// 1
-            std::cout << "x: " << x << std::endl;
-        }
-        int main() {
-            auto i = 5, *p = &i;
-            auto x = 3, y = 2.2;		// 2
-            
-            char a[5];
-            auto b[5] = a;			// 3
-            
-            return 0;
-        }
+    #include <iostream>
+    using namespace std;
+    
+    int func(auto x = 3) {		// 1
+        std::cout << "x: " << x << std::endl;
+    }
+    int main() {
+        auto i = 5, *p = &i;
+        auto x = 3, y = 2.2;    // 2
+        
+        char a[5];
+        auto b[5] = a;			// 3
+        
+        return 0;
+    }
 
 Output::
+
         Compilation Error
         1 error: use of 'auto' in parameter declaration only available with -std=c++14 or -std=gnu++14
         2 error: inconsistent deduction for 'auto': 'int' and then 'double'
@@ -409,7 +439,9 @@ thread_local (since C++11)
 --------------------------
 
 Thread storage duration.
+
 The storage for the object is allocated when the thread begins and deallocated when the thread ends. Each thread has its own instance of the object.
+
 thread_local can appear together with static or extern to adjust linkage.
 
 References
