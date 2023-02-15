@@ -14,6 +14,7 @@ Input
 
 Output
 ------
+
 - to display some data on screen, printer, or in any file
 - a set of built-in functions to output the data on the computer screen 
 - as well as to save it in text or binary files
@@ -24,48 +25,48 @@ Standard Files
 - C programming treats all the devices as files
 - the following three files are automatically opened when 
 - a program executes to provide access to the keyboard and screen  
-
+- file pointers are the means to access the file for reading and writing purpose  
 
 .. list-table::
+    :header-rows: 1
 
-	*	- Standard File	
-		- File Pointer
-		- Device
+    *   -   Standard File	
+        -   File Pointer
+        -   Device
+    
+    *   -   Standard input
+        -   stdin
+        -   Keyboard
 
-	*	- Standard input
-		- stdin
-		- stderr
+    *   -   Standard output
+        -   stdout
+        -   Screen
 
-	*	- Standard output
-		- stdout
-		- Screen
+    *   -   Standard error
+        -   stderr
+        -   Screen
 
-	*	- Standard error
-		- stderr
-		- Your screen
-
-- file pointers are the means to access the file for reading and writing purpose  
 
 printf() and scanf() and Functions
 ----------------------------------
 
-::
+.. code:: cpp
 
-	int printf(const char *format, ...);
+    int printf(const char *format, ...);
 
 - returns the number of characters successfully written on the output
 - writes the output to the standard output stream stdout
 - produces the output according to the format provided
 
-::
+.. code:: cpp
 
-	int scanf(const char *format, ...);
+    int scanf(const char *format, ...);
 
 - returns number of items successfully read
 - reads the input from the standard input stream stdin
 - scans that input according to the format provided
 - expects input in the same format as you provided
-- stops reading as soon as it encounters a space
+- **stops reading as soon as it encounters a space**
 
 .. code:: cpp
 
@@ -77,7 +78,7 @@ printf() and scanf() and Functions
 		char b[16];
 		char c[16];
 
-		printf(" %d\n", printf("%s", "geeksforgeeks"));								
+		printf(" %d\n", printf("%s", "Learning C++"));								
 		fflush(stdout);
 
 		printf(" %d\n", scanf("%s %s %s", a, b, c));	
@@ -85,26 +86,29 @@ printf() and scanf() and Functions
 		return 0;
 	} 
 
+Input::
+
+    learning input output
+
 Output::
 
-	geeksforgeeks 13
-	learning input output
-	 3
+    Learning C++ 12
+     3
 
 getchar() and putchar() Functions
 ---------------------------------
 
-::
+.. code:: cpp
 
-	int getchar(void);
+    int getchar(void);
 
 - reads the next available character from the screen and returns it as an integer
 - reads only single character at a time
 - can use this method in the loop to read multiple characters
 
-::
+.. code:: cpp
 
-	int putchar(int c);
+    int putchar(int c);
 
 - puts the passed character on the screen and returns the same character
 - puts only single character at a time
@@ -134,18 +138,21 @@ Output::
 gets() and puts() Functions
 ---------------------------
 
-::
+.. code:: cpp
 
 	char * gets(char *s);
 
 - reads a line from stdin into the buffer pointed to by s
 - until either a terminating newline or EOF (End of File)
+- returns s on success, a null pointer on failure
 
-::
+.. code:: cpp
 
 	int puts(const char *s);
 
 - writes the string 's' and a trailing newline to stdout
+- On success, returns a non-negative value
+- On failure, returns EOF and sets the error 
 
 .. code:: cpp
 
@@ -177,45 +184,49 @@ gets() is risky to use
 - **Solution:** use fgets(), it makes sure that not more than MAX_LIMIT characters are read
 
 .. list-table::
+    :header-rows: 1
 
-	*	- gets()
-		- fgets()
+    *   -   gets()
+        -   fgets()
 
-	*	- 
-			.. code:: cpp
+    *   - 
+            .. code:: cpp
 
-				#include <stdio.h>
-				int main() {
-					char str[8];
-					gets(str);
-					printf("%s\n", str);
-					
-					return 0;
-				}
+                #include <stdio.h>
+                int main() {
+                    char str[8];
+                    gets(str);
+                    printf("%s\n", str);
+                    return 0;
+                }
 
-			Output::
+            Input::
+            
+                Learning CPP
 
-				Learning CPP
-				Learning CPP	
+            Output::
 
-		- 
-			.. code:: cpp
+                Learning CPP	
 
-				#include <stdio.h>
-				#define MAX_LIMIT 20
+        -
+            .. code:: cpp
 
-				int main() {
-					char str[MAX_LIMIT];
-					fgets(str, MAX_LIMIT, stdin);
-					printf("%s\n", str);
-					
-					return 0;
-				}
+                #include <stdio.h>
+                #define MAX_LIMIT 20
+                int main() {
+                    char str[MAX_LIMIT];
+                    fgets(str, MAX_LIMIT, stdin);
+                    printf("%s\n", str);
+                    return 0;
+                }
 
-			Output::
+            Input::
 
-				Learning CPP
-				Learnin
+                Learning CPP
+
+            Output::
+
+                Learnin
 
 What is return type of getchar(), fgetc() and getc()
 -----------------------------------------------------
@@ -279,8 +290,8 @@ Output::
 
 Output::
 
-	Enter a string: https:://geeksforgeeks.org
-	You entered: https:://geeksf
+	Enter a string: std::cout
+	You entered: std::c
 
 gets() function by using scan set
 ---------------------------------
@@ -317,7 +328,7 @@ How to print % using printf()
 	printf("%c", '%');
 	printf("%s", "%");
 
-::
+.. code:: cpp
 
 	int printf(const char *format, ...);
 
@@ -325,11 +336,11 @@ How to print % using printf()
 - ordinary characters (not %), which are copied unchanged to the output stream
 - conversion specifications, each of argument (and it is an error if insufficiently many arguments are given)
 - character % is followed by one of the following characters.
-	- The flag character
-	- The field width
-	- The precision
-	- The length modifier
-	- The conversion specifier
+  - The flag character
+  - The field width
+  - The precision
+  - The length modifier
+  - The conversion specifier
 - A '%' is written. No argument is converted. 
 - The complete conversion specification is`%%'
 
@@ -346,7 +357,7 @@ use of %n in printf()
 	int main() {
 		int c;
 
-		printf("geeks for %ngeeks ", &c);
+		printf("Learning %nC++ ", &c);
 		printf("%d", c);
 
 		return 0;
@@ -354,7 +365,7 @@ use of %n in printf()
 
 Output::
 
-	geeks for geeks 10
+	Learning C++ 9
 
 puts() vs printf() 
 ------------------
@@ -365,50 +376,39 @@ puts() vs printf()
 - fputs(str, stdout); If you do not want the cursor to be moved to next line
 - if str is a user input string, then use of printf() might cause security issues
 - The problem is that the user can:
-	- crash the program: printf ("%s%s%s%s%s%s%s%s%s%s%s%s")
-	- view the stack: printf ("%08x %08x %08x %08x %08x\n");
-	- view memory on any location, or 
-	- even write an integer to nearly any location in the process memory.
+  - crash the program: printf ("%s%s%s%s%s%s%s%s%s%s%s%s")
+  - view the stack: printf ("%08x %08x %08x %08x %08x\n");
+  - view memory on any location, or 
+  - even write an integer to nearly any location in the process memory.
 - This leads to an attacker being able to:
-	- Overwrite important program flags that control access privileges
-	- Overwrite return addresses on the stack, function pointers, etc
+  - Overwrite important program flags that control access privileges
+  - Overwrite return addresses on the stack, function pointers, etc
 
 `Check this <http://www.cis.syr.edu/~wedu/Teaching/cis643/LectureNotes_New/Format_String.pdf>`_
 
-i.
+.. list-table::
+    :header-rows: 1
 
-.. code:: cpp
+    *   -   Format
+        -   Output
 
-	puts("Geeksfor");
-	puts("Geeks");
-		
-	Geeksfor
-	Geeks
+    *   -   | puts("Learning");
+            | puts("C++");
+        -   | Learning
+            | C++
 
-ii.
+    *   -   | fputs("Learning ", stdout);
+            | fputs("C++", stdout);
+        -   | Learning C++
 
-.. code:: cpp
+    *   -   | printf("Learning%sC++");
+        -   | warning: format '%s' expects a 
+            | matching 'char \*' argument [-Wformat=]
+            | Learning��C++
 
-	fputs("Geeksfor", stdout);
-	fputs("Geeks", stdout);
+    *   -   | puts("Learning%sC++");
+        -   | Learning%sC++
 
-	GeeksforGeeks
-
-iii.
-
-.. code:: cpp
-
-	printf("Geek%sforGeek%s");
-	warning: format '%s' expects a matching 'char *' argument [-Wformat=]
-	Geekª¬lÿforGeek
-
-iv.
-
-.. code:: cpp
-
-	puts("Geek%sforGeek%s");
-
-	Geek%sforGeek%s
 
 Difference between getc(), getchar(), getch() and getche()
 ----------------------------------------------------------
@@ -416,7 +416,7 @@ Difference between getc(), getchar(), getch() and getche()
 getc()
 ^^^^^^
 
-::
+.. code:: cpp
 
 	int getc(FILE *stream); 
 
@@ -426,21 +426,24 @@ getc()
 
 .. code:: cpp
 
-	#include <stdio.h>
-	int main() {
-		printf("%c", getc(stdin));
-		return(0);
-	}
+    #include <stdio.h>
+    int main() {
+        printf("%c", getc(stdin));
+        return(0);
+    }
+
+Input::
+
+    g (press enter key)
 
 Output::
 
-	Input: g (press enter key)
-	Output: g 
+    g 
 
 getchar()
 ^^^^^^^^^
 
-::
+.. code:: cpp
 
 	int getchar(void);
 
@@ -449,24 +452,24 @@ getchar()
 
 .. code:: cpp
 
-	#include <stdio.h>
-	int main() {
-		printf("%c", getchar());
-		return 0;
-	}
+    #include <stdio.h>
+    int main() {
+        printf("%c", getchar());
+        return 0;
+    }
 
 Input::
 
-		 g(press enter key)
+    g (press enter key)
 
 Output::
 
-		 g 
+    g 
 
 getch()
 ^^^^^^^
 
-::
+.. code:: cpp
 
 	int getch();
 
@@ -479,27 +482,27 @@ getch()
 
 .. code:: cpp
 
-	#include <stdio.h>
-	#include <conio.h>
-	int main() {
-		printf("%c", getch());
-		return 0;
-	}
+    #include <stdio.h>
+    #include <conio.h>
+    int main() {
+        printf("%c", getch());
+        return 0;
+    }
 	
 Input::
 
-		  g (Without enter key)
+    g (Without enter key)
 
 Output::
 
-		Program terminates immediately.
-		But when you use DOS shell in Turbo C, 
-		it shows a single g, i.e., 'g'
+    Program terminates immediately.
+    But when you use DOS shell in Turbo C, 
+    it shows a single g, i.e., 'g'
 
 getche()
 ^^^^^^^^
 
-::
+.. code:: cpp
 
 	int getche(void); 
 
@@ -507,14 +510,14 @@ getche()
 - reads a single character from the keyboard and displays immediately on output screen without waiting for enter key
 
 .. code:: cpp
-	
-	#include <stdio.h>
-	#include <conio.h>
 
-	int main() {
-	printf("%c", getche());
-	return 0;
-	}
+    #include <stdio.h>
+    #include <conio.h>
+    
+    int main() {
+	    printf("%c", getche());
+	    return 0;
+    }
 
 Input::
 	

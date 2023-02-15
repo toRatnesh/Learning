@@ -2,25 +2,25 @@
 
 .. code:: cpp
 
-	#include <stdio.h>
-	int main() {
-	   printf("\new_c_question\by");
-	   printf("\rgeeksforgeeks"); 
-	   getchar();
-	   return 0;
-	}
+    #include <stdio.h>
+    int main() {
+        printf("\new_c_question\by");
+        printf("\rgeeksforgeeks"); 
+        getchar();
+        return 0;
+    }
 
-A. ew_c_question
-  geeksforgeeks
+i. | ew_c_question
+   | geeksforgeeks
 
-B. new_c_ques
-  geeksforgeeks
+ii. | new_c_ques
+   | geeksforgeeks
 
-C. geeksforgeeks
+iii. geeksforgeeks
 
-D. **Depends on terminal configuration**
+iv. **Depends on terminal configuration**
 
-	It is up to the terminal's implementation then how those characters get actually displayed
+It is up to the terminal's implementation then how those characters get actually displayed
 
 
 
@@ -28,22 +28,23 @@ D. **Depends on terminal configuration**
 
 .. code:: cpp
 
-	#include <stdio.h>
-	// Assume base address of "GeeksQuiz" to be 1000
-	int main() {
-	   printf(5 + "GeeksQuiz");
-	   return 0;
-	}
+    #include <stdio.h>
+    // Assume base address of "GeeksQuiz" to be 1000
+    int main() {
+        printf(5 + "GeeksQuiz");
+        return 0;
+    }
 
-A. GeeksQuiz
 
-B. **Quiz**
+i. GeeksQuiz
 
-C. 1005
+ii. **Quiz**
 
-D. Compile-time error
+iii. 1005
 
-	The compiler adds 5 to the base address of the string through the expression 5 + "GeeksQuiz" . Then the string "Quiz" gets passed to the standard library function as an argument.
+iv. Compile-time error
+
+The compiler adds 5 to the base address of the string through the expression 5 + "GeeksQuiz" . Then the string "Quiz" gets passed to the standard library function as an argument.
 
 
 
@@ -51,15 +52,20 @@ D. Compile-time error
 
 .. code:: cpp
 
-	#include <stdio.h>
-	int main() {
-		printf("%c ", 5["GeeksQuiz"]);
-		return 0;
-	}
+    #include <stdio.h>
+    int main() {
+        printf("%c ", 5["GeeksQuiz"]);
+        return 0;
+    }
 
-A. Compile-time error
-B. Runtime error
-C. **Q**
-D. s
+i. Compile-time error
+
+ii. Runtime error
+
+iii. **Q**
+
+iv. s
+
+5["GeeksQuiz"] is equivalent to \*(5 + pointer for char array) it will print character present at 5th index 'Q'
 
 

@@ -97,10 +97,10 @@ Example
 		size of ptr: 8
 
 #.
-	.. code:: cpp
+    .. code:: cpp
 
-		char arr[] = “geeks”;		// size of arr is 6, 
-		printf(“%d”, sizeof(arr));	// it is (‘\0’ terminated)
+        char arr[] = “geeks”;		// size of arr is 6, 
+        printf(“%d”, sizeof(arr));	// it is (‘\0’ terminated)
 
     Output::
         
@@ -262,14 +262,14 @@ Except left most dimension, all other dimensions must be specified
 #.
     .. code:: cpp
 
-        int a[][2][2] =	{ 	{{1, 2}, {3, 4}},	// works
+        int a[][2][2] =	{   {{1, 2}, {3, 4}},	// works
                             {{5, 6}, {7, 8}}
                         };
 
 #.
     .. code:: cpp
 
-        int a[][][2] =	{	{{1, 2}, {3, 4}},	// error
+        int a[][][2] =	{   {{1, 2}, {3, 4}},	// error
                             {{5, 6}, {7, 8}}
                         };
                         
@@ -562,15 +562,15 @@ Dynamically allocated in heap segment
 - Stored like other dynamically allocated things in C
 - Can be shared among functions
 
-.. code:: cpp
+  .. code:: cpp
 
-	char * str;
-	int size = 4;
-	str = (char *)malloc(sizeof(char) * size);
-	*(str + 0) = ‘G’;
-	*(str + 1) = ‘F’;
-	*(str + 2) = ‘G’;
-	*(str + 3) = ‘\0’;
+    char * str;
+    int size = 4;
+    str = (char *)malloc(sizeof(char) * size);
+    *(str + 0) = ‘G’;
+    *(str + 1) = ‘F’;
+    *(str + 2) = ‘G’;
+    *(str + 3) = ‘\0’;
 
 Example-1 (Try to modify string)
 ^^^^^^^^^^^
@@ -642,7 +642,7 @@ Example – 2 (Try to return string from a function)
 	
 	Data stored remains even after return of getstring()
 
-	.. code:: cpp
+    .. code:: cpp
 
 		#include <stdio.h>
 		#include <stdlib.h>
@@ -654,11 +654,10 @@ Example – 2 (Try to return string from a function)
 			printf("%s\n", getString());
 			return 0;
 		}
-
-	Output::
-		
-        compilation warning: ISO C++ forbids converting a string constant to 'char*'
         
+    Output::
+    
+        compilation warning: ISO C++ forbids converting a string constant to 'char*'
         GFG
 
 #.
@@ -719,8 +718,7 @@ Variable length arrays in C/C++
 - We can allocate an auto array (on stack) of variable
 - C supports variable sized arrays from C99 standard
 - C++ standard (till C++11) does not support variable sized arrays
-
-.. code:: cpp
+  .. code:: cpp
 
     void fun(int n) {
         int arr[n];
@@ -808,8 +806,7 @@ Output::
 
 .. note::
 
-    int array[5];
-
+    - int array[5];
     - array		Pointer to the first element of the array
     - &array	Pointer to whole array of 5 int
  
@@ -1204,8 +1201,8 @@ A few examples
 	
 	.. note::
 	
-	- sizeof() operator works at compile time
-	- sizeof() on arr in source_file2.c won’t work because arr in source_file2.c is an incomplete type
+	    - sizeof() operator works at compile time
+	    - sizeof() on arr in source_file2.c won’t work because arr in source_file2.c is an incomplete type
 
 #.
 

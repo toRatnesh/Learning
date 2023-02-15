@@ -108,11 +108,11 @@ Searching
 		-	| Locate first occurrence of character in string (function )
 			| const char* strchr( const char* str, int ch );
 			|       char* strchr(       char* str, int ch );
-			|       char* strchr( const char *str, int ch ); // C
+			|       char* strchr( const char* str, int ch ); // C
 		
 	*	-	strcspn
 		-	| Get span until character in string (function )
-			| size_t strcspn( const char *dest, const char *src );
+			| size_t strcspn( const char* dest, const char* src );
 			
 	*	-	strpbrk
 		-	| Locate characters in string (function )
@@ -124,7 +124,7 @@ Searching
 		-	| Locate last occurrence of character in string (function )
 			| const char* strrchr( const char* str, int ch );
 			|       char* strrchr(       char* str, int ch );
-			|       char* strrchr( const char *str, int ch ); // C
+			|       char* strrchr( const char* str, int ch ); // C
 
 	*	-	strspn	
 		-	| Get span of character set in string (function )
@@ -140,10 +140,10 @@ Searching
 		-	| Split string into tokens (function )
 			| char* strtok( char* str, const char* delim );
 			| char* strtok( char* str, const char* delim );
-			| char* strtok( char *str, const char *delim ); (until C99)
-			| char* strtok( char *restrict str, const char *restrict delim ); (since C99)
-			| char* strtok_s(char *restrict str, rsize_t *restrict strmax,
-			|                      const char *restrict delim, char **restrict ptr);	(since C11)
+			| char* strtok( char* str, const char* delim ); (until C99)
+			| char* strtok( char* restrict str, const char* restrict delim ); (since C99)
+			| char* strtok_s(char* restrict str, rsize_t* restrict strmax,
+                        |       const char* restrict delim, char** restrict ptr);	(since C11)
 
 
 
@@ -177,6 +177,7 @@ NULL		Null pointer (macro )
 This macro expands to a null pointer constant.
 A null pointer constant can be converted to any pointer type (or pointer-to-member type), which acquires a null pointer value. 
 This is a special value that indicates that the pointer is not pointing to any object.
+
 - In C, A null-pointer constant is an integral constant expression that evaluates to zero (like 0 or 0L), or the cast of such value to type void* (like (void*)0).
 - In C++, A null-pointer constant is an integral constant expression that evaluates to zero (such as 0 or 0L).	
 - In C++11, A null-pointer constant is either an integral constant expression that evaluates to zero (such as 0 or 0L), or a value of type nullptr_t (such as nullptr).				
@@ -199,5 +200,10 @@ size_t is the type returned by the sizeof operator and is widely used in the sta
 In <cstring>, it is used as the type of the parameter num in the functions memchr, memcmp, memcpy, memmove, memset, strncat, strncmp, strncpy and strxfrm, which in all cases it is used to specify the maximum number of bytes or characters the function has to affect.
 
 It is also used as the return type for strcspn, strlen, strspn and strxfrm to return sizes and lengths.
+
+References
+---------
+
+https://en.cppreference.com/w/c/string/byte
 
 

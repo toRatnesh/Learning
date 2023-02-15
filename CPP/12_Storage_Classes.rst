@@ -17,7 +17,7 @@ Storage classes
 
 
 .. list-table::
-    header-rows: 1
+    :header-rows: 1
 
     *   -   Storage Class
         -   Storage
@@ -68,17 +68,15 @@ Automatic (auto)
 - It can be accessed outside their scope as well using the concept of pointers given here by pointing to the very exact memory location where the variables resides
 - It’s default value is garbage
 - It is created as soon as its declaration statement is encountered and is destroyed as soon the program control leaves its container function block
+  .. code:: cpp
+    int x;				// by default storage class is auto
+    auto int y;
+    auto int m = 10;
 
-.. code:: cpp
+  .. note::
 
-	int x;				// by default storage class is auto
-	auto int y;
-	auto int m = 10;
-
-.. note::
-
-- Since C++11 auto is used as a declaration specifier
-- Storage in primary memory
+    - Since C++11 auto is used as a declaration specifier
+    - Storage in primary memory
 
 
 Register
@@ -246,7 +244,8 @@ The extern keyword extends the visibility of the C variables and C functions.
 
                 #include <stdio.h>
                 extern int var = 7;	
-                // warning: 'var' initialized and declared 'extern'
+                // warning: 'var' initialized and 
+                // declared 'extern'
                 int main(void) {
                     printf("%d", var);
                     return 0;
@@ -386,14 +385,14 @@ Automatic Type Specifier
 
   .. code:: cpp
 
-    auto I = 5, 	*p = &I;		// well –formed (int)
+    auto I = 5, *p = &I;		// well –formed (int)
     auto x = 3,	y = 2.2;		// ill – formed (error)
 
 - Auto can be applied to new expression
 
   .. code:: cpp
 
-  auto * p = new auto(1);
+    auto * p = new auto(1);
 
 - Auto cannot deduce array types
 

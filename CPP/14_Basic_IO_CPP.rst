@@ -15,17 +15,20 @@ I/O Library Header Files
 
 #. <iostream>
 
-	cin, cout, cerr and clog objects
+   cin, cout, cerr and clog objects
 
 #. <iomanip>
-	declares services useful for performing formatted I/O with so-called parameterized stream manipulators
-	ex: setw and setprecision
+
+   declares services useful for performing formatted I/O with so-called parameterized stream manipulators
+
+   ex: setw and setprecision
 
 #. <fstream>
-	declares services for user-controlled file processing
-	used to handle the data being read from a file as input or 
-	data being written into the file as output
-	will discuss about it in detail in File and Stream
+
+   - declares services for user-controlled file processing
+   - used to handle the data being read from a file as input or 
+   - data being written into the file as output
+   - will discuss about it in detail in File and Stream
 
 Standard Output Stream (cout)
 -------------------------------
@@ -36,17 +39,17 @@ Standard Output Stream (cout)
 - << operator is overloaded to output data items of built-in types integer, float, double, strings and pointer values
 - C++ compiler also determines the data type of variable to be output and selects the appropriate stream insertion operator to display the value
 - insertion operator << may be used more than once in a single statement 
-- endl is used to add a new-line at the end of the line
+- endl or '\\n' is used to add a new-line at the end of the line
 
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std;
-
-	int main() {
-		char str[] = "Hello C++";
-		cout << "Value of str is : " << str << endl;
-	}
+    #include <iostream>
+    using namespace std;
+    
+    int main() {
+        char str[] = "Hello C++";
+        cout << "Value of str is : " << str << endl;
+    }
 
 Output::
 
@@ -70,17 +73,16 @@ Standard Input Stream (cin)
 
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std;
-
-	int main() {
-		char name[50];
-
-		cout << "Please enter your name: ";
-		cin >> name;
-		cout << "Your name is: " << name << endl;
-
-		return 0; 
+    #include <iostream>
+    using namespace std;
+    
+    int main() {
+        char name[50];
+        
+        cout << "Please enter your name: ";
+        cin >> name;
+        cout << "Your name is: " << name << endl;
+        return 0;
 	}
 
 Output::
@@ -98,18 +100,18 @@ Standard Error Stream (cerr)
 
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std;
-
-	int main() {
-	char str[] = "Unable to read....";
-	cerr << "Error message : " << str << endl;
-	return 0;
-	}
+    #include <iostream>
+    using namespace std;
+    
+    int main() {
+        char str[] = "Unable to read....";
+        cerr << "Error message : " << str << endl;
+        return 0;
+    }
 
 Output::
 
-	Error message : Unable to read....
+    Error message : Unable to read....
 
 Standard Log Stream (clog)
 --------------------------
@@ -121,20 +123,20 @@ Standard Log Stream (clog)
 
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std;
-
-	int main() {
-		char str[] = "Unable to read....";
-		clog << "Error message : " << str << endl;
-		return 0;
-	}
+    #include <iostream>
+    using namespace std;
+    
+    int main() {
+        char str[] = "Unable to read....";
+        clog << "Error message : " << str << endl;
+        return 0;
+    }
 
 Output::
 
 	Error message : Unable to read....
 
-endl vs \n in C++
+endl vs '\\n' in C++
 ------------------
 
 - cout << endl  : Inserts a new line and flushes the stream
@@ -150,17 +152,16 @@ Problem with scanf()
 
 .. code:: cpp
 
-	#include<stdio.h>
-
-	int main() {
-		int x;
-		char str[100];
-
-		scanf("%d", &x);
-		fgets(str, 100, stdin);
-		printf("x = %d, str = %s", x, str);
-		return 0;
-	}
+    #include <stdio.h>
+    int main() {
+        int x;
+        char str[100];
+        
+        scanf("%d", &x);
+        fgets(str, 100, stdin);
+        printf("x = %d, str = %s", x, str);
+        return 0;
+    }
 
 Input::
 
@@ -178,20 +179,20 @@ Output::
 
 .. code:: cpp
 
-	// C program to demonstrate the problem when scanf() is used in a loop
-	#include<stdio.h>
+    // C program to demonstrate the problem when scanf() is used in a loop
+    #include <stdio.h>
+    int main() {
+        char c;
+        printf("......Enter q to quit......\n");
 
-	int main() {
-	    char c;
-	    printf("......Enter q to quit......\n");
-	    do {
-		printf("Enter a character\n");
-		scanf("%c", &c);
-		printf("%c\n", c);
-	    }
-	    while (c != 'q');
-	    return 0;
-	}
+        do {
+            printf("Enter a character\n");
+            scanf("%c", &c);
+            printf("%c\n", c);
+        }
+        while (c != 'q');
+        return 0;
+    }
 
 Input::
 
@@ -253,34 +254,34 @@ Following are used to clear buffer after scanf()
 In case of C
 ^^^^^^^^^^^^^
 
-#. Using **“while ((getchar()) != ‘\n’);”**
+#. Using **"while ((getchar()) != ‘\n’);"**
 
-	reads the buffer characters till the end and discards them(including newline)
-	using it after the “scanf()” statement clears the input buffer and allows the input in the desired container
+   - reads the buffer characters till the end and discards them(including newline)
+   - using it after the “scanf()” statement clears the input buffer and allows the input in the desired container
 
-#. Using **“fflush(stdin)”**
+#. Using **"fflush(stdin)"**
 
-	fflush(stdin)” after “scanf()” statement clears the input buffer
-	use of it is avoided and is termed to be “undefined” for input stream as per the C++11 standards
+   - fflush(stdin)” after “scanf()” statement clears the input buffer
+   - use of it is avoided and is termed to be **“undefined” for input stream as per the C++11 standards**
 
 In case of C++
 ^^^^^^^^^^^^^^^
 
 Following are used to clear buffer after cin
 
-#. Using **“cin.ignore(numeric_limits::max(),’\n’);”**
+#. Using **"cin.ignore(numeric_limits::max(), '\\n');"**
 
-	discards everything in the input stream including the newline
+   - discards everything in the input stream including the newline
 
-#. Using **“cin.sync()”**
+#. Using **"cin.sync()"**
 
-	“cin.sync()” after the “cin” statement discards all that is left in buffer
-	“cin.sync()” does not work in all implementations (According to C++11 and above standards).
+   - "cin.sync()" after the “cin” statement discards all that is left in buffer
+   - "cin.sync()" does not work in all implementations (According to C++11 and above standards).
 
-#. Using **“cin >> ws”**
+#. Using **"cin >> ws"**
 
-	cin>>ws” after “cin” statement ignores buffer and 
-	also discard all the whitespaces before the actual content of string or character array
+   - "cin>>ws" after “cin” statement ignores buffer and 
+   - also discard all the whitespaces before the actual content of string or character array
 
 How to use getline() in C++ when there are blank lines in input?
 ----------------------------------------------------------------
@@ -415,39 +416,56 @@ when we don’t know what the preceding characters are but we surely know that t
 %*s and %*d
 ^^^^^^^^^^^^^
 
- %*s in scanf()  is used to ignore the input until the next space or new line
- if you write %*d it will ignore integers until the next space or new line
+%*s in scanf()  is used to ignore the input until the next space or new line
 
-::
+%*d it will ignore integers until the next space or new line
+
+.. code:: cpp
 
 	int fscanf(FILE *ptr, const char *format, ...);
 
 .. code:: cpp
 
-	/*c program demonstrating fscanf and its usage*/
-	#include<stdio.h>
+    /*c program demonstrating fscanf and its usage*/
+    /*
+        Assume file is successfully opened and
+        abc.txt has content in below format
+        NAME    AGE   CITY
+        abc     12    hyderbad
+        bef     25    delhi
+        cce     65    bangalore
+    */
+    
+    #include <stdio.h>
+    int main() {
+        {
+            FILE* ptr = fopen("/app/abc.txt","r");
+            char* buf[100];
+            while (fscanf(ptr,"%*s %*s %s",buf)==1)
+                printf("%s\n", buf);
+            fclose(ptr);
+        }
+        
+        {
+            FILE* ptr = fopen("/app/abc.txt","r");
+            char* buf[100];
+            while (fscanf(ptr,"%*s %s %*s",buf)==1)
+                printf("%s\n", buf);
+            fclose(ptr);
+        }
+        return 0;
+    }
 
-	int main() {
-		FILE* ptr = fopen("abc.txt","r");
-		if (ptr==NULL) {
-			printf("no such file.");
-			return 0;
-		}
-		
-		/* 
-			Assuming that abc.txt has content in below format
-			NAME    AGE   CITY
-			abc     12    hyderbad
-			bef     25    delhi
-			cce     65    bangalore
-		*/
-	    
-		char* buf[100];
-		while (fscanf(ptr,"%*s %*s %s ",buf)==1)
-			printf("%s\n", buf);
-			
-		return 0;
-	}
+Output::
+
+    CITY
+    hyderbad
+    delhi
+    bangalore
+    AGE
+    12
+    25
+    65
 
 Exercise: Count the number of words, characters and lines in a file using fscanf!
 
@@ -458,25 +476,24 @@ use Macro Arguments to change the output of printf()
 
 .. code:: cpp
 
-	#include <stdio.h>
-	void fun() {
-		// add statement to print 10 in main
-		//#define printf(X, Y) printf(X, 10)		// added macro, case - 1
+    #include <stdio.h>
+    void fun() {
+        // add statement to print 10 in main
+        //#define printf(X, Y) printf(X, 10)		// added macro, case - 1
 								// no macro - case - 2
-	}
-	int main() {
-		int i = 10;
-		fun();
-		i = 20;
-		printf("%d\n", i);
-
-		return(0);
-	}
+    }
+    int main() {
+        int i = 10;
+        fun();
+        i = 20;
+        printf("%d\n", i);
+        return(0);
+    }
 
 Output::
 
-	10			// case - 1
-	20 			// case – 2
+    10  // case - 1
+    20  // case – 2
 
 put() and get() functions
 -------------------------
@@ -552,7 +569,7 @@ get line from stream into string
         istream & getline (istream &  is, string & str);
         istream & getline (istream && is, string & str);                   //(since C++ 11)
 
-Extracts characters from stream is and stores them into str until the delimitation character delim is found (or the newline character, '\n', for (2))
+Extracts characters from stream is and stores them into str until the delimitation character delim is found (or the newline character, '\\n', for (2))
 
 Stop if end of file is reached in is or any other error occurred
 
@@ -562,7 +579,7 @@ Any content in str before the call is replaced by the newly extracted sequence
 
 **For std::istream::getline**
 
-::
+.. code:: cpp
 
         cin.getline(line, size);
         // reading is terminated when ‘\n’ or (size - 1) characters are read
@@ -582,21 +599,23 @@ std::ostream::write
 
 .. code:: cpp
 
-        #include <iostream>
-        int main() {
-                char str[8];
-                std::cin.getline(str, 5);
-                std::cout << str << std::endl;
-                std::cout.write("GCC", 5);
-                
-                return 0;
-        }
+    #include <iostream>
+    int main() {
+        char str[8];
+        std::cin.getline(str, 5);
+        std::cout << str << std::endl;
+        std::cout.write("GCC", 5);
+        return 0;
+    }
+Input::
+
+    Learning CPP
+
 
 Output::
 
-        Learning CPP
-        Lear
-        GCC__	// __ represents space
+    Lear
+    GCC__	// __ represents space
 
 Formatted console I/O Operations
 -------------------------------
@@ -613,15 +632,26 @@ ios format functions
 - ios member functions return the previous format state
 - Most important ios class member functions
 
-================        ================================================================
-Function	        Task
-===============         ================================================================
-width()                 To specify the required field size for displaying an O/P value
-precision()             To specify the no of digits to be displayed after the decimal point of a float value
-fill()                  To specify a character that is used to fill the unused portion of a filed
-setf()                  To specify format flags that can control the form of output display (left or right justification)
-unsetf()                To clear the flags specified
-================        ================================================================
+.. list-table::
+    :header-rows: 1
+
+    *   -   Function
+        -   Task
+
+    *   -   width()
+        -   To specify the required field size for displaying an O/P value
+
+    *   -   precision()
+        -   To specify the no of digits to be displayed after the decimal point of a float value
+
+    *   -   fill()
+        -   To specify a character that is used to fill the unused portion of a filed
+
+    *   -   setf()
+        -   To specify format flags that can control the form of output display (left or right justification)
+
+    *   -   unsetf()
+        -   To clear the flags specified
 
 Manipulators
 ^^^^^^^^^^^^^
@@ -630,16 +660,36 @@ Manipulators
 - Manipulators and ios functions may be jointly used in a program
 - Manipulator does not return the previous format state
 
-=====================   =====================================   =================
-Manipulator             Meaning                                 Equivalent
-=====================   =====================================   =================
-setw(int w)             Set the field width to w                width()
-setprecision(int d)	Set the floating point precision to d   precision()
-setfill(int c)          Set the fill character to c	        fill()
-setiosflags(long f)	Set the format flag f                   setf()
-resetiosflags(long f)	Set the format flag f                   unsetf()
-endl                    Insert new line and flush stream	'\n'
-=====================   =====================================   =================
+.. list-table::
+    :header-rows: 1
+
+    *   -   Manipulator
+        -   Meaning
+        -   Equivalent
+
+    *   -   setw(int w)
+        -   Set the field width to w
+        -   width()
+
+    *   -   setprecision(int d)
+        -   Set the floating point precision to d
+        -   precision()
+
+    *   -   setfill(int c)
+        -   Set the fill character to c
+        -   fill()
+
+    *   -   setiosflags(long f)
+        -   Set the format flag f
+        -   setf()
+
+    *   -   resetiosflags(long f)
+        -   Set the format flag f
+        -   unsetf()
+
+    *   -   endl
+        -   Insert new line and flush stream
+        -   '\\n'
 
 Flags that do not have bit fields
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -647,34 +697,75 @@ Flags that do not have bit fields
 - These flags do not possess a named bit field
 - These flags are not mutually exclusive and therefore can be set or cleared independently
 
-=================       ===============================================
-Flag	                Meaning
-=================       ===============================================
-ios::showbase	        Use base indicator on O/P
-ios::showpos            Print + before positive numbers
-ios::showpoint          Show trailing decimal point and zeros
-ios::uppercase          Use uppercase letter for the hex output
-ios::skipus             Skip whitespace on input
-ios::unitbuf            Flush all streams after insertion
-ios::stdio              Flush stdout and stderr after insertion
-=================       ===============================================
+.. list-table::
+    :header-rows:1
+
+    *   -   Flag
+        -   Meaning
+
+    *   -   ios::showbase
+        -   Use base indicator on O/P
+
+    *   -   ios::showpos
+        -   Print + before positive numbers
+
+    *   -   ios::showpoint
+        -   Show trailing decimal point and zeros
+
+    *   -   ios::uppercase
+        -   Use uppercase letter for the hex output
+
+    *   -   ios::skipus
+        -   Skip whitespace on input
+
+    *   -   ios::unitbuf
+        -   Flush all streams after insertion
+
+    *   -   ios::stdio
+        -   Flush stdout and stderr after insertion
 
 
 Flags and bit fields for setf() function
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-===================================================     =================       ======================
-Format required                                         Flag (arg1)	        Bit-field (arg2)
-===================================================     =================       ======================
-Left justified O/P                                      ios::left	        ios::adjustfield
-Right justified O/P                                     ios::right	        ios::adjustfield
-Padding after sign or base (Indicator like +##20)       ios::internal	        ios::adjustfield
-Scientific notation                                     ios::scientific         ios::floatfield
-Fixed point notation                                    ios::fixed	        ios:: floatfield
-Decimal base                                            ios::Doc	        ios::basefield
-Octal base                                              ios::oct	        ios:: basefield
-Hexadecimal base                                        ios::hex	        ios::basefield
-===================================================     =================       ======================
+.. list-table::
+    :header-rows: 1
+
+    *   -   Format required
+        -   Flag (arg1)
+        -   Bit-field (arg2)
+
+    *   -   Left justified O/P
+        -   ios::left
+        -   ios::adjustfield
+
+    *   -   Right justified O/P
+        -   ios::right
+        -   ios::adjustfield
+
+    *   -   Padding after sign or base (Indicator like +##20)
+        -   ios::internal
+        -   ios::adjustfield
+
+    *   -   Scientific notation
+        -   ios::scientific
+        -   ios::floatfield
+
+    *   -   Fixed point notation
+        -   ios::fixed
+        -   ios:: floatfield
+
+    *   -   Decimal base
+        -   ios::doc
+        -   ios::basefield
+
+    *   -   Octal base
+        -   ios::oct
+        -   ios:: basefield
+
+    *   -   Hexadecimal base
+        -   ios::hex
+        -   ios::basefield
 
 .. code:: cpp
 
@@ -685,107 +776,106 @@ Hexadecimal base                                        ios::hex	        ios::ba
 
 .. list-table::
 
-        *       -       
-                        .. code:: cpp
+    *   -
+            .. code:: cpp
 
-                                cout.width(5);
-                                cout << 543;
-                                cout.width(5);
-                                cout << 12;
+                cout.width(5);
+                cout << 543;
+                cout.width(5);
+                cout << 12;
 
-                        Output::
+            Output::
 
-                                +---+---+---+---+---+---+---+---+---+---+
-                                |   |   | 5 | 4 | 3 |   |   |   | 1 | 2 |
-                                +---+---+---+---+---+---+---+---+---+---+
+                +---+---+---+---+---+---+---+---+---+---+
+                |   |   | 5 | 4 | 3 |   |   |   | 1 | 2 |
+                +---+---+---+---+---+---+---+---+---+---+
 
-                -       
-                        .. code:: cpp
+        -
+            .. code:: cpp
 
-                                cout.precision(4);
-                                cout << sqrt(4) << endl;
-                                cout << 3.14159 << endl;
-                                cout << 2.50032 << endl;
+                cout.precision(4);
+                cout << sqrt(4) << endl;
+                cout << 3.14159 << endl;
+                cout << 2.50032 << endl;
 
-                        Output::
+            Output::
 
-                                1.141		(Truncated)
-                                3.142		(Rounded)
-                                2.5		(No trailing 0)
+                1.141   (Truncated)
+                3.142   (Rounded)
+                2.5		(No trailing 0)
 
 
-        *       -       
-                        .. code:: cpp
+    *   -
+            .. code:: cpp
 
-                                cout.precision(3);
-                                cout.width(5);
-                                cout << 1.2345 << endl;
+                cout.precision(3);
+                cout.width(5);
+                cout << 1.2345 << endl;
 
-                        Output::
+            Output::
+            
+                +---+---+---+---+---+
+                |   | 1 |   | 2 | 3 |
+                +---+---+---+---+---+
 
-                                +---+---+---+---+---+
-                                |   | 1 |   | 2 | 3 |
-                                +---+---+---+---+---+
+        -
+            .. code:: cpp
 
-                -       
-                        .. code:: cpp
+                cout.fil(‘-’);
+                cout.width(5);
+                cout << 123 << endl;
+                
+                cout.width(5);
+                cout << 789 << endl;
 
-                                cout.fil(‘-’);
-                                cout.width(5);
-                                cout << 123 << endl;
-
-                                cout.width(5);
-                                cout << 789 << endl;
-
-                        Output::
-
-                                --123
-                                --789
+            Output::
+            
+                --123
+                --789
 
 .. list-table::
 
-        *       -       
-                        .. code:: cpp
+    *   -   
+            .. code:: cpp
 
-                                cout.fill(‘#’);
-                                cout.precision(3);
-                                cout.self(ios::internal, ios::adjustfiled);
-                                cout.setf(ios::scientific, ios::floatfiled);
-                                cout.width(5);
-                                cout << -12.345 << endl;
+                cout.fill(‘#’);
+                cout.precision(3);
+                cout.self(ios::internal, ios::adjustfiled);
+                cout.setf(ios::scientific, ios::floatfiled);
+                cout.width(5);
+                cout << -12.345 << endl;
 
-                        Output::
+            Output::
+            
+                -#####1.235e+01
+                
+    *   -
+            .. code:: cpp
 
-                                -#####1.235e+01
+                cout.fill(‘#’); 				            // +__123.450
+                cout.setf(ios::showpoint); 			        // +##123.450
+                cout.setf(ios::showpos); 			        // ###123.450
+                cout.precision(3); 				            // +123.450000
+                cout.setf(ios::internal, ios::adjustfiled); // ##+123.450
+                cout.setf(ios::fixed, ios::floatfiled); 	// +#####123.
+                cout.width(10);                             // +123.450
+                cout << 123.45 << endl;
+                
+            Output::
+            
+                +##123.45
 
-        *       -
-                        .. code:: cpp
+        -
+            .. code:: cpp
 
-                                cout.fill(‘#’); 				// +__123.450
-                                cout.setf(ios::showpoint); 			// +##123.450
-                                cout.setf(ios::showpos); 			// ###123.450
-                                cout.precision(3); 				// +123.450000
-                                cout.setf(ios::internal, ios::adjustfiled); 	// ##+123.450
-                                cout.setf(ios::fixed, ios::floatfiled); 	// +#####123.
-                                cout.width(10); 				// +123.450
-                                cout << 123.45 << endl;
-
-                        Output::
-                        
-                                +##123.45
-
-                -       
-                        .. code:: cpp
-
-
-                                cout << setprecision(4);
-                                cout << setiosflags(ios::scientific);
-                                cout << setw(10) << 123.456 << endl;
-
-                        Output::
-                                
-                                1.2346e+02      
-                                // --123.4560 (fixed)
+                cout << setprecision(4);
+                cout << setiosflags(ios::scientific);
+                cout << setw(10) << 123.456 << endl;
+                
+            Output::
+            
+                1.2346e+02
+                // --123.4560 (fixed)
 
 
 Designing your own manipulator
@@ -793,19 +883,19 @@ Designing your own manipulator
 
 .. code:: cpp
 
-        ostream & <manipulator> (ostream & output) {
-                // code
-                return output;
-        }
+    ostream & <manipulator> (ostream & output) {
+        // code
+        return output;
+    }
 
 **Example**
 
 .. code:: cpp
 
-        ostream & unit(ostream & output) {
-                output << “inches”;
-                return output;
-        }
+    ostream & unit(ostream & output) {
+        output << “inches”;
+        return output;
+    }
 
 
 Some useful examples
@@ -813,89 +903,87 @@ Some useful examples
 
 .. list-table::
 
-        *       -
-                        .. code:: cpp
+    *   -
+            .. code:: cpp
 
-                                int main() {
-                                        char a[16];
-                                        char b[16];
-                                        char c[16];
+                int main() {
+                    char a[16];
+                    char b[16];
+                    char c[16];
 
-                                        printf(" %d\n", scanf("%s %s %s", a, b, c));
-                                        return 0;
-                                }
+                    printf(" %d\n", scanf("%s %s %s", a, b, c));
+                    return 0;
+                }
+                
+        -
+            Output::
 
-                -       
-                        Output::
-
-                                3
-                                // scanf returns the no. of inputs it has successfully read
-
-
-        *       -
-                        .. code:: cpp
-
-                                int main() {
-                                        printf("\new-c-question\by");
-                                        printf("\rgeeksforgeeks");
-                                        return 0;
-                                }
-
-                -       
-                        Output::
-
-                                Depends on terminal configuration
-                                // \b, \r, \a etc. it is upto the terminal
-                                // implementation then how those characters get actually displayed
-
-        *       -       printf(5 + “Geeksquiz”);
-
-                -       // compiler adds 5 to the base address of the string
+                3
+                // scanf returns the no. of inputs it has successfully read
 
 
-        *       -       printf(“%c”, 5[“Geeksquiz”]);
+    *   -
+            .. code:: cpp
 
-                -       // expression 5[“Geeksquiz”] is broken down by compiler as ``*(5 + “Geeksquiz”)``
+                int main() {
+                    printf("\new-c-question\by");
+                    printf("\rgeeksforgeeks");
+                    return 0;
+                }
 
+        -
+        
+            Output::
+            
+                Depends on terminal configuration
+                // \b, \r, \a etc. it is upto the terminal
+                // implementation then how those characters get actually displayed
 
-        *       -       scanf(“%4s”, str);
+    *   -   printf(5 + “Geeksquiz”);
+        -   // compiler adds 5 to the base address of the string
+          
+    *   -   printf(“%c”, 5[“Geeksquiz”]);
+        -   // expression 5[“Geeksquiz”] is broken down by compiler as ``*(5 + “Geeksquiz”)``
+          
+    *   -   scanf(“%4s”, str);
+        -   Read max 4 chars from console
 
-                -       // Read max 4 chars from console
-                        // i/p: Geeksquiz
-                        // o/p: Geek
+            Input::
+            
+                Geeksquiz
 
-        *       -       
-                        .. code:: cpp
+            Output::
+            
+                Geek
 
-                                int main() {
-                                        char * str = "Geeks quiz";
-                                        int n = 7;
-                                        printf("%.*s\n", n, str);
-                                        return 0;
-                                }
+    *   -   .. code:: cpp
+      
+                int main() {
+                    char * str = "Geeks quiz";
+                    int n = 7;
+                    printf("%.*s\n", n, str);
+                    return 0;
+                }
+        -
+            Output::
+            
+                Geeks q
+                // .* means precision is not specified in the format string but as an additional integer value
+                // argument preceding the argument that has to be formatted
 
-                -       
-                  
-                        Output::
+    *   -   I/O protection is ensured by
+            
+            ::
+            
+                Operating system routine(s)     [✓]
+                A hardware trap	                [x]
+                During system configuration	[x]
+                Not possible		        [x]
 
-                                Geeks q
-
-                                // .* means precision is not specified in the format string but as an additional integer value
-                                // argument preceding the argument that has to be formatted
-
-        *       -       
-                        I/O protection is ensured by
+        -   | //All I/O requests are handled through
+            | //system calls that must be performed in kernel mode
+            | //user applications are not allowed to perform I/O in user mode
                         
-                        Operating system routine(s) 	[✓]
-                        A hardware trap			[x]
-                        During system configuration	[x]
-                        Not possible		        [x]
-
-                -
-                        //All I/O requests are handled through
-                        //system calls that must be performed in kernel mode
-                        //user applications are not allowed to perform I/O in user mode
-                                
 References
 ----------
 
