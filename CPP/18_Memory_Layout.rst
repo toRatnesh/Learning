@@ -77,6 +77,8 @@ The Heap area is managed by malloc, realloc, and free, which may use the brk and
 
 The Heap area is shared by all shared libraries and dynamically loaded modules in a process.
 
+`Check this for memory layout of a binary <memory_layout>`_
+
 References
 ----------
 

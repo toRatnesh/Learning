@@ -79,14 +79,19 @@ Broadly two major phases divided into multiple parts:
 
 1. Analysis Phase
 
-	I.. Lexical Analysis
-	II. Syntax Analysis
-	III. Semantic Analysis
-	IV. Intermediate Code Generation
+   I. Lexical Analysis
+
+   II. Syntax Analysis
+
+   III. Semantic Analysis
+
+   IV. Intermediate Code Generation
 
 2. Synthesis Phase
-	V. Code Optimization
-	VI. Code Generation
+
+   V. Code Optimization
+
+   VI. Code Generation
 
 .. image:: ./.resources/17_compilation_phases.png
 
@@ -224,6 +229,7 @@ In this optimization, the compiler takes in the intermediate code and transforms
 For example
 
 .. list-table::
+    :header-rows: 1
 
         *       -       Example code
                 -       Improved code

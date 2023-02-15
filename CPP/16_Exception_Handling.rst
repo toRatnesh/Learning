@@ -58,9 +58,9 @@ Function in C to calculate the average of two numbers contains a logic error. It
 
 .. code:: cpp
 
-	float average(float a, float b) {
-		return a + b / 2;	/* should be (a + b) / 2 */
-	}
+    float average(float a, float b) {
+        return a + b / 2;	/* should be (a + b) / 2 */
+    }
 
 Exceptions
 -------
@@ -116,23 +116,24 @@ Exception Handling in C++
 #. Like Java, C++ library has a standard exception class which is base class for all standard exceptions. All objects thrown by components of the standard library are derived from this class. Therefore, all standard exceptions can be caught by catching this type.
 #. In C++, try-catch blocks can be nested. Also, an exception can be re-thrown using "throw;".
 
-	Any further catch clauses for the same try block are still ignored – **the throw causes the exception to go to the exception handlers in the next-higher context.**
+   Any further catch clauses for the same try block are still ignored – **the throw causes the exception to go to the exception handlers in the next-higher context.**
 
 #. When an exception is thrown, all objects successfully created inside the enclosing try block are destructed before the control is transferred to catch block.
 
 
 
-Note:
+Note
+
 - It is compiler error to put catch all block before any other catch. The catch(...) must be the last catch block.
 - There is a standard exception class like Exception class in Java.
 - All exceptions are unchecked in C++, i.e., compiler doesn't check if the exceptions are caught or not.
 - In C++, a function can specify the list of exceptions that it can throw using comma separated list like following.
-	
-	void fun(int a, char b) throw (Exception1, Exception2);
-	
-	void fun(int a, char b) throw ();	// no exception thrown
-	
-	void fun(int a, char b);		// any type of exception may be thrown
+
+  .. code:: cpp
+
+    void fun(int a, char b) throw (Exception1, Exception2);
+    void fun(int a, char b) throw (); // no exception thrown
+    void fun(int a, char b);          // any type of exception may be thrown
 
 - C++ compiler doesn't check enforce a function to list the exceptions that it can throw. In Java, it is enforced. It is up to the programmer to specify. A programmer should specify the list.
 
@@ -143,35 +144,31 @@ Note:
 
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std;
-	 
-	int main() {
-		int x = -1;	
-
-		cout << "Before try" << endl;
-		try {
-			cout << "Inside try" << endl;
-			if (x < 0) {
-				throw x;
-				cout << "After throw (Never executed)" << endl;
-			}
-		}
-		catch (int x ) {
-			cout << "Exception Caught" << endl;
-		}
-		
-		cout << "After catch (Will be executed)" << endl;
-		
-		return 0;
-	}
+    #include <iostream>
+    using namespace std;
+    int main() {
+        int x = -1;
+        cout << "Before try" << endl;
+        try {
+            cout << "Inside try" << endl;
+            if (x < 0) {
+                throw x;
+                cout << "After throw (Never executed)" << endl;
+            }
+        }
+        catch (int x ) {
+            cout << "Exception Caught" << endl;
+        }
+        cout << "After catch (Will be executed)" << endl;
+        return 0;
+    }
 
 Output::
 
-	Before try
-	Inside try
-	Exception Caught
-	After catch (Will be executed)
+    Before try
+    Inside try
+    Exception Caught
+    After catch (Will be executed)
 
 **Advantage**
 
@@ -193,29 +190,27 @@ In Java, catching a base class exception before derived is not allowed by the co
 
 .. code:: cpp
 
-	// catching base class exception before child class  
-	#include<iostream>
-	using namespace std;
-	 
-	class Base {};
-	class Derived: public Base {};
-	int main() {
-		Derived d;
-		// some other stuff
-		
-		try {
-			// Some monitored code
-			throw d;
-		}
-		catch(Base b) { 
-			cout<<"Caught Base Exception";
-		}
-		catch(Derived d) {  //This catch block is NEVER executed
-			cout<<"Caught Derived Exception";
-		}
-
-		return 0;
-	}
+    // catching base class exception before child class  
+    #include <iostream>
+    using namespace std;
+    
+    class Base {};
+    class Derived: public Base {};
+    int main() {
+        Derived d;
+        // some other stuff
+        try {
+            // Some monitored code
+            throw d;
+        }
+        catch(Base b) {
+            cout<<"Caught Base Exception";
+        }
+        catch(Derived d) {  //This catch block is NEVER executed
+            cout<<"Caught Derived Exception";
+        }
+        return 0;
+    }
 
 Compilation Warnings::
 
@@ -233,29 +228,27 @@ Output::
 
 .. code:: cpp
 
-	// catching base class exception after child class  
-	#include<iostream>
-	using namespace std;
-	 
-	class Base {};
-	class Derived: public Base {};
-	int main() {
-		Derived d;
-		// some other stuff
-		
-		try {
-			// Some monitored code
-			throw d;
-		}
-		catch(Derived d) {  
-			cout<<"Caught Derived Exception";
-		}
-		catch(Base b) { 
-			cout<<"Caught Base Exception";
-		}
-
-		return 0;
-	}
+    // catching base class exception after child class  
+    #include <iostream>
+    using namespace std;
+    
+    class Base {};
+    class Derived: public Base {};
+    int main() {
+        Derived d;
+        // some other stuff
+        try {
+            // Some monitored code
+            throw d;
+        }
+        catch(Derived d) {
+            cout<<"Caught Derived Exception";
+        }
+        catch(Base b) {
+            cout<<"Caught Base Exception";
+        }
+        return 0;
+    }
 
 Output::
 
@@ -270,22 +263,21 @@ The **derived type objects are converted to base type** when a derived object is
 
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std;
-	 
-	int main() {
-		try {
-			throw 'x';
-		}
-		catch(int x) {
-			cout << " Caught int " << x;
-		}
-		catch(...) {
-			cout << "Default catch block";
-		}
-		
-		return 0;
-	}
+    #include <iostream>
+    using namespace std;
+    
+    int main() {
+        try {
+            throw 'x';
+        } 
+        catch(int x) {
+            cout << " Caught int " << x;
+        }
+        catch(...) {
+            cout << "Default catch block";
+        }
+        return 0;
+    }
 
 Output::
 
@@ -295,33 +287,29 @@ In the above program, a character ‘x’ is thrown and there is a catch block t
 
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std;
-	 
-	class MyExcept1 {};
-	 
-	class MyExcept2 {
-		public:
-			// Conversion constructor
-			MyExcept2 (const MyExcept1 &e ) {
-				cout << "Conversion constructor called";
-			}
-	};
-	 
-	int main() {
-		try {
-			MyExcept1 myexp1;
-			throw myexp1;
-		}
-		catch(MyExcept2 e2) {
-			cout << "Caught MyExcept2 " << endl;
-		}
-		catch(...) {
-			cout << " Default catch block " << endl;
-		}
-		
-		return 0;
-	}
+    #include <iostream>
+    using namespace std;
+    class MyExcept1 {};
+    class MyExcept2 {
+        public:
+        // Conversion constructor
+        MyExcept2 (const MyExcept1 &e ) {
+            cout << "Conversion constructor called";
+        }
+    };
+    int main() {
+        try {
+            MyExcept1 myexp1;
+            throw myexp1;
+        }
+        catch(MyExcept2 e2) {
+            cout << "Caught MyExcept2 " << endl;
+        }
+        catch(...) {
+            cout << " Default catch block " << endl;
+        }
+        return 0;
+    }
 
 Output::
 
@@ -336,26 +324,24 @@ Destructor is only called for the completely constructed objects. When construct
 
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std;
-	 
-	class Test {
-		public:
-			Test() { cout << "Constructing an object of Test " << endl; }
-			~Test() { cout << "Destructing an object of Test "  << endl; }
-	};
-	 
-	int main() {
-		try {
-			Test t1;
-			throw 10;
-		}
-		catch(int i) {
-			cout << "Caught " << i << endl;
-		}
-		
-		return 0;
-	}
+    #include <iostream>
+    using namespace std;
+
+    class Test {
+        public:
+        Test() { cout << "Constructing an object of Test " << endl; }
+        ~Test() { cout << "Destructing an object of Test "  << endl; }
+    };
+    int main() {
+        try {
+            Test t1;
+            throw 10;
+        }
+        catch(int i) {
+            cout << "Caught " << i << endl;
+        }
+        return 0;
+    }
 
 Output::
 
@@ -365,32 +351,30 @@ Output::
 
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std;
-	class Test1 {
-		public:
-			Test1() { cout << "Constructing an Object of Test1" << endl; }
-			~Test1() { cout << "Destructing an Object of Test1" << endl; }
-	}; 
-	class Test2 {
-		public:
-			// Following constructor throws an integer exception
-			Test2() { cout << "Constructing an Object of Test2" << endl; throw 20; }
-			~Test2() { cout << "Destructing an Object of Test2" << endl; }
-	};
-	 
-	int main() {
-		try {
-			Test1 t1;  // Constructed and destructed
-			Test2 t2;  // Partially constructed
-			Test1 t3;  // t3 is not constructed as this statement never gets executed
-		} 
-		catch(int i) {
-			cout << "Caught " << i << endl;
-		}
-		
-		return 0;
-	}
+    #include <iostream>
+    using namespace std;
+    class Test1 {
+        public:
+        Test1() { cout << "Constructing an Object of Test1" << endl; }
+        ~Test1() { cout << "Destructing an Object of Test1" << endl; }
+    };
+    class Test2 {
+        public:
+        // Following constructor throws an integer exception
+        Test2() { cout << "Constructing an Object of Test2" << endl; throw 20; }
+        ~Test2() { cout << "Destructing an Object of Test2" << endl; }
+    };
+    int main() {
+        try {
+            Test1 t1;  // Constructed and destructed
+            Test2 t2;  // Partially constructed
+            Test1 t3;  // t3 is not constructed as this statement never gets executed
+        }
+        catch(int i) {
+            cout << "Caught " << i << endl;
+        }
+        return 0;
+    }
 
 Output::
 
@@ -414,41 +398,39 @@ Stack Unwinding also happens in Java when exception is not handled in same funct
 
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std;
-	 
-	// A sample function f1() that throws an int exception 
-	void f1() throw (int) {
-		cout<<"\n f1() Start ";
-		throw 100;
-		cout<<"\n f1() End "; 
-	}
-	 
-	// Another sample function f2() that calls f1()
-	void f2() throw (int) {
-		cout<<"\n f2() Start ";
-		f1();
-		cout<<"\n f2() End ";
-	}
-	  
-	// Another sample function f3() that calls f2() and handles exception thrown by f1()
-	void f3() {
-		cout<<"\n f3() Start ";
-		
-		try {
-			f2();
-		}
-		catch(int i) {
-			cout<<"\n Caught Exception: "<<i;
-		}
-		cout<<"\n f3() End";
-	}
-	 
-	// A driver function to demonstrate Stack Unwinding  process
-	int main() {
-		f3();	
-		return 0;
-	}
+    #include <iostream>
+    using namespace std;
+    
+    // A sample function f1() that throws an int exception 
+    void f1() throw (int) {
+        cout<<"\n f1() Start ";
+        throw 100;
+        cout<<"\n f1() End ";
+    }
+    
+    // Another sample function f2() that calls f1()
+    void f2() throw (int) {
+        cout<<"\n f2() Start ";
+        f1();
+        cout<<"\n f2() End ";
+    }
+    
+    // Another sample function f3() that calls f2() and handles exception thrown by f1()
+    void f3() {
+        cout<<"\n f3() Start ";
+        try {
+            f2();
+        }
+        catch(int i) {
+            cout<<"\n Caught Exception: "<<i;
+        }
+        cout<<"\n f3() End";
+    }
+    // A driver function to demonstrate Stack Unwinding  process
+    int main() {
+        f3();
+        return 0;
+    }
 
 Output::
 
@@ -476,7 +458,7 @@ Exception specification
 -----------------
 
 void f() throw(toobig, toosmall, divzero); // With exceptions
-void f();		// any type of exception may be thrown from the function
+void f();           // any type of exception may be thrown from the function
 void f() throw();	// no exceptions are thrown from a function
 
 unexpected( )

@@ -9,8 +9,8 @@ Memory Layout of C Programs
 
 #. Text segment
 #. Data segment
-	- Initialized data segment
-	- Uninitialized data segment
+   - Initialized data segment
+   - Uninitialized data segment
 #. Stack
 #. Heap
 
@@ -108,6 +108,7 @@ malloc() versus calloc()
 -------------------------
 
 .. list-table::
+    :header-rows: 1
 
 	*	-	malloc()
 		-	calloc()
@@ -133,9 +134,9 @@ malloc() versus calloc()
 	*	-	If we try to access the content of memory block then we’ll get garbage values
 		-	If we try to access the content of these blocks then we’ll get 0
 
-**NOTE**
+.. note::
 
-It would be better to use malloc over calloc, unless we want the zero-initialization because malloc is faster than calloc. So if we just want to copy some stuff or do something that doesn’t require filling of the blocks with zeros, then malloc would be a better choice.
+    It would be better to use malloc over calloc, unless we want the zero-initialization because malloc is faster than calloc. So if we just want to copy some stuff or do something that doesn’t require filling of the blocks with zeros, then malloc would be a better choice.
 
 realloc()
 ----------
@@ -156,7 +157,7 @@ The content of the new object is identical to that of the old object prior to de
 	int *ptr_new;
 	ptr_new = (int *)realloc(ptr, sizeof(int)*3);
 
-*The point to note is that realloc() should only be used for dynamically allocated memory. If the memory is not dynamically allocated, then behaviour is undefined.*
+**The point to note is that realloc() should only be used for dynamically allocated memory. If the memory is not dynamically allocated, then behaviour is undefined.**
 
 .. code:: cpp
 
@@ -168,9 +169,8 @@ The content of the new object is identical to that of the old object prior to de
 
 .. note::
 
-	If size is zero, the memory previously allocated at ptr is deallocated as if a call to free was made, and a null pointer is returned.	//C90 (C++98)
-
-	If size is zero, the return value depends on the particular library implementation: it may either be a null pointer or some other location that shall not be dereferenced.	// C99/C11 (C++11)
+    - If size is zero, the memory previously allocated at ptr is deallocated as if a call to free was made, and a null pointer is returned.	//C90 (C++98)
+    - If size is zero, the return value depends on the particular library implementation: it may either be a null pointer or some other location that shall not be dereferenced.	// C99/C11 (C++11)
 
  
 How to deallocate memory without using free() in C?
@@ -180,17 +180,18 @@ Standard library function realloc() can be used to deallocate previously allocat
 
 - If “size” is zero, then call to realloc is equivalent to “free(ptr)” //C90 (C++98)
 - if “ptr” is NULL and size is non-zero then call to realloc is equivalent to “malloc(size)”
+
   .. code :: cpp
 
-        int *ptr = (int*) malloc(10);
-        realloc(ptr, 0);
+    int *ptr = (int*) malloc(10);
+    realloc(ptr, 0);
 
 How does free() know the size of memory to be deallocated?
 ------------------------------------------------------------
 
 .. code:: cpp
 
-        void free (void* ptr);
+    void free (void* ptr);
 
 Note that the free function does not accept size as a parameter. 
 
@@ -329,13 +330,13 @@ new vs malloc
 -------------
 
 ================================        ===========================
-new	                                malloc
+new	                                    malloc
 ================================        ===========================
 calls constructor                       does not calls constructors
 It is an operator                       It is a function
 Returns exact data type                 Returns void *
 on failure, Throws                      On failure, returns NULL
-Memory allocated from free store	Memory allocated from heap
+Memory allocated from free store	    Memory allocated from heap
 can be overridden                       cannot be overridden
 size is calculated by compiler          size is calculated manually
 ================================        ===========================
@@ -344,7 +345,7 @@ delete vs free
 -------------
 
 ===========================     ===============================
-Delete                          free
+delete                          free
 ===========================     ===============================
 is an operator                  is a library function
 calls destructor                does not call destructor

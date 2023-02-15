@@ -468,6 +468,7 @@ Output::
     65
 
 `Check this code in Compiler Explorer <https://godbolt.org/z/MajccPWo6>`_
+
 Exercise: Count the number of words, characters and lines in a file using fscanf!
 
 How to change the output of printf() in main()?
