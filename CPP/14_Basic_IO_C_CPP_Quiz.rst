@@ -1,32 +1,32 @@
-1. Predict output of the following program
 
-.. code:: cpp
+#. Predict output of the following program
+
+   .. code:: cpp
 
     #include <stdio.h>
     int main() {
         printf("\new_c_question\by");
-        printf("\rgeeksforgeeks"); 
+        printf("\rgeeksforgeeks");
         getchar();
         return 0;
     }
-
+   
 i. | ew_c_question
    | geeksforgeeks
 
 ii. | new_c_ques
    | geeksforgeeks
-
+   
 iii. geeksforgeeks
-
+   
 iv. **Depends on terminal configuration**
-
+   
 It is up to the terminal's implementation then how those characters get actually displayed
 
 
+#. Predict output of the following program
 
-2. Predict output of the following program
-
-.. code:: cpp
+   .. code:: cpp
 
     #include <stdio.h>
     // Assume base address of "GeeksQuiz" to be 1000
@@ -48,9 +48,9 @@ The compiler adds 5 to the base address of the string through the expression 5 +
 
 
 
-3. Predict the output of the below program:
+3. Predict the output of the below program
 
-.. code:: cpp
+   .. code:: cpp
 
     #include <stdio.h>
     int main() {

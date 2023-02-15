@@ -68,7 +68,9 @@ Automatic (auto)
 - It can be accessed outside their scope as well using the concept of pointers given here by pointing to the very exact memory location where the variables resides
 - It’s default value is garbage
 - It is created as soon as its declaration statement is encountered and is destroyed as soon the program control leaves its container function block
+
   .. code:: cpp
+
     int x;				// by default storage class is auto
     auto int y;
     auto int m = 10;
@@ -214,7 +216,7 @@ The extern keyword extends the visibility of the C variables and C functions.
 
 .. code:: cpp
 
-    int foo(int arg1, char arg2);			// by programmer
+    int foo(int arg1, char arg2);		// by programmer
     extern int foo(int arg1, char arg2);    // by compiler
 
 - When extern is used with a variable, it’s only declared, not defined.

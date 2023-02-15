@@ -77,13 +77,13 @@ Standard Input Stream (cin)
     using namespace std;
     
     int main() {
-        char name[50];
+        char name[50];\
         
         cout << "Please enter your name: ";
         cin >> name;
         cout << "Your name is: " << name << endl;
         return 0;
-	}
+    }
 
 Output::
 
@@ -467,6 +467,7 @@ Output::
     25
     65
 
+`Check this code in Compiler Explorer <https://godbolt.org/z/MajccPWo6>`_
 Exercise: Count the number of words, characters and lines in a file using fscanf!
 
 How to change the output of printf() in main()?
@@ -698,7 +699,7 @@ Flags that do not have bit fields
 - These flags are not mutually exclusive and therefore can be set or cleared independently
 
 .. list-table::
-    :header-rows:1
+    :header-rows: 1
 
     *   -   Flag
         -   Meaning
@@ -833,6 +834,7 @@ Flags and bit fields for setf() function
                 --123
                 --789
 
+
 .. list-table::
 
     *   -   
@@ -865,7 +867,7 @@ Flags and bit fields for setf() function
             
                 +##123.45
 
-        -
+    *   -
             .. code:: cpp
 
                 cout << setprecision(4);

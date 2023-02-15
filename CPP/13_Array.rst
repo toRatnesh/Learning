@@ -636,81 +636,78 @@ Example-1 (Try to modify string)
 Example – 2 (Try to return string from a function)
 ^^^^^^^^^^^^^^^^^^
 
-#.
+#. String is stored in shared segment
 
-	String is stored in shared segment
-	
-	Data stored remains even after return of getstring()
+   Data stored remains even after return of getstring()
 
-    .. code:: cpp
+   .. code:: cpp
 
-		#include <stdio.h>
-		#include <stdlib.h>
-		char * getString() {
-			char* str = "GFG";
-			return str;
-		}
-		int main() {
-			printf("%s\n", getString());
-			return 0;
-		}
+    #include <stdio.h>
+    #include <stdlib.h>
+    char * getString() {
+        char* str = "GFG";
+        return str;
+    }
+    int main() {
+        printf("%s\n", getString());
+        return 0;
+    }
         
-    Output::
-    
-        compilation warning: ISO C++ forbids converting a string constant to 'char*'
-        GFG
+   Output::
+   
+    compilation warning: ISO C++ forbids converting a string constant to 'char*'
+    GFG
 
-#.
-	String is stored in heap segment
-	
-	Data returns even after return of getString()
+#. String is stored in heap segment
 
-	.. code:: cpp
+   Data returns even after return of getString()
 
-		#include <stdio.h>
-		#include <stdlib.h>
-		char * getString() {
-			int size=4;
-			char * str = (char *)malloc(sizeof(char) * size);
-			*(str + 0) = 'G';
-			*(1 + str) = 'F';
-			str[2] = 'G';
-			*(str + 3) = '\0';
-			return str;
-		}
-		int main() {
-			printf("%s\n", getString());
-			return 0;
-		}
+   .. code:: cpp
 
-	Output::
-	
-		GFG
+    #include <stdio.h>
+    #include <stdlib.h>
+    char * getString() {
+        int size=4;
+        char * str = (char *)malloc(sizeof(char) * size);
+        *(str + 0) = 'G';
+        *(1 + str) = 'F';
+        str[2] = 'G';
+        *(str + 3) = '\0';
+        return str;
+    }
+    int main() {
+        printf("%s\n", getString());
+        return 0;
+    }
+
+   Output::
+   
+    GFG
 
 
-#.
-	Prints garbage data
-	String is stored in stack frame
-	getString() and data may not be there after getString() returns
+#. Prints garbage data
 
-	.. code:: cpp
+   String is stored in stack frame
 
-		#include <stdio.h>
-		#include <stdlib.h>
-		char * getString() {
-			char str[] = "GFG";
-			return str;
-		}
-		int main() {
-			printf("%s\n", getString());
-			return 0;
-		}
+   getString() and data may not be there after getString() returns
 
-	Runtime Errors::
+   .. code:: cpp
 
-		Compilation warning: address of local variable 'str' returned
+    #include <stdio.h>
+    #include <stdlib.h>
+    char * getString() {
+        char str[] = "GFG";
+        return str;
+    }
+    int main() {
+        printf("%s\n", getString());
+        return 0;
+    }
 
-		Segmentation Fault (SIGSEGV)
+   Runtime Errors::
+   
+    Compilation warning: address of local variable 'str' returned
+    Segmentation Fault (SIGSEGV)
 
 Variable length arrays in C/C++
 ---------------
@@ -718,6 +715,7 @@ Variable length arrays in C/C++
 - We can allocate an auto array (on stack) of variable
 - C supports variable sized arrays from C99 standard
 - C++ standard (till C++11) does not support variable sized arrays
+
   .. code:: cpp
 
     void fun(int n) {
@@ -955,9 +953,9 @@ We can create an array of pointers also dynamically using a double pointer
 
 Output::
 
-	1  2  3  4 
-	 5  6  7  8 
-	 9 10 11 12
+    1  2  3  4 
+    5  6  7  8 
+    9 10 11 12
 
 Using a double pointer and one malloc() call for all rows
 ^^^^^^^^^^^^^
