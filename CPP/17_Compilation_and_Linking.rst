@@ -229,24 +229,22 @@ For example
 .. list-table::
     :header-rows: 1
 
-        *       -       Example code
-                -       Improved code
-                  
-        *       -
-                        .. code:: cpp
+    *   -   Example code
+        -   Improved code
+          
+    *   -   .. code:: cpp
+            
+                do {
+                    item = 10;
+                    value = value + item;
+                } while(value<100);
 
-                                do {
-                                        item = 10;
-                                        value = value + item;
-                                } while(value<100);
-                                
-                -
-                        .. code:: cpp
-
-                                item = 10;
-                                do {
-                                        value = value + item;
-                                } while(value<100);
+        -   .. code:: cpp
+          
+                item = 10;
+                do {
+                    value = value + item;
+                } while(value<100);
 
 Example code involves repeated assignment of the identifier item
 
