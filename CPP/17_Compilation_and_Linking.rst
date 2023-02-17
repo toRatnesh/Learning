@@ -5,8 +5,6 @@
 Compilation and Linking Process
 ===================
 
-https://www.geeksforgeeks.org/compiling-a-c-program-behind-the-scenes/
-
 Basic four phases of the process includes:
 
 #. Pre-processing
@@ -71,9 +69,8 @@ GCC by default does dynamic linking, so printf() is dynamically linked in above 
 Compilation Phases in Detail
 -------------------
 
-Copied from https://www.tutorialspoint.com/compiler_design/index.htm
+For more detail visit https://www.tutorialspoint.com/compiler_design/index.htm
 
-Check above link for more detail.
 
 Broadly two major phases divided into multiple parts:
 
@@ -108,6 +105,7 @@ Generates the target program with the help of intermediate source code represent
 A compiler can have many phases and passes:
 
 **Pass:** A pass refers to the traversal of a compiler through the entire program.
+
 **Phase:** A phase of a compiler is a distinguishable stage, which takes input from the previous stage, processes and yields output that can be used as input for the next stage. A pass can have more than one phase.
 
 
@@ -151,7 +149,7 @@ A syntax analyzer or parser analyzes the source code (token stream) against the 
 
 This way, the parser accomplishes two tasks, i.e., parsing the code, looking for errors and generating a parse tree as the output of the phase.
 
-Parsers are expected to parse the whole code even if some errors exist in the program. Parsers use error recovering strategies, which we will learn later in this chapter.
+Parsers are expected to parse the whole code even if some errors exist in the program. Parsers use error recovering strategies.
 
 **Limitations of Syntax Analyzers**
 
@@ -233,22 +231,21 @@ For example
 
         *       -       Example code
                 -       Improved code
-
-        *       -       
+                  
+        *       -
                         .. code:: cpp
 
                                 do {
-                                   item = 10;
-                                   value = value + item; 
+                                        item = 10;
+                                        value = value + item;
                                 } while(value<100);
-
-                        
-                -       
+                                
+                -
                         .. code:: cpp
 
-                                Item = 10;
+                                item = 10;
                                 do {
-                                   value = value + item; 
+                                        value = value + item;
                                 } while(value<100);
 
 Example code involves repeated assignment of the identifier item
@@ -281,6 +278,7 @@ For detail check
 
 | https://www.tutorialspoint.com/compiler_design/compiler_design_symbol_table.htm
 | https://www.geeksforgeeks.org/symbol-table-compiler/
+| https://www.geeksforgeeks.org/compiling-a-c-program-behind-the-scenes/
 
 References
 --------

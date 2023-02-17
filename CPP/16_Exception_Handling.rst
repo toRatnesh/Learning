@@ -124,7 +124,7 @@ Exception Handling in C++
 
 Note
 
-- It is compiler error to put catch all block before any other catch. The catch(...) must be the last catch block.
+- **It is compiler error to put catch all catch(...) block before any other catch**. It must be the last catch block.
 - There is a standard exception class like Exception class in Java.
 - All exceptions are unchecked in C++, i.e., compiler doesn't check if the exceptions are caught or not.
 - In C++, a function can specify the list of exceptions that it can throw using comma separated list like following.
@@ -179,14 +179,13 @@ Output::
 Catching base and derived classes as exceptions
 ----------
 
-**If both base and derived classes are caught as exceptions then catch block of derived class must appear before the base class.**
+If both base and derived classes are caught as exceptions then **catch block of derived class must appear before the base class.**
 
 If we put base class first, then the derived class catch block will never be reached. 
 
-In C++, compiler might give warning about it, but compiles the code.
+**In C++, compiler might give warning about it, but compiles the code.**
 
 In Java, catching a base class exception before derived is not allowed by the compiler itself.
-
 
 .. code:: cpp
 
@@ -252,7 +251,7 @@ Output::
 
 Output::
 
-	Caught Derived Exception
+    Caught Derived Exception
 
 Catch block and type conversion in C++
 ----------
@@ -269,7 +268,7 @@ The **derived type objects are converted to base type** when a derived object is
     int main() {
         try {
             throw 'x';
-        } 
+        }
         catch(int x) {
             cout << " Caught int " << x;
         }
@@ -281,7 +280,7 @@ The **derived type objects are converted to base type** when a derived object is
 
 Output::
 
-	Default catch block
+    Default catch block
 
 In the above program, a character ‘x’ is thrown and there is a catch block to catch an int. One might think that the int catch block could be matched by considering ASCII value of ‘x’. But such **conversions are not performed for catch blocks**.
 
@@ -313,7 +312,7 @@ In the above program, a character ‘x’ is thrown and there is a catch block t
 
 Output::
 
-	Default catch block
+    Default catch block
 
 Exception handling and object destruction
 ---------------
@@ -326,7 +325,7 @@ Destructor is only called for the completely constructed objects. When construct
 
     #include <iostream>
     using namespace std;
-
+    
     class Test {
         public:
         Test() { cout << "Constructing an object of Test " << endl; }
@@ -345,9 +344,9 @@ Destructor is only called for the completely constructed objects. When construct
 
 Output::
 
-	Constructing an object of Test
-	Destructing an object of Test
-	Caught 10
+    Constructing an object of Test
+    Destructing an object of Test
+    Caught 10
 
 .. code:: cpp
 
@@ -378,10 +377,10 @@ Output::
 
 Output::
 
-	Constructing an Object of Test1
-	Constructing an Object of Test2
-	Destructing an Object of Test1
-	Caught 20
+    Constructing an Object of Test1
+    Constructing an Object of Test2
+    Destructing an Object of Test1
+    Caught 20
 
 Stack Unwinding in C++
 -----------
@@ -420,7 +419,7 @@ Stack Unwinding also happens in Java when exception is not handled in same funct
         cout<<"\n f3() Start ";
         try {
             f2();
-        }
+        } 
         catch(int i) {
             cout<<"\n Caught Exception: "<<i;
         }
@@ -434,11 +433,11 @@ Stack Unwinding also happens in Java when exception is not handled in same funct
 
 Output::
 
-	f3() Start
-	f2() Start
-	f1() Start
-	Caught Exception: 100
-	f3() End
+    f3() Start
+    f2() Start
+    f1() Start
+    Caught Exception: 100
+    f3() End
 
 Termination vs. Resumption
 -------------
@@ -457,9 +456,11 @@ Although resumption sounds attractive at first, it isn’t quite so useful in pr
 Exception specification
 -----------------
 
-void f() throw(toobig, toosmall, divzero); // With exceptions
-void f();           // any type of exception may be thrown from the function
-void f() throw();	// no exceptions are thrown from a function
+.. code:: cpp
+
+    void f() throw(toobig, toosmall, divzero);      // With exceptions
+    void f();               // any type of exception may be thrown from the function
+    void f() throw();       // no exceptions are thrown from a function
 
 unexpected( )
 ^^^^^^^
@@ -477,55 +478,51 @@ To use set_unexpected( ), you must include the header file <exception>.
 
 .. code:: cpp
 
-	// Basic exceptions
-	// Exception specifications & unexpected()
-	#include <exception>
-	#include <iostream>
-	#include <cstdlib>
-	#include <cstring>
-	using namespace std;
-	class Up {};
-	class Fit {};
-	void g();
-
-	void f(int i) throw (Up, Fit) {
-		switch(i) {
-			case 1: throw Up();
-			case 2: throw Fit();
-		}
-		g();
-	}
-
-	// void g() {}			// Version 1
-	void g() { throw 47; }	// Version 2
-
-	void my_unexpected() {
-		cout << "unexpected exception thrown";
-		exit(1);
-	}
-
-	int main() {
-		set_unexpected(my_unexpected);		// (ignores return value)
-
-		for(int i = 1; i <=3; i++)
-		try {
-			f(i);
-		}
-		catch(Up) {
-			cout << "Up caught" << endl;
-		} 
-		catch(Fit) {
-			cout << "Fit caught" << endl;
-		}
-		
-		return 0;
-	}
+    // Basic exceptions
+    // Exception specifications & unexpected()
+    #include <exception>
+    #include <iostream>
+    #include <cstdlib>
+    #include <cstring>
+    using namespace std;
+    class Up {};
+    class Fit {};
+    void g();
+    
+    void f(int i) throw (Up, Fit) {
+        switch(i) {
+            case 1: throw Up();
+            case 2: throw Fit();
+        }
+        g();
+    }
+    
+    // void g() {}			// Version 1
+    void g() { throw 47; }	// Version 2
+    
+    void my_unexpected() {
+        cout << "unexpected exception thrown";
+        exit(1);
+    }
+    int main() {
+        set_unexpected(my_unexpected);		// (ignores return value)
+        
+        for(int i = 1; i <=3; i++)
+        try {
+            f(i);
+        } catch(Up) {
+            cout << "Up caught" << endl;
+        } catch(Fit) {
+            cout << "Fit caught" << endl;
+        }
+        return 0;
+    }
 	
 Output::
 
-	Up caught
-	Fit caught
-	unexpected exception thrown
+    Up caught
+    Fit caught
+    unexpected exception thrown
 
 - my_unexpected( ) function has no arguments or return value, following the proper form for a custom unexpected( ) function.
 - Your new unexpected( ) function must not return. However, it can throw another exception (you can even rethrow the same exception), or call exit( ) or abort( ).
@@ -558,49 +555,46 @@ Like unexpected( ), the terminate( ) function pointer should never be null.
 
 .. code:: cpp
 
-	// Use of set_terminate()
-	// Also shows uncaught exceptions
-	#include <exception>
-	#include <iostream>
-	#include <cstdlib>
-	using namespace std;
-
-	void terminator() {
-		cout << "I'll be back!" << endl;
-		abort();
-	}
-
-	void (*old_terminate)() = set_terminate(terminator);
-
-	class Botch {
-		public:
-		class Fruit {};
-		void f() {
-			cout << "Botch::f()" << endl;
-			throw Fruit();
-		}
-		~Botch() { throw 'c'; }
-	};
-
-	int main() {
-		try {
-			Botch b;
-			b.f();
-		} 
-		catch(...) {
-			cout << "inside catch(...)" << endl;
-		}
-		
-		return 0;
-	}
+    // Use of set_terminate()
+    // Also shows uncaught exceptions
+    #include <exception>
+    #include <iostream>
+    #include <cstdlib>
+    using namespace std;
+    
+    void terminator() {
+        cout << "I'll be back!" << endl;
+        abort();
+    }
+    
+    void (*old_terminate)() = set_terminate(terminator);
+    
+    class Botch {
+        public:
+        class Fruit {};
+        void f() {
+            cout << "Botch::f()" << endl;
+            throw Fruit();
+        }
+        ~Botch() { throw 'c'; }
+    };
+    int main() {
+        try {
+            Botch b;
+            b.f();
+        } catch(...) {
+            cout << "inside catch(...)" << endl;
+        }
+        return 0;
+    }
 
 Output::
 
-	Botch::f()
-	I'll be back!
-
-	Runtime Errors:
-	Abort signal from abort(3) (SIGABRT)
+    Botch::f()
+    I'll be back!
+    
+    Runtime Errors:
+    Abort signal from abort(3) (SIGABRT)
 
 class Botch not only throws an exception inside f( ), but also in its destructor. This is one of the situations that causes a call to terminate( ), as you can see in main( ). Even though the exception handler says catch(...), which would seem to catch everything and leave no cause for terminate( ) to be called, terminate( ) is called anyway, because in the process of cleaning up the objects on the stack to handle one exception, the Botch destructor is called, and that generates a second exception, forcing a call to terminate( ). 
 
@@ -615,39 +609,39 @@ To do so, simply use the throw keyword from within the catch block (with no asso
 
 .. code:: cpp
 
-	#include <iostream>
-	class Base {
-	   public:
-	    Base() {}
-	    virtual void print() { std::cout << "Base"; }
-	};
-	class Derived : public Base {
-	   public:
-	    Derived() {}
-	    void print() override { std::cout << "Derived"; }
-	};
-	int main() {
-	    try {
-		try {
-		    throw Derived{};
-		} catch (Base& b) {
-		    std::cout << "Caught Base b, which is actually a ";
-		    b.print();
-		    std::cout << '\n';
-		    throw;  // note: We're now rethrowing the object here
-		}
-	    } catch (Base& b) {
-		std::cout << "Caught Base b, which is actually a ";
-		b.print();
-		std::cout << '\n';
-	    }
-	    return 0;
-	}
+    #include <iostream>
+    class Base {
+        public:
+        Base() {}
+        virtual void print() { std::cout << "Base"; }
+    };
+    class Derived : public Base {
+        public:
+        Derived() {}
+        void print() override { std::cout << "Derived"; }
+    };
+    int main() {
+        try {
+            try {
+                throw Derived{};
+            } catch (Base& b) {
+                std::cout << "Caught Base b, which is actually a ";
+                b.print();
+                std::cout << '\n';
+                throw;  // note: We're now rethrowing the object here
+            }
+        } catch (Base& b) {
+            std::cout << "Caught Base b, which is actually a ";
+            b.print();
+            std::cout << '\n';
+        }
+        return 0;
+    }
 
 Output::
 
-	Caught Base b, which is actually a Derived
-	Caught Base b, which is actually a Derived
+    Caught Base b, which is actually a Derived
+    Caught Base b, which is actually a Derived
 
 noexcept specifier (since C++11)
 ------------
@@ -658,7 +652,7 @@ To define a function as non-throwing, we can use the noexcept specifier in the f
 
 .. code:: cpp
 
-	void doSomething() noexcept;	// this function is non-throwing
+    void doSomething() noexcept;    // this function is non-throwing
 
 
 .. note::
@@ -679,16 +673,16 @@ The noexcept operator can be used inside functions. It takes an expression as an
 
 .. code:: cpp
 
-	void foo() {throw -1;}
-	void boo() {};
-	void goo() noexcept {};
-	struct S{};
-
-	constexpr bool b1{ noexcept(5 + 3) };	// true; ints are non-throwing
-	constexpr bool b2{ noexcept(foo()) };	// false; foo() throws an exception
-	constexpr bool b3{ noexcept(boo()) };	// false; boo() is implicitly noexcept(false)
-	constexpr bool b4{ noexcept(goo()) };	// true; goo() is explicitly noexcept(true)
-	constexpr bool b5{ noexcept(S{}) };	// true; a struct's default constructor is noexcept by default
+    void foo() {throw -1;}
+    void boo() {};
+    void goo() noexcept {};
+    struct S{};
+    
+    constexpr bool b1{ noexcept(5 + 3) };   // true; ints are non-throwing
+    constexpr bool b2{ noexcept(foo()) };   // false; foo() throws an exception
+    constexpr bool b3{ noexcept(boo()) };   // false; boo() is implicitly noexcept(false)
+    constexpr bool b4{ noexcept(goo()) };   // true; goo() is explicitly noexcept(true)
+    constexpr bool b5{ noexcept(S{}) };     // true; a struct's default constructor is noexcept by default
 
 The noexcept operator can be used to conditionally execute code depending on whether it is potentially throwing or not. This is required to fulfill certain exception safety guarantees, which we’ll talk about in the next section.
 
@@ -709,144 +703,142 @@ To prevent this, guard against these “raw” resource allocations by placing t
 
 Templates are an excellent way to modify the above example:
 
-
 .. code:: cpp
 
-	// Naked pointers
-	#include <fstream>
-	#include <cstdlib>
-	using namespace std;
-
-	class Cat {
-		public:
-			Cat() { cout << "Cat()" << endl; }
-			~Cat() { cout << "~Cat()" << endl; }
-	};
-
-	class Dog {
-		public:
-			void* operator new(size_t sz) {
-				cout << "allocating a Dog" << endl;
-				throw int(47);
-			}
-			void operator delete(void* p) {
-				cout << "deallocating a Dog" << endl;
-				::delete p;
-			}
-	};
-
-	class UseResources {
-		Cat* bp;
-		Dog* op;
-
-		public:
-
-		UseResources(int count = 1) {
-			cout << "UseResources()" << endl;
-			bp = new Cat[count];
-			op = new Dog;
-		}
-
-		~UseResources() {
-			cout << "~UseResources()" << endl;
-			delete []bp; // Array delete
-			delete op;
-		}
-	};
-
-	int main() {
-		try {		UseResources ur(3); 	} 
-		catch(int) {		cout << "inside handler" << endl; }
-	}
+    // Naked pointers
+    #include <iostream>
+    #include <fstream>
+    #include <cstdlib>
+    using namespace std;
+    
+    class Cat {
+    
+        public:
+        Cat()   { cout << "Cat()" << endl;  }
+        ~Cat()  { cout << "~Cat()" << endl; }
+    };
+    
+    class Dog {
+        public:
+        void* operator new(size_t sz) {
+            cout << "allocating a Dog" << endl;
+            throw int(47);
+        }
+        void operator delete(void* p) {
+            cout << "deallocating a Dog" << endl;
+			::operator delete p;
+        }
+    };
+    
+    class UseResources {
+        Cat* cat_p;
+        Dog* dog_p;
+        
+        public:
+        UseResources(int count = 1) {
+            cout << "UseResources()" << endl;
+            cat_p = new Cat[count];
+            dog_p = new Dog;
+        }
+        ~UseResources() {
+            cout << "~UseResources()" << endl;
+            delete []cat_p; // Array delete
+            delete dog_p;
+        }
+    };
+    int main() {
+        try     { UseResources ur(3);   } 
+        catch(int)  { cout << "inside handler" << endl; }
+    }
 
 Output::
 
-	UseResources()
-	Cat()
-	Cat()
-	Cat()
-	allocating a Dog
-	inside handler
+    UseResources()
+    Cat()
+    Cat()
+    Cat()
+    allocating a Dog
+    inside handler
 
 .. code:: cpp
 
-	// Safe, atomic pointers
-	#include <fstream>
-	#include <cstdlib>
-	using namespace std;
-	// Simplified. Yours may have other arguments.
-	template<class T, int sz = 1> class PWrap {
-		T* ptr;
-	public:
-		class RangeError {}; // Exception class
-		PWrap() {
-			ptr = new T[sz];
-			cout << "PWrap constructor" << endl;
-		}
-		~PWrap() {
-			delete []ptr;
-			cout << "PWrap destructor" << endl;
-		}
-		T& operator[](int i) throw(RangeError) {
-			if(i >= 0 && i < sz) return ptr[i];
-			throw RangeError();
-		}
-	};
+    // Safe, atomic pointers
+    #include <iostream>
+    #include <fstream>
+    #include <cstdlib>
+    using namespace std;
+    // Simplified. Yours may have other arguments.
+    template<class T, int sz = 1> class PWrap {
+        T* ptr;
+        
+        public:
+        class RangeError {}; // Exception class
+        PWrap() {
+            ptr = new T[sz];
+            cout << "PWrap constructor" << endl;
+        }
+        ~PWrap() {
+            delete []ptr;
+            cout << "PWrap destructor" << endl;
+        }
+        T& operator[](int i) throw(RangeError) {
+            if(i >= 0 && i < sz) return ptr[i];
+            throw RangeError();
+        }
+    };
+    
+    class Cat {
+        public:
+        Cat() { cout << "Cat()" << endl; }
+        ~Cat() { cout << "~Cat()" << endl; }
+        void g() {}
+    };
+    
+    class Dog {
 
-	class Cat {
-	public:
-		Cat() { cout << "Cat()" << endl; }
-		~Cat() { cout << "~Cat()" << endl; }
-		void g() {}
-	};
-
-	class Dog {
-		public:
-			void* operator new[](size_t sz) {
-				cout << "allocating an Dog" << endl;
-				throw int(47);
-			}
-			
-			void operator delete[](void* p) {
-				cout << "deallocating an Dog" << endl;
-				::delete p;
-			}		
-	};
-
-	class UseResources {
-		PWrap<Cat, 3> Bonk;
-		PWrap<Dog> Og;
+        public:
+        void* operator new[](size_t sz) {
+            cout << "allocating an Dog" << endl;
+            throw int(47);
+        }
+        void operator delete[](void* p) {
+            cout << "deallocating an Dog" << endl;
+            ::operator delete[] p;
+        }
+    };
+    
+    class UseResources {
+        PWrap<Cat, 3> cato;
+        PWrap<Dog> dogo;
 		
 		public:
-			UseResources() : Bonk(), Og() {
-				cout << "UseResources()" << endl;
-			}
-			~UseResources() {
-				cout << "~UseResources()" << endl;
-			}
-			void f() { Bonk[1].g(); }
-	};
-
-	int main() {
-		try {		UseResources ur;	} 
-		catch(int) {		cout << "inside handler" << endl; 		} 
-	catch(...) {		cout << "inside catch(...)" << endl; 	}
-		
-		return 0;
-	}
+        UseResources() : cato, dogo() {
+            cout << "UseResources()" << endl;
+        }
+        ~UseResources() {
+            cout << "~UseResources()" << endl;
+        }
+        void f() { cato[1].g(); }
+    };
+    int main() {
+        try         { UseResources ur;  } 
+        catch(int)  { cout << "inside handler" << endl;      } 
+        catch(...)  { cout << "inside catch(...)" << endl;   }
+        return 0;
+    }
 
 Output::
 
-	Cat()
-	Cat()
-	Cat()
-	PWrap constructor
-	allocating an Dog
-	~Cat()
-	~Cat()
-	~Cat()
-	PWrap destructor
-	inside handler
+    Cat()
+    Cat()
+    Cat()
+    PWrap constructor
+    allocating an Dog
+    ~Cat()
+    ~Cat()
+    ~Cat()
+    PWrap destructor
+    inside handler
 
 Standard exceptions
 -----------
@@ -855,55 +847,24 @@ The following tables describe the standard exceptions:
 
 .. list-table::
 
-	*	-	Exception
-		-	The base class for all the exceptions thrown by the C++ standard library. You can ask what( ) and get a result that can be displayed as a character representation.
-
-	*	-	logic_error
-		-	Derived from exception. Reports program logic errors, which could presumably be detected before the program executes.
-	
-	*	-	runtime_error
-		-	Derived from exception. Reports runtime errors, which can presumably be detected only when the program executes.
+    *   -   exception
+        -   The base class for all the exceptions thrown by the C++ standard library. You can ask what( ) and get a result that can be displayed as a character representation.
+          
+    *   -   logic_error
+        -   Derived from exception. Reports program logic errors, which could presumably be detected before the program executes.
+          
+    *   -   runtime_error
+        -   Derived from exception. Reports runtime errors, which can presumably be detected only when the program executes.
 
 
 The iostream exception class ios::failure is also derived from exception, but it has no further subclasses.
 
 The classes in both of the following tables can be used as they are, or they can act as base classes to derive your own more specific types of exceptions.
 
-**Exception classes derived from logic_error**
+For more detail on exception classes visit
 
-.. list-table::
+https://en.cppreference.com/w/cpp/error/exception
 
-	*	-	domain_error
-		-	Reports violations of a precondition.
-
-	*	-	invalid_argument
-		-	Indicates an invalid argument to the function it’s thrown from.
-
-	*	-	length_error
-		-	Indicates an attempt to produce an object whose length is greater than or equal to NPOS (the largest representable value of type size_t).
-
-	*	-	out_of_range
-		-	Reports an out-of-range argument.
-
-	*	-	bad_cast
-		-	Thrown for executing an invalid dynamic_cast expression in run-time type identification
-
-	*	-	bad_typeid
-		-	Reports a null pointer p in an expression ``typeid(*p)``
-
-
-**Exception classes derived from logic_error**
-
-.. list-table::
-
-	*	-	range_error
-		-	Reports violation of a postcondition
-
-	*	-	overflow_error
-		-	Reports an arithmetic overflow
-
-	*	-	bad_alloc
-		-	Reports a failure to allocate storage
 
 Programming with exceptions
 ----------
@@ -944,9 +905,7 @@ Always use exception specifications
 
 The exception specification is like a function prototype: It tells the user to write exceptionhandling code and what exceptions to handle. It tells the compiler the exceptions that may come out of this function.
 
-Sometimes the functions it calls produce an unexpected exception, and sometimes an old function that didn’t throw an exception is replaced with a new one that
-
-does, and you’ll get a call to unexpected( ). Anytime you use exception specifications or call functions that do, you should create your own unexpected( ) function that logs a message and rethrows the same exception.
+Sometimes the functions it calls produce an unexpected exception, and sometimes an old function that didn’t throw an exception is replaced with a new one that does, and you’ll get a call to unexpected( ). Anytime you use exception specifications or call functions that do, you should create your own unexpected( ) function that logs a message and rethrows the same exception.
 
 Nest your own exceptions
 ~~~~~~~~~~~~~~~
@@ -968,30 +927,27 @@ Catch by reference, not by value
 
 If you throw an object of a derived class and it is caught by value in a handler for an object of the base class, that object is “sliced” – that is, the derived-class elements are cut off and you’ll end up with the base-class object being passed. Chances are this is not what you want because the object will behave like a base-class object and not the derived class object it really is (or rather, was – before it was sliced). 
 
-
 .. code:: cpp
 
-	#include <iostream>
-	using namespace std;
+    #include <iostream>
+    using namespace std;
+    class Base {
+        public:
+        virtual void what() { cout << "Base" << endl; }
+    };
+    
+    class Derived : public Base {
+        public:
+        void what() { 	cout << "Derived" << endl; }
+    };
 
-	class Base {
-		public:
-			virtual void what() { cout << "Base" << endl; }
-	};
+    void f() { throw Derived(); }
 
-	class Derived : public Base {
-		public:
-			void what() { 	cout << "Derived" << endl; }
-	};
-
-	void f() { throw Derived(); }
-
-	int main() {
-		try { f(); } catch(Base b) { b.what(); }
-		try { f(); } catch(Base& b) { b.what(); }
-		
-		return 0;
-	}
+    int main() {
+        try { f(); } catch(Base b) { b.what(); }
+        try { f(); } catch(Base& b) { b.what(); }
+        return 0;
+    }
 
 Output::
 

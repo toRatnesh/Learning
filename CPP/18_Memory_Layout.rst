@@ -4,15 +4,15 @@
 Memory Layout of C program
 ==========================
 
-A typical memory representation of C program consists of following sections:
-1. Text or Code Segment
-2. Initialized Data Segments
-3. Uninitialized Data Segments
-4. Stack Segment
-5. Heap Segment
+A typical memory representation of C program consists of following sections
+
+#. Text or Code Segment
+#. Initialized Data Segments
+#. Uninitialized Data Segments
+#. Stack Segment
+#. Heap Segment
 
 .. image:: .resources/18_Memory_Layout.png
-        :alt:   BSS – Block Started by Symbol
 
 1. Text or Code Segment
 -----------------------
@@ -32,7 +32,8 @@ A data segment is a portion of virtual address space of a program, which contain
 
 It is not read-only, since the values of the variables can be altered at run time.
 
-classified into 
+classified into
+
 - initialized read-only area
 - initialized read-write area
 
@@ -60,7 +61,7 @@ The stack area traditionally adjoined the heap area and grew the opposite direct
 
 The stack area contains the program stack, a LIFO structure, typically located in the higher parts of memory.
 
-A “stack pointer” register tracks the top of the stack; it is adjusted each time a value is “pushed” onto the stack. The set of values pushed for one function call is termed a “stack frame”; A stack frame consists at minimum of a return address.
+A “stack pointer” register tracks the top of the stack; it is adjusted each time a value is “pushed” onto the stack. The set of values pushed for one function call is termed a **"stack frame"**; A stack frame consists at minimum of a return address.
 
 Stack, where automatic variables are stored, along with information that is saved each time a function is called. 
 
