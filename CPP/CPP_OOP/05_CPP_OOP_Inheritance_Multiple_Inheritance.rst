@@ -275,7 +275,7 @@ Check this example `Solution`_
 Virtual Functions and Runtime Polymorphism in C++
 ----------------
 
-Check `06_CPP_OOP_Polymorphism_and_Virtual_Functions.rst`_
+Check `06_CPP_OOP_Polymorphism_and_Virtual_Functions <06_CPP_OOP_Polymorphism_and_Virtual_Functions.rst>`_
 
 Upcasting
 -------
@@ -362,9 +362,9 @@ The only way things can work correctly is if this implicit upcasting takes place
 References
 --------
 
-https://www.geeksforgeeks.org/c-plus-plus/#Inheritance
-Chapter 17 Inheritance | https://www.learncpp.com/
-Thinking in C++, Volume 1, 2nd Edition
+| https://www.geeksforgeeks.org/c-plus-plus/#Inheritance
+| Chapter 17 Inheritance | https://www.learncpp.com/
+| Thinking in C++, Volume 1, 2nd Edition
 
 
 

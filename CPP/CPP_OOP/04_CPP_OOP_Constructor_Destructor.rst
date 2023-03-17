@@ -77,7 +77,7 @@ Parameterized constructor can be invoked in two ways
 
    integer int1(1, 100);
 
-**Can we have more than one constructors in a class?**
+**Can we have more than one constructor in a class?**
 
 Yes, It is called Constructor Overloading.
 
@@ -160,7 +160,7 @@ Example for 1
             return 0;
         }
 
-Compile Errors::
+Compilation Error::
 
         prog.cpp: In constructor 'Test::Test(int)':
         prog.cpp:8:2: error: uninitialized const member in 'const int' [-fpermissive]
@@ -186,10 +186,10 @@ Example for 6
 
 Without the Initializer List, following steps are followed by compiler:
 
-    - Type’s constructor is called first for “a”
-    - The assignment operator of “Type” is called inside body of MyClass() constructor to assign
+- Type’s constructor is called first for “a”
+- The assignment operator of “Type” is called inside body of MyClass() constructor to assign
       variable = a;
-    - And then finally destructor of “Type” is called for “a” since it goes out of scope.
+- And then finally destructor of “Type” is called for “a” since it goes out of scope.
 
 .. code:: cpp
 
@@ -202,8 +202,8 @@ Without the Initializer List, following steps are followed by compiler:
 
 With the Initializer List, following steps are followed by compiler:
 
-    - Copy constructor of “Type” class is called to initialize: variable(a). The arguments in initializer list are used to copy construct “variable” directly.
-    - Destructor of “Type” is called for “a” since it goes out of scope.
+- Copy constructor of “Type” class is called to initialize: variable(a). The arguments in initializer list are used to copy construct “variable” directly.
+- Destructor of “Type” is called for “a” since it goes out of scope.
 
 If we use assignment inside constructor body there are three function calls: constructor + destructor + one addition assignment operator call. 
 
@@ -390,6 +390,7 @@ Copy constructor is called when a new object is created from an existing object,
 Assignment operator is called when an already initialized object is assigned a new value from another existing object.
 
 A (A);			☒
+
 A (const A &);	☑	// copy constructor
 
 .. code:: cpp
@@ -1744,18 +1745,19 @@ Output::
 
 According to theory, when the object “ob” is being constructed, one argument constructor is used to convert “copy me” to a temporary object & that temporary object is copied to the object “ob”. So the statement
 
-	B ob = "copy me";
+B ob = "copy me";
 
 should be broken down by the compiler as
 
-	B ob = B("copy me");
+B ob = B("copy me");
 
 However, most of the C++ compilers avoid such overheads of creating a temporary object & then copying it. The modern compilers break down the statement
 
-	B ob = "copy me"; //copy initialization
+B ob = "copy me"; //copy initialization
+
 as
 
-	B ob("copy me"); //direct initialization
+B ob("copy me"); //direct initialization
 
 and thus eliding call to copy constructor.
 

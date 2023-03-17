@@ -73,7 +73,7 @@ A derived class is inherited from more than one base classes
         //body of subclass
     };
 
-For more info `05_CPP_OOP_Inheritance_Multiple_Inheritance.rst`_
+For more info `05_CPP_OOP_Inheritance_Multiple_Inheritance <05_CPP_OOP_Inheritance_Multiple_Inheritance.rst>`_
 
 3. Multilevel Inheritance
 ^^^^^^^^^^^^
@@ -535,40 +535,43 @@ If there are multiple virtual base classes, they are invoked in the order in whi
 **Destructors in C++ are called in the opposite order of that of Constructors.**
 
 .. list-table::
-    :header-rows: 1
+	:header-rows: 1
 
-    *   -   Method of Inheritance
-        _   Order of execution
+	*	-	Method of Inheritance
+		-	Order of execution
+
+	*	-
+			.. code:: cpp
+
+				class D: public B { 
+				};
+
+		-	| B(): Base constructor
+			| D(): Derived constructor
+
+	*	- 	
+			.. code:: cpp
+
+				class D: public B1, public B2 {
+
+				};
 
 
-    *   -
-            .. code:: cpp
+		-	| B1(): base first
+			| B2(): base second
+			| D(): derived
 
-                class D: public B {
-                };
 
-        -   | B(): Base constructor
-            | D(): Derived constructor
+	*	-	
+			.. code:: cpp
 
-    *   -   
-            .. code:: cpp
+				class D: public B1, virtual public B2 {
 
-                class D: public B1, public B2 {
-                };
+				};	
 
-        -   | B1(): base first
-            | B2(): base second
-            | D(): derived
-
-    *   -   
-            .. code:: cpp
-
-                class D: public B1, virtual public B2 {
-                };
-                
-        -   | B2(): virtual base
-            | B1(): ordinary base
-            | D(): derived
+		- 	| B2(): virtual base
+			| B1(): ordinary base
+			| D(): derived
 
 
 Applications
@@ -954,9 +957,9 @@ Like the function call, neither of these cases requires an explicit cast.
 References
 -----------
 
-https://www.geeksforgeeks.org/c-plus-plus/#Inheritance
-Chapter 17 Inheritance | https://www.learncpp.com/
-Thinking in C++, Volume 1, 2nd Edition
+| https://www.geeksforgeeks.org/c-plus-plus/#Inheritance
+| Chapter 17 Inheritance | https://www.learncpp.com/
+| Thinking in C++, Volume 1, 2nd Edition
 
 
 

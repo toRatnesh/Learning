@@ -341,13 +341,13 @@ So compilers are free to make optimization in case of empty base classes.
 Class object of Self type 
 ----------
 
-*8Can a C++ class have an object of self type?**
+**Can a C++ class have an object of self type?**
 
-A class declaration cannot have a non-static object of self type. **Although a class declaration can contain static object of self type and pointer to self type.**
+A class declaration cannot have a non-static object of self type. **Although a class declaration can contain static object of self-type and pointer to self-type.**
 
 If a non-static object is member then declaration of class is incomplete and compiler has no way to find out size of the objects of the class.
 
-Static variables do not contribute to the size of objects. So no problem in calculating size with static variables of self type.
+**Static variables do not contribute to the size of objects. So no problem in calculating size with static variables of self type.**
 
 For a compiler, all pointers have a fixed size irrespective of the data type they are pointing to, so no problem with this also.
 
@@ -406,7 +406,7 @@ The members of an enclosing class have no special access to members of a nested 
 A nested object is created in two stages
 
 #. The member objects are created using their respective constructors
-#. Then , the other members are created
+#. Then, the other members are created
 
 It means, constructor of all the member objects should be called before its own constructor body is executed.
 

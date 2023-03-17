@@ -72,7 +72,8 @@ However, if we include header A first, then the compiler will complain because t
 
 **Best practice**
 
-To maximize the chance that missing includes will be flagged by compiler, order your #includes as follows:
+To maximize the chance that missing includes will be flagged by compiler, order your #includes as follows
+
 - The paired header file
 - Other headers from your project
 - 3rd party library headers

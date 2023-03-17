@@ -49,10 +49,11 @@ Reason http://www.stroustrup.com/bs_faq2.html#overload-dot
 
 ->	Class member access operator
 
-**Important points about operator overloading**
+Important points about operator overloading
 
 #. For operator overloading to work, at least one of the operands must be a user defined class object.
-Only an expression containing a user-defined type can have an overloaded operator.
+   Only an expression containing a user-defined type can have an overloaded operator.
+
 #. **Assignment Operator:** Compiler automatically creates a default assignment operator with every class.
 #. **Conversion Operator:** We can also write conversion operators that can be used to convert one type to another type.
    Overloaded conversion operators must be a member method. Other operators can either be member method or global method.
@@ -123,7 +124,9 @@ The name of that function is operator@, in which @ represents the operator that�
 
 #. Whether it’s a unary operator (one argument) or a binary operator (two arguments).
 #. Whether the operator is defined as a 
+
    **global function** (one argument for unary, two for binary) or a 
+
    **member function** (zero arguments for unary, one for binary – the object becomes the left-hand argument).
 
 Overloadable operators
@@ -969,14 +972,16 @@ For example, predict the output of following program:
         }
 
 Compilation Error::
-        prog.cpp: In function 'int main()':
-        prog.cpp:17:5: error: use of deleted function 'Test& Test::operator=(const Test&)'
-          t2 = t1;
-             ^
-        prog.cpp:4:7: note: 'Test& Test::operator=(const Test&)' is implicitly deleted because the default definition would be ill-formed:
-         class Test {
-               ^
-        prog.cpp:4:7: error: non-static reference member 'int& Test::ref', can't use default assignment operator
+
+        <source>: In function 'int main()':
+        <source>:18:10: error: use of deleted function 'Test& Test::operator=(const Test&)'
+           18 |     t2 = t1;
+              |          ^~
+        <source>:4:7: note: 'Test& Test::operator=(const Test&)' is implicitly deleted because the default definition would be ill-formed:
+            4 | class Test {
+              |       ^~~~
+        <source>:4:7: error: non-static reference member 'int& Test::ref', cannot use default assignment operator
+
 
 **Compiler doesn’t create default assignment operator in following cases**
 
@@ -1214,7 +1219,8 @@ Compilation Error::
 
         <source>:22:9: error: conversion from 'ConvertThis' to 'ConvertToThis' is ambiguous
            22 |     fun(cthis);
-                |         ^~~~~
+              |         ^~~~~
+
 References
 ----------
 
