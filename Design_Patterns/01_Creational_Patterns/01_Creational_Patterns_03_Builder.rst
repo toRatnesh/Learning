@@ -23,7 +23,7 @@ Builder design pattern describes how to solve such problems:
 
 A reader for the RTF (Rich Text Format) document exchange format should be able to convert RTF to many text formats. The problem, however, is that the number of possible conversions is open-ended. So, it should be easy to add a new conversion without modifying the reader.
 
-.. image:: ./.resources/01_Creational_Patterns_03_Builder/motivation.png
+.. image:: ../.resources/01_Creational_Patterns_03_Builder/motivation.png
 
 
 A solution is to configure the RTFReader class with a TextConverter object that converts RTF to another textual representation.
@@ -46,7 +46,7 @@ Use the Builder pattern when
 Structure
 ---------
 
-.. image:: ./.resources/01_Creational_Patterns_03_Builder/structure.png
+.. image:: ../.resources/01_Creational_Patterns_03_Builder/structure.png
  
 Participants
 ------------
@@ -84,7 +84,7 @@ Collaborations
 - The client retrieves the product from the builder.
 The following interaction diagram illustrates how Builder and Director cooperate with a client.
  
-.. image:: ./.resources/01_Creational_Patterns_03_Builder/collaborations.png
+.. image:: ../.resources/01_Creational_Patterns_03_Builder/collaborations.png
 
 
 Consequences

@@ -32,7 +32,7 @@ Use the Singleton pattern when
 Structure
 ---------
 
-.. image:: ./.resources/01_Creational_Patterns_05_Singleton/structure.png
+.. image:: ../.resources/01_Creational_Patterns_05_Singleton/structure.png
 
  
 Participants

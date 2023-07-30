@@ -40,7 +40,7 @@ Use the Factory Method pattern when
 Structure
 ---------
 
-.. image:: ./.resources/01_Creational_Patterns_01_Factory/structure.png
+.. image:: ../.resources/01_Creational_Patterns_01_Factory/structure.png
 
 Participants
 ------------
@@ -81,7 +81,7 @@ Factory Method gives subclasses a hook for providing an extended version of an o
 Parallel class hierarchies result when a class delegates some of its responsibilities to a separate class. Consider graphical figures that can be manipulated interactively; that is, they can be stretched, moved, or rotated using the mouse. Implementing such interactions isn't always easy.
 Different figures will use different Manipulator subclasses to handle particular interactions. The resulting Manipulator class hierarchy parallels (at least partially) the Figure class hierarchy:
 
-.. image:: ./.resources/01_Creational_Patterns_01_Factory/consequences_2.png 
+.. image:: ../.resources/01_Creational_Patterns_01_Factory/consequences_2.png 
 
 The Figure class provides a CreateManipulator factory method that lets clients create a Figure's corresponding Manipulator. Figure subclasses override this method to return an instance of the Manipulator subclass that is right for them. Alternatively, the Figure class may implement CreateManipulator to return a default Manipulator instance, and Figure subclasses may simply inherit that default. The Figure classes that do so need no corresponding Manipulator subclass—hence the hierarchies are only partially parallel.
 
@@ -256,7 +256,7 @@ The Dependency Inversion Principle
 Dependency Inversion Principle makes an even stronger statement about abstraction. It suggests that our high-level components should not depend on our low-level components; rather, they should both depend on abstractions.
 After applying factory method pattern for our example (sample code) diagram look like this
 
-.. image:: ./.resources/01_Creational_Patterns_01_Factory/dependency_inversion_principle.png
+.. image:: ../.resources/01_Creational_Patterns_01_Factory/dependency_inversion_principle.png
 
 High-level component, the PizzaStore, and our low-level components, the pizzas, both depend on Pizza, the abstraction.
 Factory Method is not the only technique for adhering to the Dependency Inversion Principle, but it is one of the more powerful ones.

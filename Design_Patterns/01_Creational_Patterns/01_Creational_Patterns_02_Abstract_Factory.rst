@@ -21,7 +21,7 @@ Motivation
 Consider a user interface toolkit that supports multiple look-and-feel standards, such as Motif and Presentation Manager. To be portable across look-and-f eel standards, an application should not hard-code its widgets for a particular look and feel.
 We can solve this problem by defining an abstract WidgetFactory class that declares an interface for creating each basic kind of widget. There's also an abstract class for each kind of widget, and concrete subclasses implement widgets for specific look-and-f eel standards. WidgetFactory's interface has an operation that returns a new widget object for each abstract widget class. Clients call these operations to obtain widget instances, but clients aren't aware of the concrete classes they're using. Thus, clients stay independent of the prevailing look and feel.
 
-.. image:: ./.resources/01_Creational_Patterns_02_Abstract_Factory/motivation.png
+.. image:: ../.resources/01_Creational_Patterns_02_Abstract_Factory/motivation.png
  
 Applicability
 -------------
@@ -35,7 +35,7 @@ Use the Abstract Factory Pattern when
 Structure
 ---------
 
-.. image:: ./.resources/01_Creational_Patterns_02_Abstract_Factory/structure.png
+.. image:: ../.resources/01_Creational_Patterns_02_Abstract_Factory/structure.png
  
 The Abstract Factory defines a Factory Method per product. Each Factory Method encapsulates the new operator and the concrete, platform-specific, product classes. Each "platform" is then modelled with a Factory derived class.
 
