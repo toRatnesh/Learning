@@ -102,9 +102,10 @@ Implementation
 Typically, there's an abstract Builder class that defines an operation for each component that a director may ask it to create. The operations do nothing by default. A Concrete Builder class overrides operations for components it's interested in creating.
 
 Here are other implementation issues to consider:
+
 #. Assembly and construction interface. Builder class interface must be general enough to allow the construction of products for all kinds of concrete builders.
-A key design issue concerns the model for the construction and assembly process. A model where the results of construction requests are simply appended to the product is usually sufficient.
-But sometimes you might need access to parts of the product constructed earlier. Tree structures such as parse trees that are built bottom-up are another example. In that case, the builder would return child nodes to the director, which then would pass them back to the builder to build the parent nodes.
+   A key design issue concerns the model for the construction and assembly process. A model where the results of construction requests are simply appended to the product is usually sufficient.
+   But sometimes you might need access to parts of the product constructed earlier. Tree structures such as parse trees that are built bottom-up are another example. In that case, the builder would return child nodes to the director, which then would pass them back to the builder to build the parent nodes.
 
 #. Why no abstract class for products? In the common case, the products produced by the concrete builders differ so greatly in their representation that they are unlikely to have a common interface, nor do they need one. Because the client usually configures the director with the proper concrete builder, the client is in a position to know which concrete subclass of Builder is in use and can handle its products accordingly.
 
@@ -126,8 +127,8 @@ Sample Code
 	    void set_part_c(const std::string& c) { m_c = c; }
 	    void open() const {
 		std::clog << "Product with part a " << m_a <<
-		" Product with part b " << m_b <<
-		" Product with part c " << m_c << '\n';
+		", part b " << m_b <<
+		", part c " << m_c << '\n';
 	    }
 
 	   private:
@@ -188,6 +189,7 @@ Sample Code
 	};
 
 	int main() {
+
 	    Director Director;
 	    ConcreteBuilder_1 ConcreteBuilder_1;
 	    ConcreteBuilder_2 ConcreteBuilder_2;
@@ -197,7 +199,16 @@ Sample Code
 
 	    Director.makeProduct(&ConcreteBuilder_2);
 	    Director.openProduct();
+
+        return 0;
 	}
+
+
+Output::
+
+    Product with part a concrete builder-1-a, part b concrete builder-1-b, part c concrete builder-1-c
+    Product with part a concrete builder-2-a, part b concrete builder-2-b, part c concrete builder-2-c
+
 
 Known Uses
 -----------

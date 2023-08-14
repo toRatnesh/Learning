@@ -82,10 +82,10 @@ class PizzaStore {
 
 class NyPizzaStore : public PizzaStore {
     Pizza * createPizza(std::string type) {
-        if(type.compare("cheese")) {
+        if(! type.compare("cheese")) {
             return new NyStyleCheesePizza();
         }
-        else if(type.compare("nonveg")) {
+        else if(! type.compare("nonveg")) {
             return new NyStyleNonvegPizza();
         }
         
@@ -95,10 +95,10 @@ class NyPizzaStore : public PizzaStore {
 
 class ChicagoPizzaStore : public PizzaStore {
     Pizza * createPizza(std::string type) {
-        if(type.compare("cheese")) {
+        if(! type.compare("cheese")) {
             return new ChicagoStyleCheesePizza();
         }
-        else if(type.compare("nonveg")) {
+        else if(! type.compare("nonveg")) {
             return new ChicagoStyleNonvegPizza();
         }
         

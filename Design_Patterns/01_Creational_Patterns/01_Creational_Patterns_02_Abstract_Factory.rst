@@ -158,8 +158,9 @@ Sample Code
 			virtual std::unique_ptr<Cheese> createCheese()  = 0;
 			virtual std::unique_ptr<Sauce> createSauce()    = 0;
 	};
-
-	class NyPizzaIngredientFactory : public PizzaIngredientFactory {
+    
+    
+    class NyPizzaIngredientFactory : public PizzaIngredientFactory {
 		public:
 			std::unique_ptr<Cheese> createCheese()  { return std::make_unique<NyStyleCheese>(); }
 			std::unique_ptr<Sauce> createSauce()    { return std::make_unique<NyStyleSauce>();  }
@@ -176,24 +177,25 @@ Sample Code
 
 	    public:
 		std::unique_ptr<Cheese> cheese  = nullptr;
-		std::unique_ptr<Sauce>  sauce   = nullptr;
+        std::unique_ptr<Sauce>  sauce   = nullptr;
 		
 		Pizza(std::string name) : name(name) {  }
 		virtual ~Pizza()    {  }
 		
-			virtual void prepare()  = 0;
+		virtual void prepare()  = 0;
 			
 		virtual void bake()     { std::puts("baking pizza"); }
 		virtual void cut()      { std::puts("cutting pizza"); }
 		virtual void box()      { std::puts("boxing pizza"); }
-			virtual void setName(std::string name)	{ this->name = name; }
+		virtual void setName(std::string name)	{ this->name = name; }
 		virtual std::string getName()   { return name; }
 	};
 
 	class CheesePizza : public Pizza {
 		std::shared_ptr<PizzaIngredientFactory> m_ingd_factory = nullptr;
 	    public:
-	    CheesePizza(std::shared_ptr<PizzaIngredientFactory> ingd_factory) : Pizza("Cheese Pizza"), m_ingd_factory(ingd_factory) {    }
+	    CheesePizza(std::shared_ptr<PizzaIngredientFactory> ingd_factory) 
+                        : Pizza("Cheese Pizza"), m_ingd_factory(ingd_factory) {    }
 	    virtual ~CheesePizza()   {   }
 		
 	    virtual void prepare()  { 
@@ -206,7 +208,7 @@ Sample Code
 			std::puts(cheese->getName(). c_str());
 			std::puts(sauce->getName(). c_str());
 			std::puts(getName().c_str()); 
-		}
+        }
 	    virtual void bake()     { std::puts("baking pizza"); }
 	    virtual void cut()      { std::puts("cutting pizza"); }
 	    virtual void box()      { std::puts("boxing"); }
@@ -216,7 +218,8 @@ Sample Code
 
 		std::shared_ptr<PizzaIngredientFactory> m_ingd_factory = nullptr;
 	    public:
-	    NonvegPizza(std::shared_ptr<PizzaIngredientFactory> ingd_factory) : Pizza("Non veg Pizza"), m_ingd_factory(ingd_factory) {    }
+	    NonvegPizza(std::shared_ptr<PizzaIngredientFactory> ingd_factory) 
+                        : Pizza("Non veg Pizza"), m_ingd_factory(ingd_factory) {    }
 	    virtual ~NonvegPizza()   {   }
 		
 	    virtual void prepare()  { 
@@ -242,12 +245,12 @@ Sample Code
 
 		std::unique_ptr<Pizza> pizza = createPizza(type);
 		
-		pizza->prepare();
-		pizza->bake();
-		pizza->cut();
-		pizza->box();
+                pizza->prepare();
+                pizza->bake();
+                pizza->cut();
+                pizza->box();
 
-		return pizza;
+                return pizza;
 	    }
 	};
 
@@ -258,16 +261,16 @@ Sample Code
 	    std::unique_ptr<Pizza> pizza = nullptr;
 
 	    std::unique_ptr<Pizza> createPizza(std::string type) {
-		if(type.compare("cheese")) {
-		    pizza = std::make_unique<CheesePizza>(ingd_factory);
-				pizza->setName("New York Style Cheese Pizza");
-		}
-		else if(type.compare("nonveg")) {
-		    pizza = std::make_unique<NonvegPizza>(ingd_factory);
-				pizza->setName("New York Style Nonveg Pizza");
-		}
-		
-		return std::move(pizza);
+                if(! type.compare("cheese")) {
+                    pizza = std::make_unique<CheesePizza>(ingd_factory);
+                        pizza->setName("New York Style Cheese Pizza");
+                }
+                else if(! type.compare("nonveg")) {
+                    pizza = std::make_unique<NonvegPizza>(ingd_factory);
+                        pizza->setName("New York Style Nonveg Pizza");
+                }
+                
+                return std::move(pizza);
 	    }  
 	};
 
@@ -277,44 +280,44 @@ Sample Code
 		std::unique_ptr<Pizza> pizza = nullptr;
 
 	    std::unique_ptr<Pizza> createPizza(std::string type) {
-		if(type.compare("cheese")) {
-		    pizza = std::make_unique<CheesePizza>(ingd_factory);
-				pizza->setName("Chicago Style Cheese Pizza");
-		}
-		else if(type.compare("nonveg")) {
-		    pizza = std::make_unique<NonvegPizza>(ingd_factory);
-				pizza->setName("Chicago Style Nonveg Pizza");
-		}
-		
-		return std::move(pizza);
+                if(! type.compare("cheese")) {
+                    pizza = std::make_unique<CheesePizza>(ingd_factory);
+                        pizza->setName("Chicago Style Cheese Pizza");
+                }
+                else if(! type.compare("nonveg")) {
+                    pizza = std::make_unique<NonvegPizza>(ingd_factory);
+                        pizza->setName("Chicago Style Nonveg Pizza");
+                }
+                
+                return std::move(pizza);
 	    }  
 	};
 
 	int main() {
 	    {
-		std::unique_ptr<PizzaStore> ny_pizza_store = std::make_unique<NyPizzaStore>();
-		std::unique_ptr<Pizza> nonveg_pizza = ny_pizza_store->orderPizza("nonveg");
-		std::puts(nonveg_pizza->getName().c_str());
+		    std::unique_ptr<PizzaStore> ny_pizza_store = std::make_unique<NyPizzaStore>();
+		    std::unique_ptr<Pizza> nonveg_pizza = ny_pizza_store->orderPizza("nonveg");
+    		std::puts(nonveg_pizza->getName().c_str());
 	    }
 	    std::puts("");
 	    {
-		std::unique_ptr<PizzaStore> ny_pizza_store = std::make_unique<NyPizzaStore>();
-		std::unique_ptr<Pizza> cheese_pizza = ny_pizza_store->orderPizza("cheese");
-		std::puts(cheese_pizza->getName().c_str());
+    		std::unique_ptr<PizzaStore> ny_pizza_store = std::make_unique<NyPizzaStore>();
+    		std::unique_ptr<Pizza> cheese_pizza = ny_pizza_store->orderPizza("cheese");
+    		std::puts(cheese_pizza->getName().c_str());
 	    }
 
 
 	    std::puts("");
 	    {
-		std::unique_ptr<PizzaStore> chicago_pizza_store = std::make_unique<ChicagoPizzaStore>();
-		std::unique_ptr<Pizza> cheese_pizza = chicago_pizza_store->orderPizza("cheese");
-		std::puts(cheese_pizza->getName().c_str());
+	    	std::unique_ptr<PizzaStore> chicago_pizza_store = std::make_unique<ChicagoPizzaStore>();
+		    std::unique_ptr<Pizza> cheese_pizza = chicago_pizza_store->orderPizza("cheese");
+    		std::puts(cheese_pizza->getName().c_str());
 	    
-		std::puts("");
+	    	std::puts("");
 	    
-		//std::unique_ptr<PizzaStore> chicago_pizza_store = std::make_unique<ChicagoPizzaStore>();
-		std::unique_ptr<Pizza> nonveg_pizza = chicago_pizza_store->orderPizza("cheese");
-		std::puts(nonveg_pizza->getName().c_str());
+    		//std::unique_ptr<PizzaStore> chicago_pizza_store = std::make_unique<ChicagoPizzaStore>();
+    		std::unique_ptr<Pizza> nonveg_pizza = chicago_pizza_store->orderPizza("cheese");
+    		std::puts(nonveg_pizza->getName().c_str());
 	    }
 
 

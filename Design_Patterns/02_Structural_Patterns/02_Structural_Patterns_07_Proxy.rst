@@ -98,7 +98,7 @@ To make copy-on-write work, the subject must be reference counted. Copying the p
 Implementation
 --------------
 
-1.	Overloading the member access operator ((-> and *) ) in C++
+1.	Overloading the member access operator ((-> and \*) ) in C++
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Overloading this operator lets you perform additional work whenever an object is dereferenced. This can be helpful for implementing some kinds of proxy; the proxy behaves just like a pointer.

@@ -89,10 +89,14 @@ int main() {
 
     cook.makePizza(&spicyPizzaBuilder);
     cook.openPizza();
+
+	return 0;
 }
 
 
 /********
 	END OF FILE
 ********/
+
+
 
