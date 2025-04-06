@@ -101,7 +101,7 @@ Assume that the operators +, -, × are left associative and ^ is right associati
 #. **abc × + def ^ ^ -**
 #. abc × + de ^ f ^ -
 #. ab + c × d - e ^ f ^
-#. - + a × bc ^ ^ def
+#. \- + a × bc ^ ^ def
 
 .. image:: .resources/03_Stack_Quiz_5.png
 

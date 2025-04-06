@@ -11,7 +11,7 @@ Check if the the linked list has loop or not. Below diagram shows a linked list 
 
 .. image:: .resources/02_LinkedList_FAQ_02_Loop.png
  
-Different Solutions::
+Different Solutions:
 
 -	Mark Visited Nodes
 -	Use Hashing
