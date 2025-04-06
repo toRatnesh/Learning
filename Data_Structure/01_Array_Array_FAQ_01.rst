@@ -770,7 +770,7 @@ a.	Elements are first moved in first set – (See below diagram for this movemen
 
 arr[] after this step --> {4 2 3 7 5 6 10 8 9 1 11 12}
 
-..image:: /.resources/01_Array_Array_FAQ_01_Juggling.png
+.. image:: .resources/01_Array_Array_FAQ_01_Juggling.png
  
 b.	Then in second set.
 

@@ -84,7 +84,9 @@ NOTE::
 
 	Both Merge sort and Insertion sort can be used for linked lists.
 	
-	The slow random-access performance of a linked list makes other algorithms (such as quicksort) perform poorly, and others (such as heapsort) completely impossible. Since worst case time complexity of Merge Sort is O(nLogn) and Insertion sort is O(n^2), merge sort is preferred.
+	The slow random-access performance of a linked list makes other algorithms (such as quicksort) perform poorly, 
+	and others (such as heapsort) completely impossible. Since worst case time complexity of Merge Sort is O(nLogn) 
+	and Insertion sort is O(n^2), merge sort is preferred.
 	
 	See following for implementation of merge sort using Linked List.
 	
@@ -314,14 +316,14 @@ Source File(singlelinkedlist.c)
 
 	#include "singlelinkedlist.h"
 
-	int main(void)
-	{
-		struct singlelinkedlist * head = NULL;
+	int main(void) {
+		struct singlelinkedlist* head = NULL;
 		int retval = FAILURE;
 		int userChoice = -1;
 		int userData = 0;
 
-		fprintf(stdout, "0. To quit \n"
+		fprintf(stdout,
+				"0. To quit \n"
 				"1. To insert at front \n"
 				"2. To insert at end \n"
 				"3. To insert after a node \n"
@@ -331,58 +333,51 @@ Source File(singlelinkedlist.c)
 				"7. To search for a value \n"
 				"8. To delete a value\n");
 
-		do	
-		{
-			
+		do {
 			fprintf(stdout, "Enter your choice: ");
 			fscanf(stdin, "%d", &userChoice);
-		
+
 			retval = FAILURE;
 
-			switch(userChoice)
-			{
+			switch (userChoice) {
 				case 1:
 					fprintf(stdout, "Enter the data to insert: ");
 					fscanf(stdin, "%d", &userData);
 					retval = insertAtFront(&head, userData);
-					if(SUCCESS != retval)
-					{
-						fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__, __func__, __LINE__);
+					if (SUCCESS != retval) {
+						fprintf(stdout, "In file: %s, function: %s, line: %d\n",
+								__FILE__, __func__, __LINE__);
 						fprintf(stdout, "Error: Could not insert at front\n");
 					}
 					break;
 				case 2:
 					fprintf(stdout, "Enter the data to insert: ");
-									fscanf(stdin, "%d", &userData);
-									retval = insertAtEnd(&head, userData);
-									if(SUCCESS != retval)
-									{
-											fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__, __func__, __LINE__);
-											fprintf(stdout, "Error: Could not insert at end\n");
-									}
-									break;
+					fscanf(stdin, "%d", &userData);
+					retval = insertAtEnd(&head, userData);
+					if (SUCCESS != retval) {
+						fprintf(stdout, "In file: %s, function: %s, line: %d\n",
+								__FILE__, __func__, __LINE__);
+						fprintf(stdout, "Error: Could not insert at end\n");
+					}
+					break;
 					break;
 				case 3:
 					fprintf(stdout, "Enter the data to insert: ");
-									fscanf(stdin, "%d", &userData);
-					if((NULL != head) && (NULL != (head -> next)))
-					{
-										retval = insertAfterNode((head -> next), userData);
+					fscanf(stdin, "%d", &userData);
+					if ((NULL != head) && (NULL != (head->next))) {
+						retval = insertAfterNode((head->next), userData);
 					}
-					if(SUCCESS != retval)
-									{
-											fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__, __func__, __LINE__);
-											fprintf(stdout, "Error: Could not insert after node\n");
-									}
+					if (SUCCESS != retval) {
+						fprintf(stdout, "In file: %s, function: %s, line: %d\n",
+								__FILE__, __func__, __LINE__);
+						fprintf(stdout, "Error: Could not insert after node\n");
+					}
 					break;
 				case 4:
 					retval = isListEmpty(head);
-									if(SUCCESS == retval)
-									{
-											fprintf(stdout, "List is empty\n");
-									}
-					else
-					{
+					if (SUCCESS == retval) {
+						fprintf(stdout, "List is empty\n");
+					} else {
 						fprintf(stdout, "List is not empty\n");
 					}
 					break;
@@ -400,13 +395,13 @@ Source File(singlelinkedlist.c)
 					fprintf(stdout, "Enter value to search in list: ");
 					fscanf(stdin, "%d", &userData);
 					retval = searchInList(head, userData);
-					if(FAILURE == retval)
-					{
-						fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__, __func__, __LINE__);
-						fprintf(stdout, "Error: Either list is empty or error occured during search in list.\n");
-					}
-					else
-					{
+					if (FAILURE == retval) {
+						fprintf(stdout, "In file: %s, function: %s, line: %d\n",
+								__FILE__, __func__, __LINE__);
+						fprintf(stdout,
+								"Error: Either list is empty or error occured "
+								"during search in list.\n");
+					} else {
 						fprintf(stdout, "Value is present in list.\n");
 					}
 					break;
@@ -414,26 +409,27 @@ Source File(singlelinkedlist.c)
 					fprintf(stdout, "Enter value to delete in list: ");
 					fscanf(stdin, "%d", &userData);
 					retval = deleteInList(&head, userData);
-					if(FAILURE == retval)
-									{
-											fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__, __func__, __LINE__);
-						fprintf(stdout, "Error : Either element is not present or error occured.\n");
+					if (FAILURE == retval) {
+						fprintf(stdout, "In file: %s, function: %s, line: %d\n",
+								__FILE__, __func__, __LINE__);
+						fprintf(stdout,
+								"Error : Either element is not present or error "
+								"occured.\n");
 					}
 					break;
-				
 			}
-		}
-		while(0 != userChoice);
+		} while (0 != userChoice);
 
 		// free linked list
 		retval = free_list(&head);
-		if(FAILURE == retval)
-		{
-			fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__, __func__, __LINE__);
-			fprintf(stdout, "Error: Either list is empty or error during free of list.\n");
+		if (FAILURE == retval) {
+			fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__,
+					__func__, __LINE__);
+			fprintf(stdout,
+					"Error: Either list is empty or error during free of list.\n");
 		}
-		
-		return SUCCESS;	
+
+		return SUCCESS;
 	}
 
 
@@ -444,212 +440,185 @@ Function File(singlelinkedlist_functions.c)
 
 	#include "singlelinkedlist.h"
 
-	int isListEmpty(struct singlelinkedlist * arg_head)
-	{
-		if(NULL == arg_head)
+	int isListEmpty(struct singlelinkedlist *arg_head) {
+		if (NULL == arg_head)
 			return SUCCESS;
 		else
 			return FAILURE;
 	}
 
-	int insertAtFront(struct singlelinkedlist ** arg_head, int arg_data)
-	{
-		struct singlelinkedlist * temp_node = (struct singlelinkedlist *)malloc(sizeof(struct singlelinkedlist));
-		if(NULL == temp_node)
-		{
-			fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__, __func__, __LINE__);
-			fprintf(stdout, "Error: Allocation of memeory to create node has failed\n");
+	int insertAtFront(struct singlelinkedlist **arg_head, int arg_data) {
+		struct singlelinkedlist *temp_node =
+			(struct singlelinkedlist *)malloc(sizeof(struct singlelinkedlist));
+		if (NULL == temp_node) {
+			fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__,
+					__func__, __LINE__);
+			fprintf(stdout,
+					"Error: Allocation of memeory to create node has failed\n");
 			return FAILURE;
 		}
 
-		(temp_node -> data) = arg_data;
-		(temp_node -> next) = NULL;
+		(temp_node->data) = arg_data;
+		(temp_node->next) = NULL;
 
-		if(NULL == (*arg_head))
-		{
+		if (NULL == (*arg_head)) {
+			(*arg_head) = temp_node;
+		} else {
+			(temp_node->next) = (*arg_head);
 			(*arg_head) = temp_node;
 		}
-		else
-		{
-			(temp_node -> next) = (*arg_head);
-			(*arg_head) = temp_node;
-		}	
 
-		return SUCCESS;	
+		return SUCCESS;
 	}
 
-	int insertAtEnd(struct singlelinkedlist ** arg_head, int arg_data)
-	{
-		struct singlelinkedlist * temp_node = (struct singlelinkedlist *)malloc(sizeof(struct singlelinkedlist));
-		struct singlelinkedlist * curr = (*arg_head);	
+	int insertAtEnd(struct singlelinkedlist **arg_head, int arg_data) {
+		struct singlelinkedlist *temp_node =
+			(struct singlelinkedlist *)malloc(sizeof(struct singlelinkedlist));
+		struct singlelinkedlist *curr = (*arg_head);
 
-		if(NULL == (*arg_head))
-		{
-			fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__, __func__, __LINE__);
-			fprintf(stdout, "Head of linked list is empty can not insert at end. Use insertAtFront()\n"); 
+		if (NULL == (*arg_head)) {
+			fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__,
+					__func__, __LINE__);
+			fprintf(stdout,
+					"Head of linked list is empty can not insert at end. Use "
+					"insertAtFront()\n");
 			return FAILURE;
 		}
 
-
-			if(NULL == temp_node)
-			{
-			fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__, __func__, __LINE__);
-			fprintf(stdout, "Error: Allocation of memeory to create node has failed\n");
-					return FAILURE;
-			}
-
-			(temp_node -> data) = arg_data;
-			(temp_node -> next) = NULL;
-
-		while(NULL != (curr -> next))
-		{
-			curr = curr -> next;
-		}
-		
-		if(NULL == curr)
-		{
-			fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__, __func__, __LINE__);
-			fprintf(stdout, "Error: Reached past the last element in list during iteration insertion not possible\n");
-					return FAILURE;
-		}
-		else
-		{
-			(curr -> next) = temp_node;
-		}
-
-		return SUCCESS;
-
-	}
-
-	int insertAfterNode(struct singlelinkedlist * arg_node, int arg_data)
-	{
-		struct singlelinkedlist * temp_node = (struct singlelinkedlist *)malloc(sizeof(struct singlelinkedlist));
-		
-		if(NULL == (arg_node))
-			{
-					fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__, __func__, __LINE__);
-					fprintf(stdout, "Node of linked list is empty can not insert at this node.\n");
-					return FAILURE;
-			}
-
-		if(NULL == temp_node)
-			{
-					fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__, __func__, __LINE__);
-					fprintf(stdout, "Error: Allocation of memeory to create node has failed\n");
-					return FAILURE;
-			}
-
-		(temp_node -> data) = arg_data;
-			(temp_node -> next) = (arg_node -> next);
-
-		(arg_node -> next) = temp_node;
-
-
-		return SUCCESS;
-
-	}
-
-	int displayListIterative(struct singlelinkedlist * arg_head)
-	{
-		if(NULL == arg_head)
-		{
+		if (NULL == temp_node) {
+			fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__,
+					__func__, __LINE__);
+			fprintf(stdout,
+					"Error: Allocation of memeory to create node has failed\n");
 			return FAILURE;
 		}
 
-		while(NULL != arg_head)
-		{
-			fprintf(stdout, "%d	", (arg_head -> data));
-			arg_head = (arg_head -> next);
+		(temp_node->data) = arg_data;
+		(temp_node->next) = NULL;
+
+		while (NULL != (curr->next)) {
+			curr = curr->next;
+		}
+
+		if (NULL == curr) {
+			fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__,
+					__func__, __LINE__);
+			fprintf(stdout,
+					"Error: Reached past the last element in list during iteration "
+					"insertion not possible\n");
+			return FAILURE;
+		} else {
+			(curr->next) = temp_node;
 		}
 
 		return SUCCESS;
 	}
 
-	int displayListRecursive(struct singlelinkedlist * arg_head)
-	{
-		if(NULL == arg_head)
-			{
-					return FAILURE;
-			}
+	int insertAfterNode(struct singlelinkedlist *arg_node, int arg_data) {
+		struct singlelinkedlist *temp_node =
+			(struct singlelinkedlist *)malloc(sizeof(struct singlelinkedlist));
 
-		fprintf(stdout, "%d     ", (arg_head -> data));
-		displayListRecursive(arg_head -> next);
-
-			return SUCCESS;
-
-			
-	}
-
-	int searchInList(struct singlelinkedlist * arg_head, int arg_data)
-	{
-		while(NULL != arg_head)
-			{
-					if(arg_data == (arg_head -> data))
-				break;
-			arg_head = (arg_head -> next);
-			}
-
-		if(NULL == arg_head)
+		if (NULL == (arg_node)) {
+			fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__,
+					__func__, __LINE__);
+			fprintf(stdout,
+					"Node of linked list is empty can not insert at this node.\n");
 			return FAILURE;
+		}
+
+		if (NULL == temp_node) {
+			fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__,
+					__func__, __LINE__);
+			fprintf(stdout,
+					"Error: Allocation of memeory to create node has failed\n");
+			return FAILURE;
+		}
+
+		(temp_node->data) = arg_data;
+		(temp_node->next) = (arg_node->next);
+
+		(arg_node->next) = temp_node;
 
 		return SUCCESS;
 	}
 
-	int deleteInList(struct singlelinkedlist ** arg_head, int arg_data)
-	{
-		struct singlelinkedlist * curr = NULL;
-		struct singlelinkedlist * prev = NULL;
-
-		if(NULL == (*arg_head))
+	int displayListIterative(struct singlelinkedlist *arg_head) {
+		if (NULL == arg_head) {
 			return FAILURE;
+		}
+
+		while (NULL != arg_head) {
+			fprintf(stdout, "%d	", (arg_head->data));
+			arg_head = (arg_head->next);
+		}
+
+		return SUCCESS;
+	}
+
+	int displayListRecursive(struct singlelinkedlist *arg_head) {
+		if (NULL == arg_head) {
+			return FAILURE;
+		}
+
+		fprintf(stdout, "%d     ", (arg_head->data));
+		displayListRecursive(arg_head->next);
+
+		return SUCCESS;
+	}
+
+	int searchInList(struct singlelinkedlist *arg_head, int arg_data) {
+		while (NULL != arg_head) {
+			if (arg_data == (arg_head->data)) break;
+			arg_head = (arg_head->next);
+		}
+
+		if (NULL == arg_head) return FAILURE;
+
+		return SUCCESS;
+	}
+
+	int deleteInList(struct singlelinkedlist **arg_head, int arg_data) {
+		struct singlelinkedlist *curr = NULL;
+		struct singlelinkedlist *prev = NULL;
+
+		if (NULL == (*arg_head)) return FAILURE;
 
 		curr = (*arg_head);
 
-		while((NULL != curr) && (arg_data != (curr -> data)))
-		{
+		while ((NULL != curr) && (arg_data != (curr->data))) {
 			prev = curr;
-			curr = (curr -> next);
+			curr = (curr->next);
 		}
 
-		if(NULL == curr)
-			return FAILURE;
+		if (NULL == curr) return FAILURE;
 
-		if(curr == (*arg_head))
-		{
-			(*arg_head) = (curr -> next);
+		if (curr == (*arg_head)) {
+			(*arg_head) = (curr->next);
 			free(curr);
-		}
-		else if((NULL != curr) && (NULL != prev))
-		{
-			(prev -> next) = (curr -> next);
-			(curr -> next) = NULL;
+		} else if ((NULL != curr) && (NULL != prev)) {
+			(prev->next) = (curr->next);
+			(curr->next) = NULL;
 			free(curr);
-		}
-		else
-		{
-			fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__, __func__, __LINE__);
+		} else {
+			fprintf(stdout, "In file: %s, function: %s, line: %d\n", __FILE__,
+					__func__, __LINE__);
 			fprintf(stdout, "Error during delete of node.\n");
-			return FAILURE;	
+			return FAILURE;
 		}
 
 		return SUCCESS;
-
 	}
 
-	int free_list(struct singlelinkedlist ** arg_head)
-	{
-		if(NULL == (*arg_head))
-			return FAILURE;
-		
-		while(NULL != (*arg_head))
-			{
-					struct singlelinkedlist *temp = (*arg_head);
-					(*arg_head) = ((*arg_head) -> next);
+	int free_list(struct singlelinkedlist **arg_head) {
+		if (NULL == (*arg_head)) return FAILURE;
+
+		while (NULL != (*arg_head)) {
+			struct singlelinkedlist *temp = (*arg_head);
+			(*arg_head) = ((*arg_head)->next);
 			free(temp);
-			}
+		}
 
 		return SUCCESS;
-
 	}
 
 

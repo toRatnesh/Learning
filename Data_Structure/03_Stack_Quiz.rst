@@ -9,7 +9,7 @@ Stack
 
 The following postfix expression with single digit operands is evaluated using a stack:
 
-	8 2 3 ^ / 2 3 * + 5 1 * - 
+8 2 3 ^ / 2 3 * + 5 1 * - 
 
 Note that ^ is the exponentiation operator. The top two elements of the stack after the first * is evaluated are:
 
@@ -45,23 +45,23 @@ Source for algorithm: http://en.wikipedia.org/wiki/Reverse_Polish_notation#The_p
 
 Let us run the above algorithm for the given expression. First three tokens are values, so they are simply pushed. After pushing 8, 2 and 3, the stack is as follows
 
-    8, 2, 3
+8, 2, 3
 
 When ^ is read, top two are popped and power(2^3) is calculated
 
-    8, 8
+8, 8
 
 When / is read, top two are popped and division(8/8) is performed
 
-    1
+1
 
 Next two tokens are values, so they are simply pushed. After pushing 2 and 3, the stack is as follows
 
-    1, 2, 3
+1, 2, 3
 
 When * comes, top two are popped and multiplication is performed.
 
-    1, 6
+1, 6
 
 2.
 ---
@@ -86,10 +86,10 @@ If we are to use space efficiently then size of the any stack can be more than M
 
 Let S be a stack of size n >= 1. Starting with the empty stack, suppose we push the first n natural numbers in sequence, and then perform n pop operations. Assume that Push and Pop operation take X seconds each, and Y seconds elapse between the end of one such stack operation and the start of the next operation. For m >= 1, define the stack-life of m as the time elapsed from the end of Push(m) to the start of the pop operation that removes m from S. The average stack-life of an element of this stack is
 
-    #. n(X+ Y)
-    #. 3Y + 2X
-    #. **n(X + Y)-X**
-    #. Y + 2X
+#. n(X+ Y)
+#. 3Y + 2X
+#. **n(X + Y)-X**
+#. Y + 2X
 
 We can easily arrive at the result by taking few examples.
 
@@ -98,10 +98,10 @@ We can easily arrive at the result by taking few examples.
 
 Assume that the operators +, -, × are left associative and ^ is right associative. The order of precedence (from highest to lowest) is ^, x , +, -. The postfix expression corresponding to the infix expression a + b × c - d ^ e ^ f is
 
-    #. **abc × + def ^ ^ -**
-    #. abc × + de ^ f ^ -
-    #. ab + c × d - e ^ f ^
-    #. - + a × bc ^ ^ def
+#. **abc × + def ^ ^ -**
+#. abc × + de ^ f ^ -
+#. ab + c × d - e ^ f ^
+#. - + a × bc ^ ^ def
 
 .. image:: .resources/03_Stack_Quiz_5.png
 
@@ -110,10 +110,10 @@ Assume that the operators +, -, × are left associative and ^ is right associati
 
 To evaluate an expression without any embedded function calls:
 
-    #. **One stack is enough**
-    #. Two stacks are needed
-    #. As many stacks as the height of the expression tree are needed
-    #. A Turing machine is needed in the general case
+#. **One stack is enough**
+#. Two stacks are needed
+#. As many stacks as the height of the expression tree are needed
+#. A Turing machine is needed in the general case
 
 Any expression can be converted into Postfix or Prefix form.
 
@@ -129,10 +129,10 @@ Thus, option (A) is correct.
 
 Consider n elements that are equally distributed in k stacks. In each stack, elements of it are arranged in ascending order (min is at the top in each of the stack and then increasing downwards). Given a queue of size n in which we have to put all n elements in increasing order. What will be the time complexity of the best known algorithm?
 
-    #. **O(n logk)**
-    #. O(nk)
-    #. O(n2)
-    #. O(k2)
+#. **O(n logk)**
+#. O(nk)
+#. O(n2)
+#. O(k2)
 
 In nlogk it can be done by creating a min heap of size k and adding all the top - elements of all the stacks. After extracting the min , add the next element from the stack from which we have got our 1st minimum. Time Complexity = O(k) (For Creating Heap of size k) + (n-k)log k (Insertions into the heap).
 
@@ -141,10 +141,10 @@ In nlogk it can be done by creating a min heap of size k and adding all the top 
 
 The minimum number of stacks needed to implement a queue is
 
-    #. 3
-    #. 1
-    #. **2**
-    #. 4
+#. 3
+#. 1
+#. **2**
+#. 4
 
 
 References

@@ -217,7 +217,7 @@ ii. Implementing LISTS on linked lists is more efficient than implementing LISTS
 
 iii.    Implementing QUEUES on a circular array is more efficient than implementing QUEUES
 
-    on a linear array with two indices.
+        on a linear array with two indices.
 
 iv. Last-in-first-out type of computations are efficiently supported by QUEUES.
 

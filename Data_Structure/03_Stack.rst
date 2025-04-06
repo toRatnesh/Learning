@@ -58,7 +58,7 @@ If the stack is full and does not contain enough space to accept an entity to be
                     }
                 }
 
-.. image::  ./resources/03_Stack_push.png
+.. image::  .resources/03_Stack_push.png
 
 pop
 ~~~~
@@ -688,6 +688,6 @@ Output::
 References
 ------------
 
-    https://www.cdn.geeksforgeeks.org/stack-data-structure/
+https://www.cdn.geeksforgeeks.org/stack-data-structure/
 
 

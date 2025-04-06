@@ -13,9 +13,9 @@ Check if the the linked list has loop or not. Below diagram shows a linked list 
  
 Different Solutions::
 
-	- Mark Visited Nodes
-	- Use Hashing
-	- Floyd’s Cycle-Finding Algorithm
+-	Mark Visited Nodes
+-	Use Hashing
+-	Floyd’s Cycle-Finding Algorithm
 
 Mark Visited Nodes
 ^^^^^^^^^^^^^^^^^^^
@@ -227,9 +227,9 @@ Output::
 Detect and Remove Loop in a Linked List
 ----------------------------------------
 
-	#. Floyd’s Cycle detection algorithm (Check one by one)
-	#. Floyd’s Cycle detection algorithm (Better Solution)
-	#. Without Counting Nodes in Loop (Optimized Method)
+#. Floyd’s Cycle detection algorithm (Check one by one)
+#. Floyd’s Cycle detection algorithm (Better Solution)
+#. Without Counting Nodes in Loop (Optimized Method)
 
 1. Floyd’s Cycle detection algorithm (Check one by one)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -275,7 +275,8 @@ Detect and Remove Loop in a Linked List
 		struct Node *ptr1;
 		struct Node *ptr2;
 
-		/* Set a pointer to the beging of the Linked List and move it one by one to find the first node which is part of the Linked List */
+		/* Set a pointer to the beging of the Linked List and move it one by one 
+		to find the first node which is part of the Linked List */
 		ptr1 = head;
 		while (1) {
 			/* Now start a pointer from loop_node and check if it ever reaches ptr2 */
@@ -341,11 +342,11 @@ Method 2 (Better Solution)
 
 This method is also dependent on Floyd’s Cycle detection algorithm.
 
-	#. Detect Loop using Floyd’s Cycle detection algorithm and get the pointer to a loop node
-	#. Count the number of nodes in loop. Let the count be k
-	#. Fix one pointer to the head and another to kth node from head
-	#. Move both pointers at the same pace, they will meet at loop starting node
-	#. Get pointer to the last node of loop and make next of it as NULL
+#. Detect Loop using Floyd’s Cycle detection algorithm and get the pointer to a loop node
+#. Count the number of nodes in loop. Let the count be k
+#. Fix one pointer to the head and another to kth node from head
+#. Move both pointers at the same pace, they will meet at loop starting node
+#. Get pointer to the last node of loop and make next of it as NULL
 
 
 .. code:: cpp
@@ -628,9 +629,9 @@ This method is only to detect if there is an intersection point or not.
 	Let Z be the length of the linked list from intersection point to End of the linked list including the intersection node.
 	We Have
 	
-		X + Z = C1;
-		
-		Y + Z = C2;
+	X + Z = C1;
+	
+	Y + Z = C2;
 
 #.	Reverse first linked list.
 
@@ -638,7 +639,7 @@ This method is only to detect if there is an intersection point or not.
 
 	Now we have
 	
-		X + Y = C3
+	X + Y = C3
 
 #.	We have 3 linear equations. By solving them, we get
 

@@ -600,7 +600,8 @@ Traverse linked list using two pointers. Move one pointer by one and other point
 		cout << endl;
 	}
 
-	/*Please note that it's Function problem i.e. you need to write your solution in the form of Function(s) only. Driver Code to call/invoke your function is mentioned above.*/
+	/*Please note that it's Function problem i.e. you need to write your solution in the form of Function(s) only. 
+	Driver Code to call/invoke your function is mentioned above.*/
 	// Should reverse list and return new head.
 	void print_Middle_Node(Node *head) {
 		Node *fast_ptr = NULL;
@@ -687,7 +688,8 @@ Initialize mid element as head and initialize a counter as 0. Traverse the list 
 		cout << endl;
 	}
 
-	/*Please note that it's Function problem i.e. you need to write your solution in the form of Function(s) only. Driver Code to call/invoke your function is mentioned above.*/
+	/*Please note that it's Function problem i.e. you need to write your solution in the form of Function(s) only. 
+	Driver Code to call/invoke your function is mentioned above.*/
 	// Should reverse list and return new head.
 	void print_Middle_Node(Node *head) {
 		Node *slow_ptr = NULL;
