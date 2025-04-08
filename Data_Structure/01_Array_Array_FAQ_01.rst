@@ -117,7 +117,13 @@ hasArrayTwoCandidates (A[], ar_size, sum)
 		c.	Else r--
 	4.	No candidates in whole array - return 0
 
-**Time Complexity:** Depends on what sorting algorithm we use. If we use Merge Sort or Heap Sort then O(nlogn) in worst case. If we use Quick Sort then O(n^2) in worst case.
+**Time Complexity:**
+
+Depends on what sorting algorithm we use. 
+
+If we use Merge Sort or Heap Sort then O(nlogn) in worst case. 
+
+If we use Quick Sort then O(n \ :sup:`2` \ ) in worst case.
 
 **Auxiliary Space:** Again, depends on sorting algorithm. For example auxiliary space is O(n) for merge sort and O(1) for Heap Sort.
 
@@ -257,7 +263,7 @@ Output::
 
 	Count of pairs is 3
 
-**Time Complexity:** O(n^2)
+**Time Complexity:** O(n \ :sup:`2` \ )
 
 **Auxiliary Space:** O(1)
 
@@ -327,8 +333,8 @@ Given an array of integers, find all combination of four elements in the array w
 
 Example, if the given array is {10, 2, 3, 4, 5, 9, 7, 8} and X = 23, then your function should print “3 5 7 8” (3 + 5 + 7 + 8 = 23).
 
-1.	O(n^4) solution
-^^^^^^^^^^^^^^^^^^^
+1.	O(n  \ :sup:`4` \ ) solution
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: cpp
 
@@ -370,10 +376,10 @@ Output::
 	20, 30, 40, 1
 
 
-2.	O(n^3) Solution
-^^^^^^^^^^^^^^^^^^^^
+2.	O(n  \ :sup:`3` \ ) Solution
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The time complexity can be improved to O(n^3) with the **use of sorting** as a preprocessing step, and then finding pair (using method 1 of this post) to reduce a loop.
+The time complexity can be improved to O(n \ :sup:`3` \ ) with the **use of sorting** as a preprocessing step, and then finding pair (using method 1 of this post) to reduce a loop.
 
 Following are the detailed steps:
 
@@ -436,8 +442,8 @@ Output::
 	1, 4, 6, 10
 
 
-3.	O(n^2Logn) Solution
-^^^^^^^^^^^^^^^^^^^^^^^^
+3.	O(n \ :sup:`2` \ Logn) Solution
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Let the input array be A[].
 
@@ -526,11 +532,19 @@ Output::
 
 **Note:** Above code prints only one quadruple. If we remove the return statement and add statements “i++; j–;”, then it prints same quadruple five times. The code can modified to print all quadruples only once. It has been kept this way to keep it simple.
 
-**Time complexity:** The step 1 takes O(n^2) time. The second step is sorting an array of size O(n^2). Sorting can be done in O(n^2Logn) time using merge sort or heap sort or any other O(nLogn) algorithm. The third step takes O(n^2) time. So overall complexity is O(n^2Logn).
+**Time complexity:** 
+
+The step 1 takes O(n\ :sup:`2` \) time. 
+
+The second step is sorting an array of size O(n\ :sup:`2` \). 
+
+Sorting can be done in O(n\ :sup:`2` \Logn) time using merge sort or heap sort or any other O(nLogn) algorithm. 
+
+The third step takes O(n\ :sup:`2` \) time. So overall complexity is O(n\ :sup:`2` \Logn).
 
 **Auxiliary Space:** O(n^2). The big size of auxiliary array can be a concern in this method.
 
-4.	O(n^2) Hashing Based Solution
+4.	O(n \ :sup:`2` \ ) Hashing Based Solution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1.	Store sums of all pairs in a hash table
